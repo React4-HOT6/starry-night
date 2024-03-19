@@ -22,6 +22,24 @@ const config: Config = {
     },
   },
   plugins: [addVariablesForColors, require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        dark: {
+          ...require("daisyui/src/theming/themes")["dark"],
+          primary: "#4C17BF",
+          secondary: "#836FFF",
+          accent: "#51FFCB",
+          neutral: "#DFDFDF",
+          "base-100": "#ffffff",
+          info: "#ff00ff",
+          success: "#00ff00",
+          warning: "#facc15",
+          error: "#ff0000",
+        },
+      },
+    ],
+  },
 };
 
 /** BackgroundBeams 애니메이션 함수 */
