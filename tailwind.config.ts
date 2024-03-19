@@ -1,5 +1,10 @@
 import type { Config } from "tailwindcss";
 
+const colors = require("tailwindcss/colors");
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,13 +13,45 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      maxWidth: {
+        customMax: "1200px",
+      },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        main: "url('../../public/mainBackground.jpg')",
       },
     },
   },
-  plugins: [],
+  plugins: [addVariablesForColors, require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        dark: {
+          ...require("daisyui/src/theming/themes")["dark"],
+          primary: "#4C17BF",
+          secondary: "#836FFF",
+          accent: "#51FFCB",
+          neutral: "#DFDFDF",
+          "base-100": "#ffffff",
+          info: "#ff00ff",
+          success: "#00ff00",
+          warning: "#facc15",
+          error: "#ff0000",
+        },
+      },
+    ],
+  },
 };
+
+/** BackgroundBeams 애니메이션 함수 */
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
+
 export default config;
