@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-main bg-center bg-cover`}>
+      <body className={`${inter.className} bg-main bg-cover bg-no-repeat`}>
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
