@@ -4,7 +4,7 @@ const StarSignPage = async () => {
     cache: "no-cache",
   });
   return (
-    <div className="w-full h-screen bg-black flex justify-center items-center  ">
+    <div className="flex justify-center items-center ">
       <StarSignContainer />
     </div>
   );
