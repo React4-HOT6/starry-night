@@ -9,9 +9,10 @@ const Header = () => {
         <Link href="/">Home</Link>
       </section>
       <nav>
-        <Link href="/board">board</Link>
-        <Link href="/fortune">fortune</Link>
-        <Link href="/starsign">starsign</Link>
+        <Link href="/board">Board</Link>
+        <Link href="/fortune">Fortune</Link>
+        <Link href="/starsign">Starsign</Link>
+        <Link href="/company">Company</Link>
       </nav>
       <SignInOutButton />
     </header>
