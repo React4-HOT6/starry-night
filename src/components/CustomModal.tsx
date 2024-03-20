@@ -17,7 +17,7 @@ const Modal: React.FC<PropsWithChildren> = ({ children }) => {
           <div className="modal-action flex justify-center items-center">
             <form method="dialog">
               <button onClick={onClickStarsign} className="btn">
-                Close
+                뒤로가기
               </button>
             </form>
           </div>

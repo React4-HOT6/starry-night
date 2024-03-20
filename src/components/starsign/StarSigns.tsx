@@ -1,5 +1,6 @@
 "use client";
 
+//datas from "namuwiki"
 import Image from "next/image";
 import Leoimg from "../../../public/starsign/Leo.svg";
 import Cancerimg from "../../../public/starsign/Cancer.svg";
@@ -13,341 +14,55 @@ import Piscesimg from "../../../public/starsign/Pisces.svg";
 import Scorpioimg from "../../../public/starsign/Scorpio.svg";
 import Ariesimg from "../../../public/starsign/Aries.svg";
 import Virgoimg from "../../../public/starsign/Virgo.svg";
-import { getStarSign } from "@/libs/supabase/getstarsign";
-import useModalStore from "@/store/store";
+import StarSignComponent from "./StarSignComponent";
 
 export const Leo = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-  const onClickStarsign = async () => {
-    const data = await getStarSign(5);
-    try {
-      setStarSignData({
-        id: data?.id,
-        star_sign_name: data?.star_sign_name,
-        star_sign_description: data?.star_sign_description,
-      });
-      toggleModal();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image src={Leoimg.src} alt="Star Sign" width={100} height={100} />
-      <p className="text-white">Leo</p>
-    </div>
-  );
+  return <StarSignComponent src={Leoimg} name="Leo" starSignId={5} />;
 };
-
 export const Cancer = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-
-  const onClickStarsign = async () => {
-    const data = await getStarSign(4);
-    try {
-      setStarSignData({
-        id: data?.id,
-        star_sign_name: data?.star_sign_name,
-        star_sign_description: data?.star_sign_description,
-      });
-      toggleModal();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image src={Cancerimg.src} alt="Star Sign" width={100} height={100} />
-      <p className="text-white">Cancer</p>
-    </div>
-  );
+  return <StarSignComponent src={Cancerimg} name="Cancer" starSignId={4} />;
 };
-
 export const Aquarius = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-
-  const onClickStarsign = async () => {
-    const data = await getStarSign(11);
-    try {
-      setStarSignData({
-        id: data?.id,
-        star_sign_name: data?.star_sign_name,
-        star_sign_description: data?.star_sign_description,
-      });
-      toggleModal();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image src={Aquariusimg.src} alt="Star Sign" width={100} height={100} />
-      <p className="text-white">Aquarius</p>
-    </div>
+    <StarSignComponent src={Aquariusimg} name="Aquarius" starSignId={11} />
   );
 };
 
 export const Sagittarius = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-
-  const onClickStarsign = async () => {
-    const data = await getStarSign(9);
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
-  };
-
   return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image
-        src={Sagittariusimg.src}
-        alt="Star Sign"
-        width={100}
-        height={100}
-      />
-      <p className="text-white">Sagittarius</p>
-    </div>
+    <StarSignComponent src={Sagittariusimg} name="Sagittarius" starSignId={9} />
   );
 };
-
 export const Gemini = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-
-  const onClickStarsign = async () => {
-    const data = await getStarSign(1);
-    try {
-      setStarSignData({
-        id: data?.id,
-        star_sign_name: data?.star_sign_name,
-        star_sign_description: data?.star_sign_description,
-      });
-      toggleModal();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image src={Geminiimg.src} alt="Star Sign" width={100} height={100} />
-      <p className="text-white">Gemini</p>
-    </div>
-  );
+  return <StarSignComponent src={Geminiimg} name="Gemini" starSignId={1} />;
 };
 
 export const Capricorn = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-
-  const onClickStarsign = async () => {
-    const data = await getStarSign(10);
-    try {
-      setStarSignData({
-        id: data?.id,
-        star_sign_name: data?.star_sign_name,
-        star_sign_description: data?.star_sign_description,
-      });
-      toggleModal();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image src={Capricornimg.src} alt="Star Sign" width={100} height={100} />
-      <p className="text-white">Capricorn</p>
-    </div>
+    <StarSignComponent src={Capricornimg} name="Capricorn" starSignId={10} />
   );
 };
 
 export const Taurus = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-
-  const onClickStarsign = async () => {
-    const data = await getStarSign(3);
-    try {
-      setStarSignData({
-        id: data?.id,
-        star_sign_name: data?.star_sign_name,
-        star_sign_description: data?.star_sign_description,
-      });
-      toggleModal();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image src={Taurusimg.src} alt="Star Sign" width={100} height={100} />
-      <p className="text-white">Taurus</p>
-    </div>
-  );
+  return <StarSignComponent src={Taurusimg} name="Taurus" starSignId={3} />;
 };
 
 export const Libra = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-
-  const onClickStarsign = async () => {
-    const data = await getStarSign(7);
-    try {
-      setStarSignData({
-        id: data?.id,
-        star_sign_name: data?.star_sign_name,
-        star_sign_description: data?.star_sign_description,
-      });
-      toggleModal();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image src={Libraimg.src} alt="Star Sign" width={100} height={100} />
-      <p className="text-white">Libra</p>
-    </div>
-  );
+  return <StarSignComponent src={Libraimg} name="Libra" starSignId={7} />;
 };
 
 export const Pisces = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-
-  const onClickStarsign = async () => {
-    const data = await getStarSign(12);
-    try {
-      setStarSignData({
-        id: data?.id,
-        star_sign_name: data?.star_sign_name,
-        star_sign_description: data?.star_sign_description,
-      });
-      toggleModal();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image src={Piscesimg.src} alt="Star Sign" width={100} height={100} />
-      <p className="text-white">Pisces</p>
-    </div>
-  );
+  return <StarSignComponent src={Piscesimg} name="Pisces" starSignId={12} />;
 };
 
 export const Scorpio = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-
-  const onClickStarsign = async () => {
-    const data = await getStarSign(8);
-    try {
-      setStarSignData({
-        id: data?.id,
-        star_sign_name: data?.star_sign_name,
-        star_sign_description: data?.star_sign_description,
-      });
-      toggleModal();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image src={Scorpioimg.src} alt="Star Sign" width={100} height={100} />
-      <p className="text-white">Scorpio</p>
-    </div>
-  );
+  return <StarSignComponent src={Scorpioimg} name="Scorpio" starSignId={8} />;
 };
 
 export const Aries = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-
-  const onClickStarsign = async () => {
-    const data = await getStarSign(2);
-    try {
-      setStarSignData({
-        id: data?.id,
-        star_sign_name: data?.star_sign_name,
-        star_sign_description: data?.star_sign_description,
-      });
-      toggleModal();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image src={Ariesimg.src} alt="Star Sign" width={100} height={100} />
-      <p className="text-white">Aries</p>
-    </div>
-  );
+  return <StarSignComponent src={Ariesimg} name="Aries" starSignId={2} />;
 };
 
 export const Virgo = () => {
-  const { toggleModal, setStarSignData } = useModalStore();
-
-  const onClickStarsign = async () => {
-    const data = await getStarSign(6);
-    try {
-      setStarSignData({
-        id: data?.id,
-        star_sign_name: data?.star_sign_name,
-        star_sign_description: data?.star_sign_description,
-      });
-      toggleModal();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
-    >
-      <Image src={Virgoimg.src} alt="Star Sign" width={100} height={100} />
-      <p className="text-white">Virgo</p>
-    </div>
-  );
+  return <StarSignComponent src={Virgoimg} name="Virgo" starSignId={6} />;
 };
