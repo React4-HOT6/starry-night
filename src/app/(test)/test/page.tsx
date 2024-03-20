@@ -25,6 +25,9 @@ export default function Test() {
   };
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files === null) {
+      return;
+    }
     const value: File = e.target.files[0];
 
     if (value) {
