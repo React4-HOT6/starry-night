@@ -1,4 +1,3 @@
-import React, { PropsWithChildren } from "react";
 import { getStarSign } from "@/libs/supabase/getstarsign";
 import useModalStore from "@/store/store";
 import Image, { StaticImageData } from "next/image";
@@ -8,7 +7,7 @@ type StarSignComponentProps = {
   name: string;
   starSignId: number;
 };
-
+//starsign 모듈화
 const StarSignComponent: React.FC<StarSignComponentProps> = ({
   src,
   name,
@@ -16,6 +15,7 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
 }) => {
   const { toggleModal, setStarSignData } = useModalStore();
   const onClickStarsign = async () => {
+    //supabase data 가져오기
     const data = await getStarSign(starSignId);
     try {
       setStarSignData({
@@ -32,9 +32,9 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[80px] h-[80] flex justify-center items-center"
     >
-      <Image src={src} alt={name} width={100} height={100} />
+      <Image src={src} alt={name} width={80} height={80} />
       <p className="text-white">{name}</p>
     </div>
   );

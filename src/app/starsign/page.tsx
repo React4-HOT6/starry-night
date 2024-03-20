@@ -1,5 +1,5 @@
 import StarSignContainer from "@/components/starsign/StarSignContainer";
-const StarSignPage = async () => {
+const StarSignPage = () => {
   return (
     <div className=" flex justify-center items-center  ">
       <StarSignContainer />

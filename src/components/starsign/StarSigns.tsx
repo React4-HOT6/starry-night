@@ -1,7 +1,6 @@
 "use client";
 
 //datas from "namuwiki"
-import Image from "next/image";
 import Leoimg from "../../../public/starsign/Leo.svg";
 import Cancerimg from "../../../public/starsign/Cancer.svg";
 import Aquariusimg from "../../../public/starsign/Aquarius.svg";
@@ -16,53 +15,49 @@ import Ariesimg from "../../../public/starsign/Aries.svg";
 import Virgoimg from "../../../public/starsign/Virgo.svg";
 import StarSignComponent from "./StarSignComponent";
 
-export const Leo = () => {
-  return <StarSignComponent src={Leoimg} name="Leo" starSignId={5} />;
+export const Gemini = () => {
+  return <StarSignComponent src={Geminiimg} name="Gemini" starSignId={1} />;
 };
+export const Aries = () => {
+  return <StarSignComponent src={Ariesimg} name="Aries" starSignId={2} />;
+};
+export const Taurus = () => {
+  return <StarSignComponent src={Taurusimg} name="Taurus" starSignId={3} />;
+};
+
 export const Cancer = () => {
   return <StarSignComponent src={Cancerimg} name="Cancer" starSignId={4} />;
 };
-export const Aquarius = () => {
-  return (
-    <StarSignComponent src={Aquariusimg} name="Aquarius" starSignId={11} />
-  );
-};
 
+export const Leo = () => {
+  return <StarSignComponent src={Leoimg} name="Leo" starSignId={5} />;
+};
+export const Virgo = () => {
+  return <StarSignComponent src={Virgoimg} name="Virgo" starSignId={6} />;
+};
+export const Libra = () => {
+  return <StarSignComponent src={Libraimg} name="Libra" starSignId={7} />;
+};
+export const Scorpio = () => {
+  return <StarSignComponent src={Scorpioimg} name="Scorpio" starSignId={8} />;
+};
 export const Sagittarius = () => {
   return (
     <StarSignComponent src={Sagittariusimg} name="Sagittarius" starSignId={9} />
   );
 };
-export const Gemini = () => {
-  return <StarSignComponent src={Geminiimg} name="Gemini" starSignId={1} />;
-};
-
 export const Capricorn = () => {
   return (
     <StarSignComponent src={Capricornimg} name="Capricorn" starSignId={10} />
   );
 };
 
-export const Taurus = () => {
-  return <StarSignComponent src={Taurusimg} name="Taurus" starSignId={3} />;
-};
-
-export const Libra = () => {
-  return <StarSignComponent src={Libraimg} name="Libra" starSignId={7} />;
+export const Aquarius = () => {
+  return (
+    <StarSignComponent src={Aquariusimg} name="Aquarius" starSignId={11} />
+  );
 };
 
 export const Pisces = () => {
   return <StarSignComponent src={Piscesimg} name="Pisces" starSignId={12} />;
-};
-
-export const Scorpio = () => {
-  return <StarSignComponent src={Scorpioimg} name="Scorpio" starSignId={8} />;
-};
-
-export const Aries = () => {
-  return <StarSignComponent src={Ariesimg} name="Aries" starSignId={2} />;
-};
-
-export const Virgo = () => {
-  return <StarSignComponent src={Virgoimg} name="Virgo" starSignId={6} />;
 };
