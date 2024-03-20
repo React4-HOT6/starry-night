@@ -8,14 +8,14 @@ const SignInOutButton = () => {
   return (
     <>
       {isSignIn ? (
-        <div>
-          <button>글 작성</button>
-          <button>로그아웃</button>
+        <div className="flex gap-2">
+          <button className="btn">Sign In</button>
+          <button className="btn btn-primary">Sign Up</button>
         </div>
       ) : (
         <div>
-          <button>로그인</button>
-          <button>회원가입</button>
+          <button>글 작성</button>
+          <button>로그아웃</button>
         </div>
       )}
     </>
