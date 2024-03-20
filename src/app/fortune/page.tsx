@@ -25,14 +25,12 @@ const FortunePage = () => {
       if (fortune && fortune.length > 0) {
         setSelectedFortune(fortune[0]);
       }
-      // 데이터가 성공적으로 조회되었을 경우 콘솔에 출력합니다.
       console.log("Fetched data from Supabase:", fortune);
     } catch (error) {
       console.error("Error fetching data from Supabase:", error);
     }
   };
 
-  // 컴포넌트가 마운트되었을 때 데이터를 가져오는 효과를 추가합니다.
   useEffect(() => {
     fetchTableData();
   }, []);
