@@ -80,11 +80,7 @@ export default function Notes() {
       console.log(data); //NOTE - 테스트 코드
       return data;
     };
-    insertPost({
-      title: "whowhowho",
-      content: "끝났다",
-      user_id: "36f6e481-c1cb-4595-961a-4483fb995a90",
-    });
+    deletePost("e2db43a1-5b2d-4b25-b98f-c089eeb110ef");
   }, [supabase]);
 
   // return <pre>{JSON.stringify(result, null, 2)}</pre>;
