@@ -2,13 +2,37 @@
 
 import { Comment, Post } from "@/types";
 import { createClient } from "@supabase/supabase-js";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect } from "react";
 
-export default function Notes() {
+export default function Test() {
   const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_URL as string,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
   );
+
+  const uploadImage = async (image: File, path: string) => {
+    const { data, error } = await supabase.storage
+      .from("images")
+      .upload(path, image, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+    if (error) {
+      console.log("에러", error);
+      return;
+    }
+    console.log(data);
+  };
+
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const value: File = e.target.files[0];
+
+    if (value) {
+      //NOTE - 시작
+      uploadImage(value, "avatar/asd.jpg");
+      //NOTE - 끝
+    }
+  };
 
   useEffect(() => {
     const selectPost = async (id: string) => {
@@ -128,8 +152,31 @@ export default function Notes() {
       console.log(true); //NOTE - 테스트 코드
       return true;
     };
+
+    const getImageURL = async (path: string) => {
+      const { data } = supabase.storage.from("images").getPublicUrl(path);
+      console.log(data);
+    };
+
+    const deleteImages = async (paths: string[]) => {
+      const { data, error } = await supabase.storage
+        .from("images")
+        .remove(paths);
+      if (error) {
+        console.log(error);
+        return false;
+      }
+      console.log(data);
+      return data;
+    };
   }, [supabase]);
 
-  // return <pre>{JSON.stringify(result, null, 2)}</pre>;
-  return <p>테스트</p>;
+  return (
+    <div>
+      <input type="file" onChange={(e) => handleChange(e)} />
+      <img
+        src={process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL + "posts/avatar1.jpg"}
+      ></img>
+    </div>
+  );
 }
