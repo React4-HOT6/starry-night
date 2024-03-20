@@ -14,7 +14,9 @@ export default function Notes() {
     const selectPost = async (id: string) => {
       const { data, error } = await supabase
         .from("board")
-        .select("*")
+        .select(
+          "title, content, created_at, image_urls, category, user_info, comments(created_at, content, avatar, nickname)"
+        )
         .eq("id", id);
 
       if (error) {
@@ -64,6 +66,21 @@ export default function Notes() {
       console.log(true); //NOTE - 테스트 코드
       return true;
     };
+
+    const selectComment = async (id: string) => {
+      const { data, error } = await supabase
+        .from("comment")
+        .select("*")
+        .eq("id", id);
+
+      if (error) {
+        console.log(error); //NOTE - 테스트 코드
+        return false;
+      }
+      console.log(data); //NOTE - 테스트 코드
+      return data;
+    };
+    selectPost("bec0f7dc-d39a-465f-afac-1c7c2fd5b150");
   }, [supabase]);
 
   // return <pre>{JSON.stringify(result, null, 2)}</pre>;
