@@ -29,6 +29,8 @@ const DetailPage = () => {
   console.log(id);
 
   //NOTE - 가로 길이 수정할 것
+  //NOTE - 이미지 미리 보기 함수 수정
+  //NOTE - 이미지 태그 nextjs 컴포넌트로 수정
   return (
     <main className="flex flex-col justify-center mx-auto w-2/3">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">
