@@ -15,7 +15,7 @@ export default function Notes() {
       const { data, error } = await supabase
         .from("board")
         .select(
-          "title, content, created_at, image_urls, category, user_info, comments(created_at, content, avatar, nickname)"
+          "title, content, created_at, images, category, user_id, avatar, birthday, nickname, comments(created_at, content, avatar, nickname)"
         )
         .eq("id", id);
 
@@ -80,7 +80,11 @@ export default function Notes() {
       console.log(data); //NOTE - 테스트 코드
       return data;
     };
-    selectPost("bec0f7dc-d39a-465f-afac-1c7c2fd5b150");
+    insertPost({
+      title: "whowhowho",
+      content: "끝났다",
+      user_id: "36f6e481-c1cb-4595-961a-4483fb995a90",
+    });
   }, [supabase]);
 
   // return <pre>{JSON.stringify(result, null, 2)}</pre>;

@@ -3,12 +3,10 @@ export type Post = {
   content?: string;
   created_at?: string;
   id?: string;
-  image_urls?: string;
+  images?: string;
   title?: string;
-  user_info?: {
-    avatar?: string;
-    birthday?: string;
-    nickname?: string;
-    userId?: string;
-  };
+  avatar?: string;
+  birthday?: string;
+  nickname?: string;
+  user_id?: string;
 };
