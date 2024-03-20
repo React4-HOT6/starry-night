@@ -35,9 +35,9 @@ export const Leo = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Leoimg.src} alt="Star Sign" width={60} height={60} />
+      <Image src={Leoimg.src} alt="Star Sign" width={100} height={100} />
       <p className="text-white">Leo</p>
     </div>
   );
@@ -63,9 +63,9 @@ export const Cancer = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Cancerimg.src} alt="Star Sign" width={60} height={60} />
+      <Image src={Cancerimg.src} alt="Star Sign" width={100} height={100} />
       <p className="text-white">Cancer</p>
     </div>
   );
@@ -91,9 +91,9 @@ export const Aquarius = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Aquariusimg.src} alt="Star Sign" width={60} height={60} />
+      <Image src={Aquariusimg.src} alt="Star Sign" width={100} height={100} />
       <p className="text-white">Aquarius</p>
     </div>
   );
@@ -115,9 +115,14 @@ export const Sagittarius = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Sagittariusimg.src} alt="Star Sign" width={60} height={60} />
+      <Image
+        src={Sagittariusimg.src}
+        alt="Star Sign"
+        width={100}
+        height={100}
+      />
       <p className="text-white">Sagittarius</p>
     </div>
   );
@@ -143,9 +148,9 @@ export const Gemini = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Geminiimg.src} alt="Star Sign" width={60} height={60} />
+      <Image src={Geminiimg.src} alt="Star Sign" width={100} height={100} />
       <p className="text-white">Gemini</p>
     </div>
   );
@@ -171,9 +176,9 @@ export const Capricorn = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Capricornimg.src} alt="Star Sign" width={60} height={60} />
+      <Image src={Capricornimg.src} alt="Star Sign" width={100} height={100} />
       <p className="text-white">Capricorn</p>
     </div>
   );
@@ -199,9 +204,9 @@ export const Taurus = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Taurusimg.src} alt="Star Sign" width={60} height={60} />
+      <Image src={Taurusimg.src} alt="Star Sign" width={100} height={100} />
       <p className="text-white">Taurus</p>
     </div>
   );
@@ -227,9 +232,9 @@ export const Libra = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Libraimg.src} alt="Star Sign" width={60} height={60} />
+      <Image src={Libraimg.src} alt="Star Sign" width={100} height={100} />
       <p className="text-white">Libra</p>
     </div>
   );
@@ -255,9 +260,9 @@ export const Pisces = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Piscesimg.src} alt="Star Sign" width={60} height={60} />
+      <Image src={Piscesimg.src} alt="Star Sign" width={100} height={100} />
       <p className="text-white">Pisces</p>
     </div>
   );
@@ -283,9 +288,9 @@ export const Scorpio = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Scorpioimg.src} alt="Star Sign" width={60} height={60} />
+      <Image src={Scorpioimg.src} alt="Star Sign" width={100} height={100} />
       <p className="text-white">Scorpio</p>
     </div>
   );
@@ -311,9 +316,9 @@ export const Aries = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Ariesimg.src} alt="Star Sign" width={60} height={60} />
+      <Image src={Ariesimg.src} alt="Star Sign" width={100} height={100} />
       <p className="text-white">Aries</p>
     </div>
   );
@@ -339,9 +344,9 @@ export const Virgo = () => {
   return (
     <div
       onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center"
+      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[100px] h-[100] flex justify-center items-center"
     >
-      <Image src={Virgoimg.src} alt="Star Sign" width={60} height={60} />
+      <Image src={Virgoimg.src} alt="Star Sign" width={100} height={100} />
       <p className="text-white">Virgo</p>
     </div>
   );

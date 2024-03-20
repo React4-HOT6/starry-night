@@ -1,10 +1,10 @@
 "use client";
 
 import useModalStore from "@/store/store";
-import React from "react";
+import React, { PropsWithChildren } from "react";
 
-const Modal = () => {
-  const { toggleModal, starSignData } = useModalStore();
+const Modal: React.FC<PropsWithChildren> = ({ children }) => {
+  const { toggleModal } = useModalStore();
   const onClickStarsign = () => {
     toggleModal();
   };
@@ -13,8 +13,7 @@ const Modal = () => {
     <>
       <dialog id="my_modal_1" className="modal modal-open">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">{starSignData?.star_sign_name}</h3>
-          <p className="py-4">{starSignData?.star_sign_description}</p>
+          {children}
           <div className="modal-action flex justify-center items-center">
             <form method="dialog">
               <button onClick={onClickStarsign} className="btn">

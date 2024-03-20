@@ -17,13 +17,15 @@ import {
 import Modal from "@/components/CustomModal";
 import useModalStore from "@/store/store";
 const StarSignForm = () => {
-  const { isModalOpen, toggleModal, setStarSignData, starSignData } =
-    useModalStore();
+  const { isModalOpen, starSignData } = useModalStore();
 
   return (
     <>
       {isModalOpen ? (
-        <Modal />
+        <Modal>
+          <h3 className="font-bold text-lg">{starSignData?.star_sign_name}</h3>
+          <p className="py-4">{starSignData?.star_sign_description}</p>
+        </Modal>
       ) : (
         <div className="max-w-[1200px] min-h-screen w-96 h-[500px] flex flex-col justify-center items-center">
           <div className="max-w-[1200px] w-96 h-[150px] flex justify-center items-center">
