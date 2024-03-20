@@ -1,10 +1,10 @@
 import create from "zustand";
 
-type StarSignData = {
-  id: number;
-  star_sign_name: string;
-  star_sign_description: string;
-};
+export type StarSignData = {
+  id: number | undefined;
+  star_sign_name: string | undefined;
+  star_sign_description: string | undefined;
+} | null;
 
 type Store = {
   isModalOpen: boolean;

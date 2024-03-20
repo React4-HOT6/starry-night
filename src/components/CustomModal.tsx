@@ -1,18 +1,10 @@
 "use client";
 
-type StarSignData = {
-  id: number;
-  star_sign_name: string;
-  star_sign_description: string;
-};
-
+import useModalStore from "@/store/store";
 import React from "react";
-type toggleModals = {
-  toggleModal: () => void;
-  starSignData: StarSignData | null;
-};
 
-const Modal = ({ toggleModal, starSignData }: toggleModals) => {
+const Modal = () => {
+  const { toggleModal, starSignData } = useModalStore();
   const onClickStarsign = () => {
     toggleModal();
   };

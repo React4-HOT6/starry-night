@@ -14,27 +14,22 @@ import Scorpioimg from "../../../public/starsign/Scorpio.svg";
 import Ariesimg from "../../../public/starsign/Aries.svg";
 import Virgoimg from "../../../public/starsign/Virgo.svg";
 import { getStarSign } from "@/libs/supabase/getstarsign";
+import useModalStore from "@/store/store";
 
-type StarSignData = {
-  id: number;
-  star_sign_name: string;
-  star_sign_description: string;
-};
-
-type toggleModals = {
-  toggleModal: () => void;
-  setStarSignData: (data: StarSignData) => void;
-};
-
-export const Leo = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Leo = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
   const onClickStarsign = async () => {
-    const data = await getStarSign("Leo");
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
+    const data = await getStarSign(5);
+    try {
+      setStarSignData({
+        id: data?.id,
+        star_sign_name: data?.star_sign_name,
+        star_sign_description: data?.star_sign_description,
+      });
+      toggleModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -48,15 +43,21 @@ export const Leo = ({ toggleModal, setStarSignData }: toggleModals) => {
   );
 };
 
-export const Cancer = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Cancer = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
+
   const onClickStarsign = async () => {
-    const data = await getStarSign("Cancer");
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
+    const data = await getStarSign(4);
+    try {
+      setStarSignData({
+        id: data?.id,
+        star_sign_name: data?.star_sign_name,
+        star_sign_description: data?.star_sign_description,
+      });
+      toggleModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -70,15 +71,21 @@ export const Cancer = ({ toggleModal, setStarSignData }: toggleModals) => {
   );
 };
 
-export const Aquarius = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Aquarius = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
+
   const onClickStarsign = async () => {
-    const data = await getStarSign("Aquarius");
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
+    const data = await getStarSign(11);
+    try {
+      setStarSignData({
+        id: data?.id,
+        star_sign_name: data?.star_sign_name,
+        star_sign_description: data?.star_sign_description,
+      });
+      toggleModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -92,9 +99,11 @@ export const Aquarius = ({ toggleModal, setStarSignData }: toggleModals) => {
   );
 };
 
-export const Sagittarius = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Sagittarius = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
+
   const onClickStarsign = async () => {
-    const data = await getStarSign("Sagittarius");
+    const data = await getStarSign(9);
     setStarSignData({
       id: data?.id,
       star_sign_name: data?.star_sign_name,
@@ -114,15 +123,21 @@ export const Sagittarius = ({ toggleModal, setStarSignData }: toggleModals) => {
   );
 };
 
-export const Gemini = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Gemini = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
+
   const onClickStarsign = async () => {
-    const data = await getStarSign("Gemini");
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
+    const data = await getStarSign(1);
+    try {
+      setStarSignData({
+        id: data?.id,
+        star_sign_name: data?.star_sign_name,
+        star_sign_description: data?.star_sign_description,
+      });
+      toggleModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -136,15 +151,21 @@ export const Gemini = ({ toggleModal, setStarSignData }: toggleModals) => {
   );
 };
 
-export const Capricorn = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Capricorn = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
+
   const onClickStarsign = async () => {
-    const data = await getStarSign("Capricorn");
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
+    const data = await getStarSign(10);
+    try {
+      setStarSignData({
+        id: data?.id,
+        star_sign_name: data?.star_sign_name,
+        star_sign_description: data?.star_sign_description,
+      });
+      toggleModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -158,15 +179,21 @@ export const Capricorn = ({ toggleModal, setStarSignData }: toggleModals) => {
   );
 };
 
-export const Taurus = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Taurus = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
+
   const onClickStarsign = async () => {
-    const data = await getStarSign("Taurus");
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
+    const data = await getStarSign(3);
+    try {
+      setStarSignData({
+        id: data?.id,
+        star_sign_name: data?.star_sign_name,
+        star_sign_description: data?.star_sign_description,
+      });
+      toggleModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -180,15 +207,21 @@ export const Taurus = ({ toggleModal, setStarSignData }: toggleModals) => {
   );
 };
 
-export const Libra = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Libra = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
+
   const onClickStarsign = async () => {
-    const data = await getStarSign("Libra");
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
+    const data = await getStarSign(7);
+    try {
+      setStarSignData({
+        id: data?.id,
+        star_sign_name: data?.star_sign_name,
+        star_sign_description: data?.star_sign_description,
+      });
+      toggleModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -202,15 +235,21 @@ export const Libra = ({ toggleModal, setStarSignData }: toggleModals) => {
   );
 };
 
-export const Pisces = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Pisces = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
+
   const onClickStarsign = async () => {
-    const data = await getStarSign("Pisces");
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
+    const data = await getStarSign(12);
+    try {
+      setStarSignData({
+        id: data?.id,
+        star_sign_name: data?.star_sign_name,
+        star_sign_description: data?.star_sign_description,
+      });
+      toggleModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -224,15 +263,21 @@ export const Pisces = ({ toggleModal, setStarSignData }: toggleModals) => {
   );
 };
 
-export const Scorpio = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Scorpio = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
+
   const onClickStarsign = async () => {
-    const data = await getStarSign("Scorpio");
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
+    const data = await getStarSign(8);
+    try {
+      setStarSignData({
+        id: data?.id,
+        star_sign_name: data?.star_sign_name,
+        star_sign_description: data?.star_sign_description,
+      });
+      toggleModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -246,15 +291,21 @@ export const Scorpio = ({ toggleModal, setStarSignData }: toggleModals) => {
   );
 };
 
-export const Aries = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Aries = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
+
   const onClickStarsign = async () => {
-    const data = await getStarSign("Aries");
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
+    const data = await getStarSign(2);
+    try {
+      setStarSignData({
+        id: data?.id,
+        star_sign_name: data?.star_sign_name,
+        star_sign_description: data?.star_sign_description,
+      });
+      toggleModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -268,15 +319,21 @@ export const Aries = ({ toggleModal, setStarSignData }: toggleModals) => {
   );
 };
 
-export const Virgo = ({ toggleModal, setStarSignData }: toggleModals) => {
+export const Virgo = () => {
+  const { toggleModal, setStarSignData } = useModalStore();
+
   const onClickStarsign = async () => {
-    const data = await getStarSign("Virgo");
-    setStarSignData({
-      id: data?.id,
-      star_sign_name: data?.star_sign_name,
-      star_sign_description: data?.star_sign_description,
-    });
-    toggleModal();
+    const data = await getStarSign(6);
+    try {
+      setStarSignData({
+        id: data?.id,
+        star_sign_name: data?.star_sign_name,
+        star_sign_description: data?.star_sign_description,
+      });
+      toggleModal();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
