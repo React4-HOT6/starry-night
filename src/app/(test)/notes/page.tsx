@@ -1,6 +1,6 @@
 "use client";
 
-import { Post } from "@/types";
+import { Comment, Post } from "@/types";
 import { createClient } from "@supabase/supabase-js";
 import { useEffect } from "react";
 
@@ -57,7 +57,11 @@ export default function Notes() {
     };
 
     const deletePost = async (id: string) => {
-      const { error } = await supabase.from("board").delete().eq("id", id);
+      const { error } = await supabase
+        .from("board")
+        .delete()
+        .eq("id", id)
+        .single();
 
       if (error) {
         console.log(error); //NOTE - 테스트 코드
@@ -69,7 +73,7 @@ export default function Notes() {
 
     const selectComment = async (id: string) => {
       const { data, error } = await supabase
-        .from("comment")
+        .from("comments")
         .select("*")
         .eq("id", id);
 
@@ -80,7 +84,50 @@ export default function Notes() {
       console.log(data); //NOTE - 테스트 코드
       return data;
     };
-    deletePost("e2db43a1-5b2d-4b25-b98f-c089eeb110ef");
+
+    const updateComment = async (id: string, newComment: Comment) => {
+      const { data, error } = await supabase
+        .from("comments")
+        .update(newComment)
+        .eq("id", id)
+        .select();
+
+      if (error) {
+        console.log(error); //NOTE - 테스트 코드
+        return false;
+      }
+      console.log(data); //NOTE - 테스트 코드
+      return data;
+    };
+
+    const insertComment = async (newComment: Comment) => {
+      const { data, error } = await supabase
+        .from("comments")
+        .insert(newComment)
+        .select();
+
+      if (error) {
+        console.log(error); //NOTE - 테스트 코드
+        return false;
+      }
+      console.log(data); //NOTE - 테스트 코드
+      return data;
+    };
+
+    const deleteComment = async (id: string) => {
+      const { data, error } = await supabase
+        .from("comments")
+        .delete()
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        console.log(error); //NOTE - 테스트 코드
+        return false;
+      }
+      console.log(true); //NOTE - 테스트 코드
+      return true;
+    };
   }, [supabase]);
 
   // return <pre>{JSON.stringify(result, null, 2)}</pre>;
