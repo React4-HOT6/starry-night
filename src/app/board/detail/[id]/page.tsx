@@ -73,6 +73,7 @@ const DetailPage = () => {
           maxLength={50}
           readOnly={readMode}
         />
+        <p className="text-black bg-white rounded-lg">별자리, 날짜, 아바타</p>
         <select className="select select-bordered w-full max-w-xs text-black">
           <option disabled selected>
             별자리 선택
