@@ -1,27 +1,39 @@
 import Link from "next/link";
 import React from "react";
 import SignInOutButton from "@/components/main/SignInOutButton";
+import Image from "next/image";
+import logo from "@/assets/logo.png";
 
 const Header = () => {
   return (
-    <header className="fixed z-50 w-full top-0 bg-zinc-950">
+    <header className="fixed z-50 w-full top-0 bg-zinc-950 ">
       <div className="navbar">
         <div className="navbar-start">
-          <a className="btn btn-ghost text-xl">Starry-night</a>
+          <Link href="/" className="btn btn-ghost text-xl">
+            STARRY NIGHT
+          </Link>
         </div>
         <div className="navbar-center lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link href="/board">Board</Link>
+              <Link href="/board" className="tracking-widest">
+                BOARD
+              </Link>
             </li>
             <li>
-              <Link href="/fortune">Fortune</Link>
+              <Link href="/fortune" className="tracking-widest">
+                FORTUNE
+              </Link>
             </li>
             <li>
-              <Link href="/starsign">Starsign</Link>
+              <Link href="/starsign" className="tracking-widest">
+                STARSIGN
+              </Link>
             </li>
             <li>
-              <Link href="/company">Company</Link>
+              <Link href="/team" className="tracking-widest">
+                TEAM
+              </Link>
             </li>
           </ul>
         </div>
