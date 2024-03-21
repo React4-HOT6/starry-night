@@ -2,11 +2,9 @@
 import { SelectCategory } from "@/components/write/SelectCategory";
 import { Thumbnails } from "@/components/write/Thumbnails";
 import { selectPost } from "@/libs/utils/api/supabase/postAPI";
-import { Post } from "@/types";
-import { calcLength } from "framer-motion";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const DetailPage = () => {
   const url = usePathname();
@@ -16,7 +14,7 @@ const DetailPage = () => {
   const [category, setCategory] = useState("");
   const [date, setDate] = useState("");
   const [avatar, setAvatar] = useState("");
-  const [readMode, setReadMode] = useState(true);
+  const [readMode, setReadMode] = useState(false);
 
   const getParamId = (url: string) => {
     const params = url.split("/");
