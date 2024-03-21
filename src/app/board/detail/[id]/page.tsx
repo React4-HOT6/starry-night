@@ -3,6 +3,7 @@ import { Thumbnails } from "@/components/write/Thumbnails";
 import { selectPost } from "@/libs/utils/api/supabase/postAPI";
 import { Post } from "@/types";
 import { calcLength } from "framer-motion";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 
@@ -11,6 +12,9 @@ const DetailPage = () => {
   const [imagesSrc, setImagesSrc]: any = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [category, setCategory] = useState("");
+  const [date, setDate] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [readMode, setReadMode] = useState(true);
 
   const onImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +51,9 @@ const DetailPage = () => {
         const post = response.result;
         setTitle(post.title);
         setContent(post.content);
+        setCategory(post.category);
+        setDate(post.created_at);
+        setAvatar(post.avatar);
       } else {
         console.log("데이터 불러오기 실패");
       }
@@ -73,7 +80,11 @@ const DetailPage = () => {
           maxLength={50}
           readOnly={readMode}
         />
-        <p className="text-black bg-white rounded-lg">별자리, 날짜, 아바타</p>
+        <section className="flex flex-row"></section>
+        <p className="text-black bg-white rounded-lg p-1 text-right">
+          {`${category} | ${date}`}
+        </p>
+        <Image src={avatar} width={50} height={50} alt="이미지 없음"></Image>
         <select className="select select-bordered w-full max-w-xs text-black">
           <option disabled selected>
             별자리 선택
