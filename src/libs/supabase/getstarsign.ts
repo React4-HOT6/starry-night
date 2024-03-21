@@ -10,7 +10,7 @@ export const getStarSign = async (
 ): Promise<StarSignData | null> => {
   let { data, error } = await supabase
     .from("starsign")
-    .select("star_sign_description,id,star_sign_name")
+    .select("*")
     .eq("id", id)
     .single();
 
