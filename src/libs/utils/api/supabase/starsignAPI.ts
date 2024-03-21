@@ -1,5 +1,5 @@
 import { StarSignData } from "@/store/store";
-import { supabase } from "./client";
+import { supabase } from "../../../supabase/client";
 
 export const getStarSign = async (
   id: number | undefined

@@ -35,20 +35,20 @@ const StarSignForm = () => {
           <p className="py-4">{starSignData?.star_sign_description}</p>
         </Modal>
       ) : (
-        <div className="max-w-[1200px] min-h-screen w-[1200px] h-[500px] flex flex-col justify-center items-center">
-          <div className="max-w-[1200px] w-[1200px]  h-[200px] flex justify-center items-center">
+        <div className="max-w-[1200px] mt-[40px] min-h-screen w-[1200px] h-[500px] flex flex-col justify-center items-center">
+          <div className="max-w-[1200px] w-[1200px]  h-[180px] flex justify-center items-center">
             <Leo />
             <Cancer />
             <Aquarius />
             <Sagittarius />
           </div>
-          <div className="max-w-[1200px] w-[1200px]  h-[200px] flex justify-center items-center">
+          <div className="max-w-[1200px] w-[1200px]  h-[180px] flex justify-center items-center">
             <Gemini />
             <Capricorn />
             <Taurus />
             <Libra />
           </div>
-          <div className="max-w-[1200px] w-[1200px]  h-[200px] flex justify-center items-center">
+          <div className="max-w-[1200px] w-[1200px]  h-[180px] flex justify-center items-center">
             <Pisces />
             <Scorpio />
             <Aries />
