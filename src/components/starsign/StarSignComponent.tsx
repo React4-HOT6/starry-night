@@ -1,4 +1,4 @@
-import { getStarSign } from "@/libs/supabase/getstarsign";
+import { getStarSign } from "@/libs/utils/api/supabase/starsignAPI";
 import useModalStore from "@/store/store";
 import Image, { StaticImageData } from "next/image";
 type StarSignComponentProps = {
