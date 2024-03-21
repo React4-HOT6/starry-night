@@ -8,10 +8,11 @@ export const uploadImage = async (image: File, path: string) => {
       upsert: false,
     });
   if (error) {
-    console.log("에러", error);
-    return;
+    console.log(error); //NOTE - 테스트 코드
+    return { status: "fail", result: error } as const;
   }
-  console.log(data);
+  console.log(data); //NOTE - 테스트 코드
+  return { status: "success", result: data } as const;
 };
 
 export const getImageURL = async (path: string) => {

@@ -22,11 +22,11 @@ export type Post = {
 };
 
 export type Comment = {
-  avatar?: string;
-  content?: string;
-  created_at?: string;
-  id?: string;
-  nickname?: "";
+  avatar: string;
+  content: string;
+  created_at: string;
+  id: string;
+  nickname: string;
 };
 
 export type TypingAnimationProps = {
