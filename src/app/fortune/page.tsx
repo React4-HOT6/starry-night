@@ -6,11 +6,11 @@ import {
 } from "@supabase/supabase-js";
 import { useEffect } from "react";
 import { Fortune } from "@/types";
-import { FortunePinContainer } from "@/components/fortuneUI/fortuneContainer";
+import { FortunePinContainer } from "@/components/fortune/fortuneContainer";
 import { useState } from "react";
-import { Meteors } from "@/components/fortuneUI/fortuneContainer";
-import { getUserBirth } from "@/components/mypage/GetUserBirth";
-import { calculateBirthZodiac } from "@/components/mypage/BirthZodiac";
+import { Meteors } from "@/components/fortune/fortuneContainer";
+import { getUserBirth } from "@/components/fortune/GetUserBirth";
+import { calculateBirthZodiac } from "@/components/fortune/BirthZodiac";
 
 const FortunePage = () => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
@@ -20,7 +20,7 @@ const FortunePage = () => {
 
   const fetchTableData = async () => {
     try {
-      const birth = await getUserBirth();
+      const birth: string = await getUserBirth();
       const zodiac = calculateBirthZodiac(birth);
       // Supabase에서 데이터를 조회합니다.
       const { data: fortune, error }: PostgrestResponse<Fortune> =
@@ -32,7 +32,6 @@ const FortunePage = () => {
       if (fortune && fortune.length > 0) {
         setSelectedFortune(fortune[0]);
       }
-      console.log("Fetched data from Supabase:", fortune);
     } catch (error) {
       console.error("Error fetching data from Supabase:", error);
     }

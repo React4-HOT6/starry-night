@@ -1,8 +1,8 @@
 "use client";
-// import { createClient } from "@supabase/supabase-js";
+
 import { useState } from "react";
 import { useEffect } from "react";
-import { HoverEffect } from "@/components/mypage/MyPost";
+import { HoverEffect } from "@/components/mypage/CardHoverUI";
 import { createClient } from "@/libs/supabase/client";
 const MyPage = () => {
   const supabase = createClient();
@@ -10,7 +10,7 @@ const MyPage = () => {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
-  const [userPosts, setUserPosts] = useState<Board[]>([]); //board게시판 타입지정해야함
+  //const [userPosts, setUserPosts] = useState<Board[]>([]); //board게시판 타입지정해야함
   useEffect(() => {
     fetchPostsAndProfile();
   }, []);
@@ -19,7 +19,7 @@ const MyPage = () => {
     try {
       const {
         data: { user },
-      } = await supabase.auth.getUser(); // 현재 사용자 정보 가져오기, 타입정의도해야하나..?
+      } = await supabase.auth.getUser();
 
       setNickname(user?.user_metadata.nickname);
       setBirth(user?.user_metadata.birth);
@@ -59,13 +59,13 @@ const MyPage = () => {
         <div className="w-10/12 h-5/6 bg-black bg-opacity-40 shadow-xl p-6 m-4 rounded-lg">
           <div className="p-3">
             <h2 className="font-bold text-lg">내 게시글 보기</h2>
-            <HoverEffect
+            {/* <HoverEffect
               items={userPosts.map((post) => ({
                 title: post.title,
                 description: post.content, // 간단한 내용으로 카드에 표시
                 link: `/board/${post.id}`, // 게시물 상세 페이지 링크
               }))}
-            />
+            /> */}
           </div>
           <div className="p-3">
             <h2 className="font-bold text-lg">❤️ 좋아요 목록 보기</h2>
