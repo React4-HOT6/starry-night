@@ -33,9 +33,9 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
     <>
       <div
         onClick={onClickStarsign}
-        className="ml-6 animate-float transform cursor-pointer hover:scale-125 flex-col transition-transform duration-300 w-[80px] h-[80] flex justify-center items-center"
+        className="ml-6 animate-float transform cursor-pointer hover:scale-125 flex-col transition-transform duration-300 w-[120px] h-[120] flex justify-center items-center"
       >
-        <Image src={src} alt={name} width={80} height={80} />
+        <Image src={src} priority alt={name} width={120} height={120} />
         <p className="text-white">{name}</p>
       </div>
     </>

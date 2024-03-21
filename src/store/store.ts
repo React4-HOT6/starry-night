@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 export type StarSignData = {
   id: number | undefined;
@@ -25,3 +25,83 @@ const useModalStore = create<Store>((set) => ({
 }));
 
 export default useModalStore;
+
+// import {
+//   ModalBackdropStyle,
+//   ModalContentStyle,
+//   ModalMessageStyle,
+//   CancelClickBtnStyle,
+//   ConfirmClickBtnStyle,
+// } from "redux/components/Modal/styles";
+// import { useSelector } from "react-redux";
+
+// function ValidationModal({ onConfirm, onCancel, showConfirmButton = true }) {
+//   const { message, showModal } = useSelector((state) => state.modal);
+
+//   if (!showModal) return null;
+
+//   return (
+//     <ModalBackdropStyle>
+//       <ModalContentStyle>
+//         <ModalMessageStyle>{message}</ModalMessageStyle>
+//         <div>
+//           {showConfirmButton && (
+//             <CancelClickBtnStyle onClick={onCancel}>취소</CancelClickBtnStyle>
+//           )}
+//           <ConfirmClickBtnStyle onClick={onConfirm}>확인</ConfirmClickBtnStyle>
+//         </div>
+//       </ModalContentStyle>
+//     </ModalBackdropStyle>
+//   );
+// }
+
+// export default ValidationModal;
+
+// import { createSlice } from "@reduxjs/toolkit";
+
+// const initialState = {
+//     message: '',
+//     showConfirmButton: true,
+//     showModal: false,
+// };
+
+// const modalSlice = createSlice({
+//     name: 'modal',
+//     initialState,
+//     reducers: {
+//         openModal: (state, action) => {
+//             state.message = action.payload.message;
+//             state.showConfirmButton = action.payload.showConfirmButton;
+//             state.showModal = true;
+//         },
+//         closeModal: (state) => {
+//             state.showModal = false;
+//         },
+//     }
+// });
+
+// export const { openModal, closeModal } = modalSlice.actions;
+// export default modalSlice.reducer;
+
+// const handleProfileUpdate = async () => {
+//   dispatch(__editProfile({ imgFile, nickname }))
+//     .unwrap()
+//     .then(() => {
+//       dispatch(
+//         openModal({
+//           message: "프로필이 업데이트되었습니다.",
+//           showConfirmButton: false,
+//           showModal: true,
+//         })
+//       );
+//     })
+//     .catch((error) => {
+//       dispatch(
+//         openModal({
+//           message: error.message,
+//           showConfirmButton: false,
+//           showModal: true,
+//         })
+//       );
+//     });
+// };
