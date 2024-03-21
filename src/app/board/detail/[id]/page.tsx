@@ -2,6 +2,8 @@
 import { SelectCategory } from "@/components/write/SelectCategory";
 import { Thumbnails } from "@/components/write/Thumbnails";
 import { selectPost } from "@/libs/utils/api/supabase/postAPI";
+import { Post } from "@/types";
+import { calcLength } from "framer-motion";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -15,26 +17,6 @@ const DetailPage = () => {
   const [date, setDate] = useState("");
   const [avatar, setAvatar] = useState("");
   const [readMode, setReadMode] = useState(true);
-
-  const onImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files === null) {
-      return;
-    }
-    if (e.target.files.length === 0) {
-      return setImagesSrc([]);
-    }
-
-    if (e.target.files.length > 5) {
-      setImagesSrc([]);
-      e.target.value = "";
-      return alert("최대 이미지 업로드 갯수 5개를 초과하였습니다.");
-    }
-    for (let i = 0; i < e.target.files.length; i++) {
-      const file = e.target.files[i];
-      const imageURL = URL.createObjectURL(file);
-      setImagesSrc((prev: string[]) => [...prev, imageURL]);
-    }
-  };
 
   const getParamId = (url: string) => {
     const params = url.split("/");
@@ -68,8 +50,9 @@ const DetailPage = () => {
   //NOTE - 이미지 로딩 중일 때 이미지 구현하기
   //NOTE - 이미지 선택 초기화 기능
   //NOTE - 아바타 클릭하면 계정 정보 모달창 띄우기
+  //NOTE - main pt-20 임시로 설정
   return (
-    <main className="flex flex-col justify-center mx-auto w-2/3">
+    <main className="flex flex-col justify-center pt-20 mx-auto w-2/3">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">
         <input
           type="text"

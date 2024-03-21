@@ -9,6 +9,7 @@ export const Thumbnails = ({
   setImagesSrc: Dispatch<SetStateAction<string[]>>;
 }) => {
   const [countOfImages, setCountOfImages] = useState(0);
+
   const onImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) {
       return;

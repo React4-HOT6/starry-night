@@ -1,11 +1,5 @@
 import { Post } from "@/types";
-import { Database } from "@/types/database.types";
-import { createClient } from "@supabase/supabase-js";
-
-export const supabase = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-); //NOTE - 희철님 모듈 사용할 것(server)
+import { supabase } from "@/libs/supabase/client";
 
 export const selectPost = async (id: string) => {
   const { data, error } = await supabase
