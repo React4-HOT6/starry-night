@@ -13,11 +13,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      //meteor Effect
       animation: {
         "meteor-effect": "meteor 5s linear infinite",
+        float: "float 3s ease-in-out infinite",
       },
       keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
         meteor: {
           "0%": { transform: "rotate(215deg) translateX(0)", opacity: "1" },
           "70%": { opacity: "1" },
