@@ -11,7 +11,7 @@ const Modal: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <dialog id="my_modal_1" className="modal modal-open">
-        <div className="modal-box">
+        <div className="modal-box ">
           {children}
           <div className="modal-action flex justify-center items-center">
             <form method="dialog">

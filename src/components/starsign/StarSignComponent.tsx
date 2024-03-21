@@ -21,6 +21,7 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
         id: data?.id,
         star_sign_name: data?.star_sign_name,
         star_sign_description: data?.star_sign_description,
+        s_img_url: data?.s_img_url,
       });
       toggleModal();
     } catch (err) {

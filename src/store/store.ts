@@ -4,6 +4,7 @@ export type StarSignData = {
   id: number | undefined;
   star_sign_name: string | undefined;
   star_sign_description: string | undefined;
+  s_img_url: string | undefined;
 } | null;
 
 type Store = {
