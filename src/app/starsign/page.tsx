@@ -1,10 +1,9 @@
 import StarSignContainer from "@/components/starsign/StarSignContainer";
-const StarSignPage = async () => {
-  const response = await fetch("https://catfact.ninja/fact", {
-    cache: "no-cache",
-  });
+import { Meteors } from "@/components/ui/meteors";
+const StarSignPage = () => {
   return (
-    <div className="flex justify-center items-center ">
+    <div className=" flex justify-center items-center  ">
+      <Meteors />
       <StarSignContainer />
     </div>
   );

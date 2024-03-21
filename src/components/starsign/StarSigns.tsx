@@ -1,4 +1,6 @@
-import Image from "next/image";
+"use client";
+
+//datas from "namuwiki"
 import Leoimg from "../../../public/starsign/Leo.svg";
 import Cancerimg from "../../../public/starsign/Cancer.svg";
 import Aquariusimg from "../../../public/starsign/Aquarius.svg";
@@ -11,86 +13,51 @@ import Piscesimg from "../../../public/starsign/Pisces.svg";
 import Scorpioimg from "../../../public/starsign/Scorpio.svg";
 import Ariesimg from "../../../public/starsign/Aries.svg";
 import Virgoimg from "../../../public/starsign/Virgo.svg";
-export const Leo = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Leoimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Leo</p>
-  </div>
-);
+import StarSignComponent from "./StarSignComponent";
 
-export const Cancer = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Cancerimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Cancer</p>
-  </div>
-);
+export const Gemini = () => {
+  return <StarSignComponent src={Geminiimg} name="Gemini" starSignId={1} />;
+};
+export const Aries = () => {
+  return <StarSignComponent src={Ariesimg} name="Aries" starSignId={2} />;
+};
+export const Taurus = () => {
+  return <StarSignComponent src={Taurusimg} name="Taurus" starSignId={3} />;
+};
 
-export const Aquarius = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Aquariusimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Aquarius</p>
-  </div>
-);
+export const Cancer = () => {
+  return <StarSignComponent src={Cancerimg} name="Cancer" starSignId={4} />;
+};
 
-export const Sagittarius = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Sagittariusimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Sagittarius</p>
-  </div>
-);
+export const Leo = () => {
+  return <StarSignComponent src={Leoimg} name="Leo" starSignId={5} />;
+};
+export const Virgo = () => {
+  return <StarSignComponent src={Virgoimg} name="Virgo" starSignId={6} />;
+};
+export const Libra = () => {
+  return <StarSignComponent src={Libraimg} name="Libra" starSignId={7} />;
+};
+export const Scorpio = () => {
+  return <StarSignComponent src={Scorpioimg} name="Scorpio" starSignId={8} />;
+};
+export const Sagittarius = () => {
+  return (
+    <StarSignComponent src={Sagittariusimg} name="Sagittarius" starSignId={9} />
+  );
+};
+export const Capricorn = () => {
+  return (
+    <StarSignComponent src={Capricornimg} name="Capricorn" starSignId={10} />
+  );
+};
 
-export const Gemini = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Geminiimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Gemini</p>
-  </div>
-);
+export const Aquarius = () => {
+  return (
+    <StarSignComponent src={Aquariusimg} name="Aquarius" starSignId={11} />
+  );
+};
 
-export const Capricorn = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Capricornimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Capricorn</p>
-  </div>
-);
-
-export const Taurus = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Taurusimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Taurus</p>
-  </div>
-);
-
-export const Libra = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Libraimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Libra</p>
-  </div>
-);
-
-export const Pisces = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Piscesimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Pisces</p>
-  </div>
-);
-
-export const Scorpio = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Scorpioimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Scorpio</p>
-  </div>
-);
-
-export const Aries = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Ariesimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Aries</p>
-  </div>
-);
-
-export const Virgo = () => (
-  <div className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[60px] h-[60] flex justify-center items-center">
-    <Image src={Virgoimg.src} alt="Star Sign" width={60} height={60} />
-    <p className="text-white">Virgo</p>
-  </div>
-);
+export const Pisces = () => {
+  return <StarSignComponent src={Piscesimg} name="Pisces" starSignId={12} />;
+};

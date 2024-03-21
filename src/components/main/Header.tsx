@@ -6,7 +6,7 @@ import logo from "@/assets/logo.png";
 
 const Header = () => {
   return (
-    <header className="fixed z-50 w-full top-0 bg-zinc-950 ">
+    <header className="fixed z-50 w-full top-0 bg-zinc-950">
       <div className="navbar">
         <div className="navbar-start">
           <Link href="/" className="btn btn-ghost text-xl">
