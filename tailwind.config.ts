@@ -37,6 +37,9 @@ const config: Config = {
       backgroundImage: {
         main: "url('../../public/mainBackground.jpg')",
       },
+      daisyui: {
+        themes: ["dark"],
+      },
     },
   },
   plugins: [addVariablesForColors, require("daisyui")],

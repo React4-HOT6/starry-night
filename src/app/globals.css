@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url("https://fonts.googleapis.com/css2?family=Kumar+One&family=Stoke:wght@300;400&display=swap");
 *,
 body {
   box-sizing: border-box;
@@ -9,4 +9,20 @@ body {
 }
 
 body {
+}
+.stoke-light {
+  font-family: "Stoke", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.stoke-regular {
+  font-family: "Stoke", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.kumar-one-regular {
+  font-family: "Kumar One", serif;
+  font-weight: 400;
+  font-style: normal;
 }
