@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { HoverEffect } from "@/components/mypage/CardHoverUI";
-import { createClient } from "@/libs/supabase/client";
+import { supabase } from "@/libs/supabase/client";
+
 const MyPage = () => {
-  const supabase = createClient();
   const [birth, setBirth] = useState("");
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");

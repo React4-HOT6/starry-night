@@ -1,10 +1,5 @@
+import { supabase } from "@/libs/supabase/client";
 import { Post } from "@/types";
-import { createClient } from "@supabase/supabase-js";
-
-export const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-); //NOTE - zusstand로 처리하고 지울 것
 
 export const selectPost = async (id: string) => {
   const { data, error } = await supabase
