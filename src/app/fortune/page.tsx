@@ -1,9 +1,5 @@
 "use client";
-// import {
-//   createClient,
-//   SupabaseClient,
-//   PostgrestResponse,
-// } from "@supabase/supabase-js";
+
 import { createClient } from "@/libs/supabase/client";
 import { useEffect } from "react";
 import { Fortune } from "@/types";
@@ -14,8 +10,6 @@ import { getUserBirth } from "@/components/fortune/GetUserBirth";
 import { calculateBirthZodiac } from "@/components/fortune/BirthZodiac";
 
 const FortunePage = () => {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
   const supabase = createClient();
   const [selectedFortune, setSelectedFortune] = useState<Fortune | null>(null);
 
@@ -23,7 +17,7 @@ const FortunePage = () => {
     try {
       const birth: string = await getUserBirth();
       const zodiac = calculateBirthZodiac(birth);
-      // Supabase에서 데이터를 조회합니다.
+
       const { data: fortune, error } = await supabase
         .from("fortune")
         .select("*")
