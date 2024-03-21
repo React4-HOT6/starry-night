@@ -29,6 +29,11 @@ export type Comment = {
   nickname?: "";
 };
 
+export type TypingAnimationProps = {
+  text: string;
+  speed?: number;
+};
+
 const Zodiac = {
   aries: "양자리",
   taurus: "황소자리",

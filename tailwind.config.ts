@@ -63,7 +63,7 @@ const config: Config = {
   },
 };
 
-/** BackgroundBeams 애니메이션 함수 */
+/** BackgroundBeams 애니메이션 로직 */
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
