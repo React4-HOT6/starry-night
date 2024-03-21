@@ -35,23 +35,41 @@ const StarSignForm = () => {
           <p className="py-4">{starSignData?.star_sign_description}</p>
         </Modal>
       ) : (
-        <div className="max-w-[1200px] mt-[40px] min-h-screen w-[1200px] h-[500px] flex flex-col justify-center items-center">
-          <div className="max-w-[1200px] w-[1200px]  h-[180px] flex justify-center items-center">
+        <div className=" mt-[90px] static">
+          <div className="absolute bottom-[100px] left-[100px]">
             <Leo />
+          </div>
+          <div className="absolute bottom-[300px] left-[80px]">
             <Cancer />
+          </div>
+          <div className="absolute bottom-[80px] left-[550px]">
             <Aquarius />
+          </div>
+          <div className="absolute bottom-[70px] left-[1000px]">
             <Sagittarius />
           </div>
-          <div className="max-w-[1200px] w-[1200px]  h-[180px] flex justify-center items-center">
+          <div className="absolute bottom-[400px] left-[700px]">
             <Gemini />
+          </div>
+          <div className="absolute bottom-[340px] left-[900px]">
             <Capricorn />
+          </div>
+          <div className="absolute bottom-[300px] left-[500px]">
             <Taurus />
+          </div>
+          <div className="absolute bottom-[200px] left-[800px]">
             <Libra />
           </div>
-          <div className="max-w-[1200px] w-[1200px]  h-[180px] flex justify-center items-center">
+          <div className="absolute bottom-[450px] left-[1100px]">
             <Pisces />
+          </div>
+          <div className="absolute bottom-[100px] left-[1200px]">
             <Scorpio />
+          </div>
+          <div className="absolute bottom-[200px] left-[350px]">
             <Aries />
+          </div>
+          <div className="absolute bottom-[400px] left-[250px]">
             <Virgo />
           </div>
         </div>
