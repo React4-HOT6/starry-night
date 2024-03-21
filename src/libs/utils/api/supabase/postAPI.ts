@@ -12,14 +12,15 @@ export const selectPost = async (id: string) => {
     .select(
       "title, content, created_at, images, category, user_id, avatar, birthday, nickname, comments(created_at, content, avatar, nickname)"
     )
-    .eq("id", id);
+    .eq("id", id)
+    .single();
 
   if (error) {
     console.log(error); //NOTE - 테스트 코드
-    return false;
+    return { status: "fail", result: error };
   }
   console.log(data); //NOTE - 테스트 코드
-  return data;
+  return { status: "success", result: data };
 };
 
 export const updatePost = async (id: string, newPost: Post) => {
