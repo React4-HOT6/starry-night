@@ -1,10 +1,11 @@
 import { Post } from "@/types";
+import { Database } from "@/types/database.types";
 import { createClient } from "@supabase/supabase-js";
 
-export const supabase = createClient(
+export const supabase = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-); //NOTE - zusstand로 처리하고 지울 것
+); //NOTE - 희철님 모듈 사용할 것(server)
 
 export const selectPost = async (id: string) => {
   const { data, error } = await supabase
@@ -17,10 +18,10 @@ export const selectPost = async (id: string) => {
 
   if (error) {
     console.log(error); //NOTE - 테스트 코드
-    return { status: "fail", result: error };
+    return { status: "fail", result: error } as const;
   }
   console.log(data); //NOTE - 테스트 코드
-  return { status: "success", result: data };
+  return { status: "success", result: data } as const;
 };
 
 export const updatePost = async (id: string, newPost: Post) => {

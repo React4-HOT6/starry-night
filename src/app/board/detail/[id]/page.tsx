@@ -1,6 +1,5 @@
 "use client";
 import { Thumbnails } from "@/components/write/Thumbnails";
-import { supabase } from "@/libs/utils/api/supabase/commentAPI";
 import { selectPost } from "@/libs/utils/api/supabase/postAPI";
 import { Post } from "@/types";
 import { calcLength } from "framer-motion";
@@ -12,6 +11,7 @@ const DetailPage = () => {
   const [imagesSrc, setImagesSrc]: any = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [readMode, setReadMode] = useState(true);
 
   const onImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) {
@@ -45,6 +45,8 @@ const DetailPage = () => {
       const response = await selectPost(id!);
       if (response.status === "success") {
         const post = response.result;
+        setTitle(post.title);
+        setContent(post.content);
       } else {
         console.log("데이터 불러오기 실패");
       }
@@ -69,6 +71,7 @@ const DetailPage = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           maxLength={50}
+          readOnly={readMode}
         />
         <select className="select select-bordered w-full max-w-xs text-black">
           <option disabled selected>
@@ -94,11 +97,12 @@ const DetailPage = () => {
           onChange={(e) => setContent(e.target.value)}
           rows={50}
           maxLength={500}
+          readOnly={readMode}
         ></textarea>
         <section className="flex flex-col justify-start gap-5">
           <input
             type="file"
-            className="file-input file-input-bordered w-full max-w-xs"
+            className="file-input file-input-bordered w-full max-w-xs none"
             accept="image/*"
             multiple
             onChange={(e) => onImageUpload(e)}
