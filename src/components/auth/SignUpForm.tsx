@@ -1,6 +1,6 @@
 "use client";
 
-import { createClient } from "@/libs/supabase/client";
+import { supabase } from "@/libs/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -11,8 +11,6 @@ const SignUpForm = () => {
     nickname: "",
     birth: "",
   });
-
-  const supabase = createClient();
 
   const router = useRouter();
 

@@ -1,3 +1,4 @@
+import { supabase } from "@/libs/supabase/client";
 import { Post } from "@/types";
 import { Database } from "@/types/database.types";
 import { createClient } from "@supabase/supabase-js";

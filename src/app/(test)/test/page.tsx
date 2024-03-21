@@ -1,15 +1,10 @@
 "use client";
 
+import { supabase } from "@/libs/supabase/client";
 import { Comment, Post } from "@/types";
-import { createClient } from "@supabase/supabase-js";
 import { ChangeEvent, useEffect } from "react";
 
 export default function Test() {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string
-  );
-
   const uploadImage = async (image: File, path: string) => {
     const { data, error } = await supabase.storage
       .from("images")
