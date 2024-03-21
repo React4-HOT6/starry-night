@@ -1,7 +1,9 @@
 import StarSignContainer from "@/components/starsign/StarSignContainer";
-const StarSignPage = async () => {
+import { Meteors } from "@/components/ui/meteors";
+const StarSignPage = () => {
   return (
     <div className=" flex justify-center items-center  ">
+      <Meteors />
       <StarSignContainer />
     </div>
   );
