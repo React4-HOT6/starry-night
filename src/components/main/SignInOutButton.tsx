@@ -26,7 +26,7 @@ const SignInOutButton = () => {
       ) : (
         <div className="flex gap-2 m-2">
           <Link
-            href="/signin"
+            href="/"
             className="min-h-6 btn btn-outline tracking-widest font-bold hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200 px-8 h-10 min-h-6"
           >
             글작성
