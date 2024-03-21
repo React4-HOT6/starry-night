@@ -1,6 +1,5 @@
 "use client";
 
-import { createClient } from "@/libs/supabase/client";
 import { useEffect } from "react";
 import { Fortune } from "@/types";
 import { FortunePinContainer } from "@/components/fortune/fortuneContainer";
@@ -8,9 +7,9 @@ import { useState } from "react";
 import { Meteors } from "@/components/fortune/fortuneContainer";
 import { getUserBirth } from "@/components/fortune/GetUserBirth";
 import { calculateBirthZodiac } from "@/components/fortune/BirthZodiac";
+import { supabase } from "@/libs/supabase/client";
 
 const FortunePage = () => {
-  const supabase = createClient();
   const [selectedFortune, setSelectedFortune] = useState<Fortune | null>(null);
 
   const fetchTableData = async () => {
