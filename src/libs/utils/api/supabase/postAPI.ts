@@ -1,5 +1,5 @@
-import { supabase } from "@/libs/supabase/client";
 import { Post } from "@/types";
+import { supabase } from "@/libs/supabase/client";
 
 export const selectPost = async (id: string) => {
   const { data, error } = await supabase
@@ -7,14 +7,15 @@ export const selectPost = async (id: string) => {
     .select(
       "title, content, created_at, images, category, user_id, avatar, birthday, nickname, comments(created_at, content, avatar, nickname)"
     )
-    .eq("id", id);
+    .eq("id", id)
+    .single();
 
   if (error) {
     console.log(error); //NOTE - 테스트 코드
-    return false;
+    return { status: "fail", result: error } as const;
   }
   console.log(data); //NOTE - 테스트 코드
-  return data;
+  return { status: "success", result: data } as const;
 };
 
 export const updatePost = async (id: string, newPost: Post) => {
