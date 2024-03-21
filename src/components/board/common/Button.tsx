@@ -18,6 +18,7 @@ export const Button = ({
 
     case "목록":
     case "취소":
+    case "X":
       className = "btn btn-accent";
       break;
     default:

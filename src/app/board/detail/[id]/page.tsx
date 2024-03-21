@@ -23,7 +23,9 @@ const DetailPage = () => {
   const [imagesFile, setImagesFile] = useState<File[]>([]);
   const [comments, setComments] = useState<Comment[]>([]);
   const [userId, setUserId] = useState<string>("");
+  const [postUserId, setPostUserId] = useState<string>("");
   const [readMode, setReadMode] = useState(true);
+  const [isPermitted, setIsPermitted] = useState<boolean>(false);
 
   const getParamId = (url: string) => {
     const params = url.split("/");
@@ -103,6 +105,8 @@ const DetailPage = () => {
       setAvatar(post.avatar);
       setComments(post.comments);
       setUserId(userUuid);
+      setPostUserId(post.user_id);
+      setIsPermitted(userId === postUserId);
     };
     test();
   }, []);
@@ -178,10 +182,12 @@ const DetailPage = () => {
       <div className="flex flex-col m-4 w-full justify-center gap-y-5">
         <section className="flex flex-row justify-start gap-x-5"></section>
         {comments.map((comment, index) => (
-          <p
-            className="text-black bg-white rounded-lg p-1"
-            key={index}
-          >{`닉네임 : ${comment.nickname} | 내용 : ${comment.content} | 날짜 : ${comment.created_at}`}</p>
+          <div key={index} className="flex flex-row justify-start gap-x-5">
+            <p key={index} className="text-black bg-white rounded-lg p-2 m-1">
+              {`닉네임 : ${comment.nickname} | 내용 : ${comment.content} | 날짜 : ${comment.created_at}`}
+            </p>
+            <Button onClick={() => alert("hahaha")}>X</Button>
+          </div>
         ))}
       </div>
     </main>
