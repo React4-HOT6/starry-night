@@ -2,7 +2,6 @@
 
 import useModalStore from "@/store/store";
 import React, { PropsWithChildren } from "react";
-
 const Modal: React.FC<PropsWithChildren> = ({ children }) => {
   const { toggleModal } = useModalStore();
   const onClickStarsign = () => {
@@ -16,7 +15,7 @@ const Modal: React.FC<PropsWithChildren> = ({ children }) => {
           {children}
           <div className="modal-action flex justify-center items-center">
             <form method="dialog">
-              <button onClick={onClickStarsign} className="btn">
+              <button onClick={onClickStarsign} className="btn btn-primary">
                 뒤로가기
               </button>
             </form>

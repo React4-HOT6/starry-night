@@ -22,7 +22,7 @@ const StarSignForm = () => {
   return (
     <>
       {isModalOpen ? (
-        //state로 공용 모달 사용
+        //공용 모달을 이용하기위해 children 사용
         <Modal>
           <h3 className="font-bold text-lg">{starSignData?.star_sign_name}</h3>
           <p className="py-4">{starSignData?.star_sign_description}</p>

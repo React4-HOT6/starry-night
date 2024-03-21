@@ -1,7 +1,6 @@
 import { getStarSign } from "@/libs/supabase/getstarsign";
 import useModalStore from "@/store/store";
 import Image, { StaticImageData } from "next/image";
-
 type StarSignComponentProps = {
   src: StaticImageData;
   name: string;
@@ -30,13 +29,15 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
   };
 
   return (
-    <div
-      onClick={onClickStarsign}
-      className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[80px] h-[80] flex justify-center items-center"
-    >
-      <Image src={src} alt={name} width={80} height={80} />
-      <p className="text-white">{name}</p>
-    </div>
+    <>
+      <div
+        onClick={onClickStarsign}
+        className="ml-6 transform hover:scale-125 flex-col transition-transform duration-300 w-[80px] h-[80] flex justify-center items-center"
+      >
+        <Image src={src} alt={name} width={80} height={80} />
+        <p className="text-white">{name}</p>
+      </div>
+    </>
   );
 };
 
