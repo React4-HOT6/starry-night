@@ -1,15 +1,14 @@
 "use client";
+import { SelectCategory } from "@/components/write/SelectCategory";
 import { Thumbnails } from "@/components/write/Thumbnails";
 import { selectPost } from "@/libs/utils/api/supabase/postAPI";
-import { Post } from "@/types";
-import { calcLength } from "framer-motion";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 
 const DetailPage = () => {
   const url = usePathname();
-  const [imagesSrc, setImagesSrc]: any = useState([]);
+  const [imagesSrc, setImagesSrc] = useState<string[]>([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
@@ -68,6 +67,7 @@ const DetailPage = () => {
   //NOTE - 카테고리 선택은 드롭박스로 넣기
   //NOTE - 이미지 로딩 중일 때 이미지 구현하기
   //NOTE - 이미지 선택 초기화 기능
+  //NOTE - 아바타 클릭하면 계정 정보 모달창 띄우기
   return (
     <main className="flex flex-col justify-center mx-auto w-2/3">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">
@@ -80,28 +80,13 @@ const DetailPage = () => {
           maxLength={50}
           readOnly={readMode}
         />
-        <section className="flex flex-row"></section>
-        <p className="text-black bg-white rounded-lg p-1 text-right">
-          {`${category} | ${date}`}
-        </p>
-        <Image src={avatar} width={50} height={50} alt="이미지 없음"></Image>
-        <select className="select select-bordered w-full max-w-xs text-black">
-          <option disabled selected>
-            별자리 선택
-          </option>
-          <option>♈양자리</option>
-          <option>♉황소자리</option>
-          <option>♊쌍둥이자리</option>
-          <option>♋게자리</option>
-          <option>♌사자자리</option>
-          <option>♍처녀자리</option>
-          <option>♎천칭자리</option>
-          <option>♏전갈자리</option>
-          <option>♐궁수자리</option>
-          <option>♑염소자리</option>
-          <option>♒물병자리</option>
-          <option>♓물고기자리</option>
-        </select>
+        <section className="flex flex-row justify-end bg">
+          <p className="text-black bg-white rounded-lg p-1 text-right">
+            {`${category} | ${date}`}
+          </p>
+          <Image src={avatar} width={50} height={50} alt="이미지 없음"></Image>
+        </section>
+        {!readMode && <SelectCategory setCategory={setCategory} />}
         <textarea
           className="textarea textarea-bordered resize-none h-80 font-bold text-black "
           placeholder="본문을 입력하세요."
@@ -111,16 +96,9 @@ const DetailPage = () => {
           maxLength={500}
           readOnly={readMode}
         ></textarea>
-        <section className="flex flex-col justify-start gap-5">
-          <input
-            type="file"
-            className="file-input file-input-bordered w-full max-w-xs none"
-            accept="image/*"
-            multiple
-            onChange={(e) => onImageUpload(e)}
-          />
-          {imagesSrc.length > 0 && <Thumbnails imagesSrc={imagesSrc} />}
-        </section>
+        {!readMode && (
+          <Thumbnails imagesSrc={imagesSrc} setImagesSrc={setImagesSrc} />
+        )}
       </form>
     </main>
   );
