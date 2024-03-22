@@ -1,5 +1,6 @@
 import React from "react";
-interface ProfileSectionProps {
+
+type ProfileSectionProps = {
   avatarUrl: string;
   handleAvatarChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isEdited: boolean;
@@ -9,8 +10,8 @@ interface ProfileSectionProps {
   birth: string;
   email: string;
   updateProfile: () => Promise<void>;
-}
-const Profile: React.FC<ProfileSectionProps> = ({
+};
+const ProfileSection: React.FC<ProfileSectionProps> = ({
   avatarUrl,
   handleAvatarChange,
   isEdited,
@@ -22,7 +23,7 @@ const Profile: React.FC<ProfileSectionProps> = ({
   handleEdit,
 }) => {
   return (
-    <div className="w-1/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg">
+    <div className="w-80 md:w-1/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg">
       <div className="px-10 pt-10">
         <label htmlFor="fileInput" className="flex justify-center items-center">
           <img
@@ -51,7 +52,9 @@ const Profile: React.FC<ProfileSectionProps> = ({
             className="mt-4 border-b-2 border-info bg-black bg-opacity-50 font-medium text-lg"
           />
         ) : (
-          <h2 className="mt-4 font-medium text-lg">{nickname}</h2>
+          <h2 className="mt-4 font-medium text-lg word-wrap break-words">
+            {nickname}
+          </h2>
         )}
         <h2 className="mt-8 font-bold text-lg">{birth}</h2>
         <div className="mt-48 flex justify-center gap-4">
@@ -78,4 +81,4 @@ const Profile: React.FC<ProfileSectionProps> = ({
   );
 };
 
-export default Profile;
+export default ProfileSection;

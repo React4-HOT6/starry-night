@@ -4,7 +4,7 @@ import { Tables } from "@/types/database.types";
 type Board = Tables<"board">;
 const PostSection = ({ userPosts }: { userPosts: Board[] }) => {
   return (
-    <div className="w-10/12 h-5/6 bg-black bg-opacity-50 shadow-xl p-6 m-4 rounded-lg">
+    <>
       <div className="p-3">
         <h2 className="font-bold text-lg">내 게시글 보기</h2>
         <HoverEffect
@@ -15,11 +15,11 @@ const PostSection = ({ userPosts }: { userPosts: Board[] }) => {
           }))}
         />
       </div>
-      <div className="p-3">
+      {/* <div className="p-3">
         <h2 className="font-bold text-lg">❤️ 좋아요 목록 보기</h2>
         <p>hi</p>
-      </div>
-    </div>
+      </div> */}
+    </>
   );
 };
 

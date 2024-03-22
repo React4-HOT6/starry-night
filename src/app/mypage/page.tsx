@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { supabase } from "@/libs/supabase/client";
 import { Tables } from "@/types/database.types";
 import { calculateBirthZodiac } from "@/components/fortune/BirthZodiac";
-import Profile from "@/components/mypage/Profile";
+import ProfileSection from "@/components/mypage/ProfileSection";
 import PostSection from "@/components/mypage/PostSection";
 type Board = Tables<"board">;
 const MyPage = () => {
@@ -42,15 +42,10 @@ const MyPage = () => {
         avatarUrl = "/default_img.png";
       } else {
         // 프로필 이미지가 없을 경우 기본 이미지 URL 설정
+
         avatarUrl = URL.createObjectURL(avatarResponse.data);
       }
-      const img = new Image();
-      img.src = avatarUrl;
-
-      img.onload = () => {
-        setAvatarUrl(avatarUrl);
-      };
-      // setAvatarUrl(avatarUrl);
+      setAvatarUrl(avatarUrl);
 
       if (user && user.id) {
         const { data: posts } = await supabase
@@ -74,6 +69,10 @@ const MyPage = () => {
         data: { user },
       } = await supabase.auth.getUser(); // 사용자 정보 다시 가져오기
       const userId = user?.id;
+      if (!avatarFile && nickname === user?.user_metadata.nickname) {
+        alert("변경사항이 없다");
+        return;
+      }
       const { data, error } = await supabase.storage
         .from("profileAvatars")
         .upload(`${userId}/avatar.png`, avatarFile!, {
@@ -84,22 +83,23 @@ const MyPage = () => {
       if (error) throw error;
       const avatarUrl = data.path; // 업로드된 파일의 경로
       setAvatarUrl(avatarUrl); // 프로필 이미지 URL로 설정
-      // setIsAvatarUploaded(true);
+
       const { error: nicknameError } = await supabase.auth.updateUser({
         data: {
           nickname,
         },
       });
       if (nicknameError) throw nicknameError;
+
       console.log("Profile updated successfully!");
       setIsEdited(false);
       //프로필 업데이트하고 다시 불러오기..
+
       fetchPostsAndProfile();
     } catch (error) {
       console.error("Error updating profile:", error);
     }
   };
-
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -117,7 +117,7 @@ const MyPage = () => {
         <span className="loading loading-dots loading-lg"></span>
       ) : (
         <div className="w-[1200px] flex justify-center items-center h-full">
-          <Profile
+          <ProfileSection
             avatarUrl={avatarUrl}
             handleAvatarChange={handleAvatarChange}
             isEdited={isEdited}
@@ -128,7 +128,9 @@ const MyPage = () => {
             email={email}
             updateProfile={updateProfile}
           />
-          <PostSection userPosts={userPosts} />
+          <div className="hidden md:block w-2/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg">
+            <PostSection userPosts={userPosts} />
+          </div>
         </div>
       )}
     </div>

@@ -38,8 +38,8 @@ const FortunePage = () => {
   }, []);
 
   return (
-    <div className="relative">
-      <div className="flex justify-center items-center h-screen ">
+    <div className="">
+      <div className="flex w-full justify-center items-center h-screen ">
         {selectedFortune && (
           <FortunePinContainer imageUrl={selectedFortune.imgUrl}>
             <div className="p-8 bg-black bg-opacity-50 rounded-lg shadow-md w-[550px]">
