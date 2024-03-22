@@ -73,16 +73,20 @@ const MyPage = () => {
         alert("변경사항이 없다");
         return;
       }
-      const { data, error } = await supabase.storage
-        .from("profileAvatars")
-        .upload(`${userId}/avatar.png`, avatarFile!, {
-          cacheControl: "3600",
-          upsert: true,
-        });
+      let newAvatarUrl = avatarUrl; // 기존 아바타 URL 사용
 
-      if (error) throw error;
-      const avatarUrl = data.path; // 업로드된 파일의 경로
-      setAvatarUrl(avatarUrl); // 프로필 이미지 URL로 설정
+      // 아바타 변경이 있을 경우에만 업로드 처리
+      if (avatarFile) {
+        const { data, error } = await supabase.storage
+          .from("profileAvatars")
+          .upload(`${userId}/avatar.png`, avatarFile!, {
+            upsert: true,
+          });
+
+        if (error) throw error;
+        newAvatarUrl = data.path; // 새로운 아바타 URL 저장
+      }
+      setAvatarUrl(newAvatarUrl); // 프로필 이미지 URL로 설정
 
       const { error: nicknameError } = await supabase.auth.updateUser({
         data: {
