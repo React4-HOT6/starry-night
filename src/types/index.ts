@@ -34,6 +34,11 @@ export type TypingAnimationProps = {
   speed?: number;
 };
 
+export interface SignInOutButtonType {
+  isSignIn: boolean;
+  onClickLogout: () => void;
+}
+
 const Zodiac = {
   aries: "양자리",
   taurus: "황소자리",
