@@ -1,10 +1,36 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SignInOutButton from "@/components/main/SignInOutButton";
-import Image from "next/image";
-import logo from "@/assets/logo.png";
+import { supabase } from "@/libs/supabase/client";
+import { SignInOutButtonType } from "@/types";
 
 const Header = () => {
+  const [isSignIn, setIsSignIn] = useState<boolean>(false);
+
+  const onClickLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
+  useEffect(() => {
+    // 인증 상태 변화를 확인
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setIsSignIn(!!session?.user);
+      }
+    );
+
+    // 현재 세션을 확인하여 로그인 상태 설정
+    const checkSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setIsSignIn(!!session?.user);
+    };
+    checkSession();
+  }, []);
+
   return (
     <div className="navbar fixed z-50 w-full top-0 bg-zinc-950 justify-between">
       <div className="navbar-start">
@@ -81,7 +107,7 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end hidden lg:flex">
-        <SignInOutButton />
+        <SignInOutButton isSignIn={isSignIn} onClickLogout={onClickLogout} />
       </div>
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -96,21 +122,40 @@ const Header = () => {
             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
           </svg>
         </div>
-        <ul
-          tabIndex={0}
-          className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-zinc-950 rounded-box w-52"
-        >
-          <li>
-            <Link href="/signin" className="tracking-widest">
-              SIGN IN
-            </Link>
-          </li>
-          <li>
-            <Link href="/signup" className="tracking-widest">
-              SIGN UP
-            </Link>
-          </li>
-        </ul>
+        {/* 로그인 상태에 따라 버튼 변경 */}
+        {isSignIn ? (
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-zinc-950 rounded-box w-52"
+          >
+            <li>
+              <Link href="/" className="tracking-widest">
+                글작성
+              </Link>
+            </li>
+            <li>
+              <button onClick={onClickLogout} className="tracking-widest">
+                LOGOUT
+              </button>
+            </li>
+          </ul>
+        ) : (
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-zinc-950 rounded-box w-52"
+          >
+            <li>
+              <Link href="/signin" className="tracking-widest">
+                SIGN IN
+              </Link>
+            </li>
+            <li>
+              <Link href="/signup" className="tracking-widest">
+                SIGN UP
+              </Link>
+            </li>
+          </ul>
+        )}
       </div>
     </div>
   );
