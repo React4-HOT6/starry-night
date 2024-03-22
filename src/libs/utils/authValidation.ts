@@ -16,7 +16,7 @@ export const authValidation = (name: string, value: string): boolean => {
     case "birth":
       const [yyyy, mm, dd] = value.split("-");
       if (yyyy?.length === 4 && mm?.length === 2 && dd?.length === 2) {
-        return new Date(value).toLocaleString().split(". ")[2] === dd;
+        return new Date(value).toString().split(". ")[2] === dd;
       } else {
         return false;
       }
