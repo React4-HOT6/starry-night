@@ -32,7 +32,7 @@ const config: Config = {
         },
       },
       maxWidth: {
-        customMax: "1200px",
+        customMax: "12800px",
       },
       backgroundImage: {
         main: "url('../../public/mainBackground.jpg')",
