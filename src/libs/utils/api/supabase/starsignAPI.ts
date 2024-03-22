@@ -1,9 +1,7 @@
 import { StarSignData } from "@/store/store";
 import { supabase } from "../../../supabase/client";
 
-export const getStarSign = async (
-  id: number | undefined
-): Promise<StarSignData | null> => {
+export const getStarSign = async (id: number): Promise<StarSignData | null> => {
   let { data, error } = await supabase
     .from("starsign")
     .select("*")
