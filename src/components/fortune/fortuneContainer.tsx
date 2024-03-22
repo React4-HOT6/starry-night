@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/libs/utils/cn";
-import clsx from "clsx";
 
 export const FortunePinContainer = ({
   children,
@@ -12,7 +11,7 @@ export const FortunePinContainer = ({
   containerClassName,
 }: {
   children: React.ReactNode;
-  imageUrl?: string;
+  imageUrl: string | null;
   href?: string;
   className?: string;
   containerClassName?: string;
@@ -61,7 +60,7 @@ export const FortunePinContainer = ({
 export const PinPerspective = ({
   imageUrl,
 }: {
-  imageUrl?: string;
+  imageUrl: string | null;
   href?: string;
 }) => {
   return (

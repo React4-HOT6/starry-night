@@ -1,12 +1,12 @@
 export type Fortune = {
+  horoscope_every: string | null;
+  horoscope_love: string | null;
+  horoscope_money: string | null;
   id: number;
-  name: string;
-  month: string;
-  personality: string;
-  horoscope_every: string;
-  horoscope_love: string;
-  horoscope_money: string;
-  imgUrl: string;
+  imgUrl: string | undefined;
+  month: string | null;
+  name: string | null;
+  personality: string | null;
 };
 export type Post = {
   category?: ZodiacType;
@@ -52,5 +52,16 @@ const Zodiac = {
   aquarius: "물병자리",
   pisces: "물고기자리",
 };
-
+export type Board = {
+  avatar: string;
+  birthday: string;
+  category: string;
+  content: string;
+  created_at: string;
+  id: string;
+  images: string | null;
+  nickname: string;
+  title: string;
+  user_id: string;
+};
 type ZodiacType = (typeof Zodiac)[keyof typeof Zodiac];
