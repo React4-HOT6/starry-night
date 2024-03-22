@@ -55,36 +55,39 @@ const DetailPage = () => {
   };
 
   const getUploadedImagePath = async (file: File, path: string) => {
+    //NOTE - supabase 실패할 경우 구현할 것
     const response = await uploadImage(file, path);
-    if (response.status === "success") {
-      const imageSrc = response.result;
-      const fullPath =
-        process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL + imageSrc.path;
+    if (response.status === "fail") {
+      return;
     }
+    const imageSrc = response.result;
+    const fullPath =
+      process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL + imageSrc.path;
+    return fullPath;
   };
-
+  const getUploadedImagesPath = async (id: string) => {
+    let imagesPath: string[] = [];
+    imagesFile.forEach(async (file) => {
+      const imagePath = getImagePath(id!, file);
+      const uploadedImagePath = await getUploadedImagePath(file, imagePath);
+      imagesPath.push(uploadedImagePath!);
+    });
+  };
   const onConfirm = async (e: MouseEvent) => {
     e.preventDefault();
+    setImagesSrc([]);
     const id = getParamId(url);
     const date = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
     let images: string[] = [];
 
-    imagesFile.forEach(async (file) => {
-      const path = getImagePath(id!, file);
-      const response = await uploadImage(file, path);
-      if (response.status === "success") {
-        const imageSrc = response.result;
-        const fullPath =
-          process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL + imageSrc.path;
-        console.log("풀패스", fullPath);
-        images.push(fullPath);
-        console.log("중간", images);
-      }
-    });
-
+    // imagesFile.forEach(async (file) => {
+    //   const imagePath = getImagePath(id!, file);
+    //   const uploadedImagePath = await getUploadedImagePath(file, imagePath);
+    //   setImagesSrc((prev) => [...prev, uploadedImagePath!]);
+    // });
+    console.log(imagesSrc);
     // images.forEach((image) => (inputImages += image.concat(" ")));
     // inputImages = inputImages.trim();
-    images.forEach((image, index) => console.log("?"));
     // const response = await updatePost(id!, {
     //   title,
     //   category,
