@@ -23,7 +23,6 @@ const DetailPage = () => {
   const [imagesFile, setImagesFile] = useState<File[]>([]);
   const [comments, setComments] = useState<Comment[]>([]);
   const [userId, setUserId] = useState<string>("");
-  const [postUserId, setPostUserId] = useState<string>("");
   const [readMode, setReadMode] = useState(true);
   const [isPermitted, setIsPermitted] = useState<boolean>(false);
 
@@ -35,6 +34,9 @@ const DetailPage = () => {
 
   const onEdit = async (e: MouseEvent) => {
     e.preventDefault();
+    if (isPermitted) {
+      return alert("자신의 글만 수정할 수 있습니다.");
+    }
     setReadMode(false);
   };
 
@@ -47,7 +49,8 @@ const DetailPage = () => {
     e.preventDefault();
     const id = getParamId(url);
     const date = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
-    let images = "";
+    // let images = "";
+    let images: string[] = [];
     setImagesSrc([]);
     // let imagesSrc = "";
     // images.forEach((image) => (imagesSrc += image.concat(" ")));
@@ -59,10 +62,12 @@ const DetailPage = () => {
         const imageSrc = response.result;
         const fullPath =
           process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL + imageSrc.path;
-        images += fullPath.concat(" ");
+        // images += fullPath.concat(" ");
+        images.push(fullPath);
+        ("blob:");
       }
     });
-    images = images.trim();
+    // images = images.trim();
     console.log("전체경로", images); //NOTE - 안 나옴 inmagesSrc로 하면 앞에 blob:이 붙음
     // const response = await updatePost(id!, {
     //   title,
@@ -105,8 +110,7 @@ const DetailPage = () => {
       setAvatar(post.avatar);
       setComments(post.comments);
       setUserId(userUuid);
-      setPostUserId(post.user_id);
-      setIsPermitted(userId === postUserId);
+      setIsPermitted(userId === post.user_id);
     };
     test();
   }, []);
@@ -186,7 +190,7 @@ const DetailPage = () => {
             <p key={index} className="text-black bg-white rounded-lg p-2 m-1">
               {`닉네임 : ${comment.nickname} | 내용 : ${comment.content} | 날짜 : ${comment.created_at}`}
             </p>
-            <Button onClick={() => alert("hahaha")}>X</Button>
+            {!readMode && <Button onClick={() => alert("hahaha")}>X</Button>}
           </div>
         ))}
       </div>

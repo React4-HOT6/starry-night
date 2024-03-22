@@ -23,7 +23,7 @@ export const ImagesCarousel = ({
               key={index}
               src={image}
               quality={100}
-              alt="이미지를 불러 올 수 없습니다."
+              alt="이미지를 불러 올 수 없습니다." //FIXME - 어떤 이미지인지 구별할 수 있도록 작성 (이미지 대체 텍스트),next 이미지 다루는 법 공부
             ></Image>
           </div>
 
