@@ -34,7 +34,7 @@ const TypingAnimation: React.FC<TypingAnimationProps> = ({ speed = 150 }) => {
       const timer = setTimeout(() => {
         setTypingTextIndex((prev) => prev + 1);
       }, 700); // 1초 후 다음 텍스트로 넘어감
-      if (typingTextIndex === 3) {
+      if (typingTextIndex === texts.length - 1) {
         clearTimeout(timer);
       }
       return () => clearTimeout(timer);
