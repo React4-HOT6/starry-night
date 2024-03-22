@@ -13,7 +13,7 @@ type Store = {
   toggleModal: () => void;
   starSignData: StarSignData | null;
   setStarSignData: (data: StarSignData | null) => void;
-  //ReactNode는 랜더링 할  수 있는 모든 것을 나타냅니당
+  //ReactNode는 랜더링 할  수 있는 모든 것을 나타냅니ek.
   modalData: ReactNode;
   setModalData: (data: ReactNode | null) => void;
   BtnData: ReactNode;

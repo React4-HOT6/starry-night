@@ -42,7 +42,7 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
       );
       setBtnData(
         <button onClick={onClickModalBtn} className="btn btn-primary">
-          뒤로가기
+          창닫기
         </button>
       );
       toggleModal();
@@ -55,13 +55,14 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
     <>
       <div
         onClick={onClickStarsign}
-        className="ml-6 animate-float transform cursor-pointer flex-col transition-transform duration-300 w-[120px] h-auto flex justify-center items-center"
+        className=" animate-float transform cursor-pointer flex-col transition-transform duration-300 w-[120px] h-auto flex justify-center items-center"
       >
+        {/* px => rem 단위로 */}
         <Image
           src={src}
           priority
           alt={name}
-          style={{ width: "120px", height: "auto" }}
+          style={{ width: "4rem", height: "auto" }}
         />
         <p className="text-white">{name}</p>
       </div>
