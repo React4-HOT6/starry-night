@@ -45,30 +45,46 @@ const DetailPage = () => {
     router.push("/board");
   };
 
+  const getImagePath = (id: string, file: File) => {
+    const fileLength = file.name.length;
+    const lastDotIndex = file.name.lastIndexOf(".");
+    const fileExt = file.name.substring(lastDotIndex + 1, fileLength);
+    const path = `posts/${id}/${crypto.randomUUID()}.${fileExt}`;
+
+    return path;
+  };
+
+  const getUploadedImagePath = async (file: File, path: string) => {
+    const response = await uploadImage(file, path);
+    if (response.status === "success") {
+      const imageSrc = response.result;
+      const fullPath =
+        process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL + imageSrc.path;
+    }
+  };
+
   const onConfirm = async (e: MouseEvent) => {
     e.preventDefault();
     const id = getParamId(url);
     const date = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
-    // let images = "";
     let images: string[] = [];
-    setImagesSrc([]);
-    // let imagesSrc = "";
-    // images.forEach((image) => (imagesSrc += image.concat(" ")));
-    // imagesSrc = imagesSrc.trim();
-    imagesFile.forEach(async (file, index) => {
-      const path = `posts/${id}/${imagesFile[index].name}`; //NOTE - uuid로 바꾸기
+
+    imagesFile.forEach(async (file) => {
+      const path = getImagePath(id!, file);
       const response = await uploadImage(file, path);
       if (response.status === "success") {
         const imageSrc = response.result;
         const fullPath =
           process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL + imageSrc.path;
-        // images += fullPath.concat(" ");
+        console.log("풀패스", fullPath);
         images.push(fullPath);
-        ("blob:");
+        console.log("중간", images);
       }
     });
-    // images = images.trim();
-    console.log("전체경로", images); //NOTE - 안 나옴 inmagesSrc로 하면 앞에 blob:이 붙음
+
+    // images.forEach((image) => (inputImages += image.concat(" ")));
+    // inputImages = inputImages.trim();
+    images.forEach((image, index) => console.log("?"));
     // const response = await updatePost(id!, {
     //   title,
     //   category,
@@ -183,7 +199,7 @@ const DetailPage = () => {
           </section>
         )}
       </form>
-      <div className="flex flex-col m-4 w-full justify-center gap-y-5">
+      {/* <div className="flex flex-col m-4 w-full justify-center gap-y-5">
         <section className="flex flex-row justify-start gap-x-5"></section>
         {comments.map((comment, index) => (
           <div key={index} className="flex flex-row justify-start gap-x-5">
@@ -193,7 +209,7 @@ const DetailPage = () => {
             {!readMode && <Button onClick={() => alert("hahaha")}>X</Button>}
           </div>
         ))}
-      </div>
+      </div> */}
     </main>
   );
 };
