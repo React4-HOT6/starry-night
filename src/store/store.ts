@@ -20,7 +20,7 @@ type Store = {
   setBtnData: (data: ReactNode | null) => void;
 };
 
-const useModalStore = create<Store>((set) => ({
+const useStore = create<Store>((set) => ({
   //초기값 설정
   isModalOpen: false,
   starSignData: null,
@@ -36,4 +36,4 @@ const useModalStore = create<Store>((set) => ({
   setBtnData: (data) => set(() => ({ BtnData: data })),
 }));
 
-export default useModalStore;
+export default useStore;

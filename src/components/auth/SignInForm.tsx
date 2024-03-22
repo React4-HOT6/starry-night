@@ -1,21 +1,42 @@
 "use client";
 
 import { supabase } from "@/libs/supabase/client";
+import clsx from "clsx";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { authValidation } from "@/libs/utils/authValidation";
+
 const SignInForm = () => {
   const [formData, setFormData] = useState({ userId: "", password: "" });
+  const [isValidate, setIsValidate] = useState({
+    userId: false,
+    password: false,
+  });
+  const [isErrorShow, setIsErrorShow] = useState(false);
+  const [isErrorSignIn, setIsErrorSignIn] = useState(false);
 
   const router = useRouter();
 
   const onChangeFormData = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setIsValidate((prev) => ({ ...prev, [name]: authValidation(name, value) }));
   };
 
   const onSubmitFormData = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const allValidate = Object.values(isValidate).every(
+      (isTrue) => isTrue === true
+    );
+
+    if (!allValidate) {
+      setIsErrorShow(true);
+      return;
+    }
+
     try {
       const {
         data: { session },
@@ -25,6 +46,8 @@ const SignInForm = () => {
       });
       if (session) {
         router.push("/");
+      } else {
+        setIsErrorSignIn(true);
       }
     } catch (error) {
       console.error("에러: ", error);
@@ -36,21 +59,60 @@ const SignInForm = () => {
       className="flex flex-col justify-center items-center w-full"
       onSubmit={onSubmitFormData}
     >
-      <input
-        type="email"
-        name="userId"
-        className="p-4 mb-4 w-full border rounded-2xl bg-white/30 text-sm"
-        placeholder="ID"
-        onChange={onChangeFormData}
-      />
-      <input
-        type="password"
-        name="password"
-        className="p-4 mb-4 w-full border rounded-2xl bg-white/30 text-sm"
-        placeholder="PassWord"
-        onChange={onChangeFormData}
-      />
-      <button className="btn btn-primary">Sign In</button>
+      <label className="form-control mb-3 w-full max-w-xs">
+        <input
+          type="email"
+          name="userId"
+          className={clsx(
+            "input input-bordered w-full max-w-xs bg-white/30 text-sm",
+            { "input-error": isErrorShow && isValidate.userId === false }
+          )}
+          placeholder="ID"
+          onChange={onChangeFormData}
+        />
+        <div className="label">
+          <span
+            className={clsx("label-text-alt text-red-500", {
+              hidden: isValidate.userId || !isErrorShow,
+            })}
+          >
+            E-Mail 형식으로 작성해 주십시오.
+          </span>
+        </div>
+      </label>
+      <label className="form-control mb-3 w-full max-w-xs">
+        <input
+          type="password"
+          name="password"
+          className={clsx(
+            "input input-bordered w-full max-w-xs bg-white/30 text-sm",
+            { "input-error": isErrorShow && isValidate.password === false }
+          )}
+          placeholder="PassWord"
+          onChange={onChangeFormData}
+        />
+        <div className="label">
+          <span
+            className={clsx("label-text-alt text-red-500", {
+              hidden: isValidate.password || !isErrorShow,
+            })}
+          >
+            문자, 숫자, 특수문자 조합으로 8자 이상 작성해 주십시오.
+          </span>
+        </div>
+      </label>
+      <label className="form-control w-full max-w-xs">
+        <div className="flex flex-col label">
+          <span
+            className={clsx("label-text-alt -center text-red-500", {
+              hidden: !isErrorSignIn,
+            })}
+          >
+            등록된 유저 정보와 일치하지 않습니다.
+          </span>
+        </div>
+        <button className="btn btn-primary">Sign In</button>
+      </label>
     </form>
   );
 };
