@@ -1,24 +1,17 @@
 "use client";
 
 import useModalStore from "@/store/store";
-import React, { PropsWithChildren } from "react";
-const Modal: React.FC<PropsWithChildren> = ({ children }) => {
-  const { toggleModal } = useModalStore();
-  const onClickStarsign = () => {
-    toggleModal();
-  };
+import { Meteors } from "./ui/meteors";
+const Modal = () => {
+  const { modalData, BtnData } = useModalStore();
 
   return (
     <>
       <dialog id="my_modal_1" className="modal modal-open">
-        <div className="modal-box ">
-          {children}
+        <div className="modal-box text-black ">
+          {modalData}
           <div className="modal-action flex justify-center items-center">
-            <form method="dialog">
-              <button onClick={onClickStarsign} className="btn btn-primary">
-                뒤로가기
-              </button>
-            </form>
+            <form method="dialog">{BtnData}</form>
           </div>
         </div>
       </dialog>

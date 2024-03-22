@@ -21,8 +21,8 @@ export const Meteors = ({
             className
           )}
           style={{
-            //100%이면 화면을 넘어갑니다. 65가 적절해요
-            top: `${Math.random() * 65}%`,
+            //100%이면 화면을 넘어갑니다.
+            top: `${Math.random() * 60}%`,
             left: `${Math.random() * 65}%`,
             animationDelay: Math.random() * (0.8 - 0.2) + 0.2 + "s",
             animationDuration: Math.floor(Math.random() * (10 - 2) + 2) + "s",

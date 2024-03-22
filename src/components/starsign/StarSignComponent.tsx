@@ -1,4 +1,4 @@
-import { getStarSign } from "@/libs/supabase/getstarsign";
+import { getStarSign } from "@/libs/utils/api/supabase/starsignAPI";
 import useModalStore from "@/store/store";
 import Image, { StaticImageData } from "next/image";
 type StarSignComponentProps = {
@@ -12,7 +12,12 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
   name,
   starSignId,
 }) => {
-  const { toggleModal, setStarSignData } = useModalStore();
+  const { toggleModal, setStarSignData, setModalData, setBtnData } =
+    useModalStore();
+  const onClickModalBtn = () => {
+    toggleModal();
+  };
+
   const onClickStarsign = async () => {
     //supabase data 가져오기
     const data = await getStarSign(starSignId);
@@ -23,6 +28,23 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
         star_sign_description: data?.star_sign_description,
         s_img_url: data?.s_img_url,
       });
+      setModalData(
+        <>
+          <Image
+            src={`${data?.s_img_url}`}
+            alt={`${data?.star_sign_name}`}
+            width={500}
+            height={300}
+          />
+          <h3 className="font-bold text-lg">{data?.star_sign_name}</h3>
+          <p className="py-4">{data?.star_sign_description}</p>
+        </>
+      );
+      setBtnData(
+        <button onClick={onClickModalBtn} className="btn btn-primary">
+          창닫기
+        </button>
+      );
       toggleModal();
     } catch (err) {
       console.log(err);
@@ -33,9 +55,15 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
     <>
       <div
         onClick={onClickStarsign}
-        className="ml-6 animate-float transform cursor-pointer hover:scale-125 flex-col transition-transform duration-300 w-[80px] h-[80] flex justify-center items-center"
+        className=" animate-float transform cursor-pointer flex-col transition-transform duration-300 w-[120px] h-auto flex justify-center items-center"
       >
-        <Image src={src} alt={name} width={80} height={80} />
+        {/* px => rem 단위로 */}
+        <Image
+          src={src}
+          priority
+          alt={name}
+          style={{ width: "4rem", height: "auto" }}
+        />
         <p className="text-white">{name}</p>
       </div>
     </>

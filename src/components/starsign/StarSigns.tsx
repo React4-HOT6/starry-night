@@ -16,48 +16,50 @@ import Virgoimg from "../../../public/starsign/Virgo.svg";
 import StarSignComponent from "./StarSignComponent";
 
 export const Gemini = () => {
-  return <StarSignComponent src={Geminiimg} name="Gemini" starSignId={1} />;
+  return <StarSignComponent src={Geminiimg} name="쌍둥이자리" starSignId={1} />;
 };
 export const Aries = () => {
-  return <StarSignComponent src={Ariesimg} name="Aries" starSignId={2} />;
+  return <StarSignComponent src={Ariesimg} name="양자리" starSignId={2} />;
 };
 export const Taurus = () => {
-  return <StarSignComponent src={Taurusimg} name="Taurus" starSignId={3} />;
+  return <StarSignComponent src={Taurusimg} name="황소자리" starSignId={3} />;
 };
 
 export const Cancer = () => {
-  return <StarSignComponent src={Cancerimg} name="Cancer" starSignId={4} />;
+  return <StarSignComponent src={Cancerimg} name="게자리" starSignId={4} />;
 };
 
 export const Leo = () => {
-  return <StarSignComponent src={Leoimg} name="Leo" starSignId={5} />;
+  return <StarSignComponent src={Leoimg} name="사자자리" starSignId={5} />;
 };
 export const Virgo = () => {
-  return <StarSignComponent src={Virgoimg} name="Virgo" starSignId={6} />;
+  return <StarSignComponent src={Virgoimg} name="처녀자리" starSignId={6} />;
 };
 export const Libra = () => {
-  return <StarSignComponent src={Libraimg} name="Libra" starSignId={7} />;
+  return <StarSignComponent src={Libraimg} name="천칭자리" starSignId={7} />;
 };
 export const Scorpio = () => {
-  return <StarSignComponent src={Scorpioimg} name="Scorpio" starSignId={8} />;
+  return <StarSignComponent src={Scorpioimg} name="전갈자리" starSignId={8} />;
 };
 export const Sagittarius = () => {
   return (
-    <StarSignComponent src={Sagittariusimg} name="Sagittarius" starSignId={9} />
+    <StarSignComponent src={Sagittariusimg} name="궁수자리" starSignId={9} />
   );
 };
 export const Capricorn = () => {
   return (
-    <StarSignComponent src={Capricornimg} name="Capricorn" starSignId={10} />
+    <StarSignComponent src={Capricornimg} name="염소자리" starSignId={10} />
   );
 };
 
 export const Aquarius = () => {
   return (
-    <StarSignComponent src={Aquariusimg} name="Aquarius" starSignId={11} />
+    <StarSignComponent src={Aquariusimg} name="물병자리" starSignId={11} />
   );
 };
 
 export const Pisces = () => {
-  return <StarSignComponent src={Piscesimg} name="Pisces" starSignId={12} />;
+  return (
+    <StarSignComponent src={Piscesimg} name="물고기자리" starSignId={12} />
+  );
 };

@@ -1,5 +1,11 @@
+import { Meteors } from "@/components/ui/meteors";
+
 const BoardPage = () => {
-  return <div>BoardPage</div>;
+  return (
+    <div>
+      <Meteors />
+    </div>
+  );
 };
 
 export default BoardPage;
