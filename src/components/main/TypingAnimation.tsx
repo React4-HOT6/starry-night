@@ -10,7 +10,7 @@ const TypingAnimation: React.FC<TypingAnimationProps> = ({
 }) => {
   const typingText = useTypingAnimation(text, speed);
   return (
-    <div className="flex flex-col justify-center items-center z-50 h-screen max-w-screen-lg m-auto">
+    <div className="flex flex-col justify-center items-center z-50 h-screen max-w-screen-lg m-auto px-5">
       <div className="text-4xl text-center">{typingText}</div>
     </div>
   );
