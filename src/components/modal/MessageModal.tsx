@@ -17,29 +17,31 @@ const MessageModal = ({ type, name, text, func, modalToggle }: ModalProp) => {
           <p className="text-center text-lg">{text}</p>
           <div className="modal-action flex justify-center items-center mt-0">
             <form method="dialog">
-              {type === "confirm" ? (
-                <div className="flex gap-2 mt-2">
+              <div className="flex gap-2 mt-2">
+                {type === "confirm" ? (
+                  <>
+                    <button
+                      className="btn btn-primary px-8 tracking-widest duration-200 h-10 min-h-6"
+                      onClick={func}
+                    >
+                      확인
+                    </button>
+                    <button
+                      className="btn btn-neutral text-black px-8 tracking-widest duration-200 h-10 min-h-6"
+                      onClick={() => modalToggle(false)}
+                    >
+                      취소
+                    </button>
+                  </>
+                ) : (
                   <button
-                    className="btn btn-primary px-8 tracking-widest duration-200 h-10 min-h-6"
-                    onClick={func}
+                    className="text-primary"
+                    onClick={() => modalToggle(false)}
                   >
                     확인
                   </button>
-                  <button
-                    className="btn btn-neutral text-black px-8 tracking-widest duration-200 h-10 min-h-6"
-                    onClick={() => modalToggle(false)}
-                  >
-                    취소
-                  </button>
-                </div>
-              ) : (
-                <button
-                  className="text-primary"
-                  onClick={() => modalToggle(false)}
-                >
-                  확인
-                </button>
-              )}
+                )}
+              </div>
             </form>
           </div>
         </div>
