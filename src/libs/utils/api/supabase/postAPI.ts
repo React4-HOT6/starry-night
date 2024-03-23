@@ -34,7 +34,7 @@ export const updatePost = async (id: string, newPost: Post) => {
   return { status: "success", result: data } as const;
 };
 
-export const insertPost = async (newPost: Post) => {
+export const insertPost = async (newPost: any) => {
   const { data, error } = await supabase
     .from("board")
     .insert(newPost) //NOTE - 이유 찾기
