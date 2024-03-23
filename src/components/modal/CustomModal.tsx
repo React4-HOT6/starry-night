@@ -1,7 +1,7 @@
 "use client";
 
 import useModalStore from "@/store/store";
-import { Meteors } from "./ui/meteors";
+import { Meteors } from "../ui/meteors";
 const Modal = () => {
   const { modalData, BtnData } = useModalStore();
 
