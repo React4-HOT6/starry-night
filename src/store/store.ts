@@ -1,4 +1,3 @@
-import { type } from "os";
 import { ReactNode } from "react";
 import { create } from "zustand";
 
@@ -9,7 +8,7 @@ export type StarSignData = {
   s_img_url: string | null | undefined;
 };
 
-type Store = {
+type ModalStore = {
   isModalOpen: boolean;
   toggleModal: () => void;
   starSignData: StarSignData | null;
@@ -27,7 +26,7 @@ type BoardStore = {
   setSelectedTitle: (title: string | "") => void;
 };
 
-const useStore = create<Store>((set) => ({
+export const useModalStore = create<ModalStore>((set) => ({
   //초기값 설정
   isModalOpen: false,
   starSignData: null,
@@ -42,8 +41,6 @@ const useStore = create<Store>((set) => ({
   //모달 버튼부분 state관리
   setBtnData: (data) => set(() => ({ BtnData: data })),
 }));
-
-export default useStore;
 
 export const useBoardStore = create<BoardStore>((set) => ({
   selectedCategory: null,

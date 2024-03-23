@@ -1,6 +1,6 @@
 "use client";
 
-import useModalStore from "@/store/store";
+import { useModalStore } from "@/store/store";
 const Modal = () => {
   const { modalData, BtnData } = useModalStore();
 
