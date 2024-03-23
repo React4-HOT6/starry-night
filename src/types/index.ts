@@ -30,7 +30,6 @@ export type Comment = {
 };
 
 export type TypingAnimationProps = {
-  text: string;
   speed?: number;
 };
 

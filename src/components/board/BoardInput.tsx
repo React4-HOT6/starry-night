@@ -16,6 +16,11 @@ const BoardInput = () => {
     setSelectedCategory(null);
     setSelectedTitle(titleInput);
   };
+  const handleResetFilter = () => {
+    setSelectedCategory(null);
+    setTitleInput("");
+    setSelectedTitle("");
+  };
   return (
     <div className="p-2 flex">
       <div>
@@ -29,6 +34,9 @@ const BoardInput = () => {
       </div>
       <button onClick={handleSearchClick} className="btn ml-2 flex btn-primary">
         검색
+      </button>
+      <button onClick={handleResetFilter} className="btn ml-2 flex btn-primary">
+        초기화
       </button>
     </div>
   );
