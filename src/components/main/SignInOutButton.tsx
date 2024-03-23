@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { SignInOutButtonType } from "@/types";
 import Image from "next/image";
-import useProfileAvatar from "@/hooks/useProfileAvatar";
+import useUserProfile from "@/hooks/useUserProfile";
 
 const SignInOutButton: React.FC<SignInOutButtonType> = ({
   isSignIn,
   onClickLogout,
 }) => {
-  const avatarUrl = useProfileAvatar();
+  const { avatarUrl, nickname } = useUserProfile();
 
   return (
     <>
@@ -35,6 +35,9 @@ const SignInOutButton: React.FC<SignInOutButtonType> = ({
               tabIndex={0}
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             >
+              <div className="pl-3 py-1">
+                <p>{nickname}님⭐</p>
+              </div>
               <li>
                 <Link
                   href="/mypage"
