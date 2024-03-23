@@ -10,8 +10,8 @@ const SignInOutButton: React.FC<SignInOutButtonType> = ({
   isSignIn,
   onClickLogout,
 }) => {
-  // const avatarUrl = useProfileAvatar();
-  const avatarUrl = useUserStore((state) => state.avatarUrl);
+  const avatarUrl = useProfileAvatar();
+  // const avatarUrl = useUserStore((state) => state.avatarUrl);
   return (
     <>
       {isSignIn ? (

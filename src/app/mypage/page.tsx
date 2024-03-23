@@ -16,6 +16,7 @@ const MyPage = () => {
   const [isEdited, setIsEdited] = useState(false);
   const [birth, setBirth] = useState("");
   const [email, setEmail] = useState("");
+
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [userPosts, setUserPosts] = useState<Board[]>([]);
   const { toggleModal, setModalData, setBtnData } = useModalStore();
@@ -23,6 +24,7 @@ const MyPage = () => {
   const avatarUrl = useUserStore((state) => state.avatarUrl);
   const setNickname = useUserStore((state) => state.setNickname);
   const setAvatarUrl = useUserStore((state) => state.setAvatarUrl);
+  const [localAvatarUrl, setLocalAvatarUrl] = useState(avatarUrl);
   useEffect(() => {
     fetchPostsAndProfile();
   }, []);
@@ -94,7 +96,7 @@ const MyPage = () => {
         newAvatarUrl = data.path; // 새로운 아바타 URL 저장
       }
       setAvatarUrl(newAvatarUrl);
-
+      // setLocalAvatarUrl(newAvatarUrl); //?????
       const { error: nicknameError } = await supabase.auth.updateUser({
         data: {
           nickname,
@@ -116,7 +118,7 @@ const MyPage = () => {
     if (file) {
       setAvatarFile(file);
       const url = URL.createObjectURL(file);
-      setAvatarUrl(url);
+      setLocalAvatarUrl(url);
     }
   };
   const handleEdit = () => {
@@ -139,7 +141,7 @@ const MyPage = () => {
             email={email}
             updateProfile={updateProfile}
           />
-          <div className="mt-[10px] md:block w-full md:w-2/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg md:overflow-y-auto overflow-x-auto">
+          <div className="mt-[10px] md:block w-full md:w-2/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg md:overflow-y-auto snap-x overflow-x-auto">
             <PostSection userPosts={userPosts} />
           </div>
         </div>
