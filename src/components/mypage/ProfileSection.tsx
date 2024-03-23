@@ -25,18 +25,19 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   return (
     <div className="w-[400px] h-3/5 md:w-1/3 md:h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg">
       <div className="px-10 pt-10">
-        <label htmlFor="fileInput" className="flex justify-center items-center">
+        <label
+          htmlFor="fileInput"
+          className={`flex justify-center items-center ${
+            isEdited ? "cursor-pointer" : ""
+          }`}
+        >
           <img
             src={avatarUrl}
             alt="Profile"
             className="rounded-full w-36 h-36"
           />
-        </label>
-        {isEdited && (
-          <label
-            htmlFor="fileInput"
-            className="flex cursor-pointer justify-center items-center"
-          >
+
+          {isEdited && (
             <input
               type="file"
               id="fileInput"
@@ -44,8 +45,8 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
               onChange={handleAvatarChange}
               className="hidden border-b-2 border-info"
             />
-          </label>
-        )}
+          )}
+        </label>
       </div>
       <div className="mt-6 items-center text-center p-3">
         <h2 className="font-bold text-lg">{email}</h2>
