@@ -5,7 +5,8 @@ export const selectPost = async (id: string) => {
   const { data, error } = await supabase
     .from("board")
     .select(
-      "title, content, created_at, images, category, user_id, avatar, birthday, nickname, comments(id, created_at, content, avatar, nickname)"
+      // "title, content, created_at, images, category, user_id, avatar, birthday, nickname, comments(id, created_at, content, avatar, nickname)"
+      "*"
     )
     .eq("id", id)
     .single();
@@ -36,7 +37,7 @@ export const updatePost = async (id: string, newPost: Post) => {
 export const insertPost = async (newPost: Post) => {
   const { data, error } = await supabase
     .from("board")
-    .insert(newPost!) //NOTE - 이유 찾기
+    .insert(newPost) //NOTE - 이유 찾기
     .select();
 
   if (error) {

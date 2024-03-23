@@ -33,29 +33,27 @@ const DetailPage = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [readMode, setReadMode] = useState(true);
 
-  const getPostId = (url: string) => {
+  const setPostId = (url: string) => {
     const params = url.split("/");
     const id = params.pop();
-    if (typeof id === "undefined") {
-      alert("잘못된 페이지입니다."); //NOTE - url이 잘못되었음
-      return "";
+    if (typeof id === "string") {
+      postId.current = id;
+    } else {
+      alert("잘못된 페이지입니다.");
+      router.push("/board");
     }
-    return id;
   };
 
   const init = async () => {
-    postId.current = getPostId(url);
+    setPostId(url);
     const userIdResponse = await getUserId();
     if (userIdResponse.status === "fail") {
-      alert("유저 정보를 불러오는데 실패했습니다."); //NOTE - 유저 id를 불러올 수 없음
-      return;
+      return alert("유저 정보를 불러오는데 실패했습니다."); //NOTE - 유저 id를 불러올 수 없음
     }
-    const userUuid = userIdResponse.result;
-    userId.current = userUuid;
+    userId.current = userIdResponse.result;
     const postResponse = await selectPost(postId.current);
     if (postResponse.status === "fail") {
-      alert("게시글 정보를 불러오는데 실패했습니다."); //NOTE - 해당하는 게시글 id에 해당하는 게시글이 db에 없음
-      return;
+      return alert("게시글 정보를 불러오는데 실패했습니다."); //NOTE - 해당하는 게시글 id에 해당하는 게시글이 db에 없음
     }
 
     post.current = postResponse.result;
@@ -72,10 +70,15 @@ const DetailPage = () => {
     isPermitted.current = userId.current === post.current.user_id;
   }; //NOTE - 위치 생각하기
 
-  const onEdit = async (e: MouseEvent) => {
+  const onEdit = (e: MouseEvent) => {
     e.preventDefault();
-    if (!isPermitted) {
-      return alert("자신의 글만 수정할 수 있습니다.");
+    console.log("로그인한 유저 아이디", userId.current);
+    console.log("작성자 아이디", post.current?.user_id);
+
+    if (!isPermitted.current) {
+      console.log("같나", isPermitted);
+      alert("자신의 글만 수정할 수 있습니다.");
+      return;
     }
     setReadMode(false);
   };
@@ -167,8 +170,6 @@ const DetailPage = () => {
     init();
   }, []);
 
-  //NOTE - 가로 길이 수정할 것
-  //NOTE - 카테고리 선택은 드롭박스로 넣기
   //NOTE - 이미지 로딩 중일 때 이미지 구현하기
   //NOTE - 아바타 클릭하면 계정 정보 모달창 띄우기
   //NOTE - main pt-20 임시로 설정
