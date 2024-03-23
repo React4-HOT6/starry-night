@@ -1,29 +1,38 @@
 import heera from "@/assets/profile/profile-heera.png";
+import heechul from "@/assets/profile/profile-heechul.png";
+import myeonghwan from "@/assets/profile/profile-myeonghwan.png";
+import taewon from "@/assets/profile/profile-taewon.png";
+import yerin from "@/assets/profile/profile-yerin.png";
 
 export const teamMembers = [
   {
     name: "HEERA",
-    role: "나는 강하다.",
+    role: "나는 강하다.\n하지만 눈물을 흘린다.",
     imageUrl: heera,
+    gitURL: "https://github.com/gkstnadl",
   },
   {
-    name: "A",
+    name: "HEECHUL",
     role: "나는 똑똑하다.",
-    imageUrl: heera,
+    imageUrl: heechul,
+    gitURL: "https://github.com/heechul94",
   },
   {
-    name: "B",
+    name: "MYEONGHWAN",
     role: "나는 잘생겼다.",
-    imageUrl: heera,
+    imageUrl: myeonghwan,
+    gitURL: "https://github.com/baram55/",
   },
   {
-    name: "C",
+    name: "TAEWON",
     role: "나는 전설이다.",
-    imageUrl: heera,
+    imageUrl: taewon,
+    gitURL: "https://github.com/ccccliff",
   },
   {
-    name: "D",
+    name: "YERIN",
     role: "나는 귀엽다.",
-    imageUrl: heera,
+    imageUrl: yerin,
+    gitURL: "https://github.com/yeriniii",
   },
 ];
