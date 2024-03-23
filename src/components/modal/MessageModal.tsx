@@ -14,7 +14,7 @@ const MessageModal = ({ type, name, text, func, modalToggle }: ModalProp) => {
       <div className="modal-box text-black max-w-md w-fit flex flex-col gap-2">
         <div className="px-10 py-2">
           <h2 className="text-2xl font-bold text-center mb-1">{name}</h2>
-          <pre className="text-center text-lg">{text}</pre>
+          <p className="text-center text-lg">{text}</p>
           <div className="modal-action flex justify-center items-center mt-0">
             <form method="dialog">
               <div className="flex gap-2 mt-2">

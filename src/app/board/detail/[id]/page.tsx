@@ -60,10 +60,11 @@ const DetailPage = () => {
   const init = async () => {
     setPostId(url);
     const userIdResponse = await getUserId();
-    if (userIdResponse.status === "fail") {
-      return popAlertModal("유저 정보", "유저 정보를 불러오는데 실패했습니다.");
+    if (userIdResponse.status === "success") {
+      userId.current = userIdResponse.result;
+    } else {
+      userId.current = "";
     }
-    userId.current = userIdResponse.result;
     const postResponse = await selectPost(postId.current);
     if (postResponse.status === "fail") {
       return popAlertModal(
