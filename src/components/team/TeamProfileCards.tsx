@@ -9,7 +9,7 @@ export function TeamProfileCards() {
     <div className="flex flex-wrap justify-center gap-8 pt-14 max-w-screen-lg">
       {teamMembers.map((member) => (
         <div key={member.name}>
-          <div className="shadow-xl bg-gray-900 border border-gray-800 h-full overflow-hidden rounded-2xl flex flex-col items-center py-8 px-10">
+          <div className="shadow-xl bg-gray-900 border border-gray-800 h-full overflow-hidden rounded-2xl flex flex-col items-center py-8 px-12">
             <Image
               src={member.imageUrl}
               alt={member.name}
