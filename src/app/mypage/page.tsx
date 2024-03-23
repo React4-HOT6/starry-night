@@ -1,16 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/libs/supabase/client";
 import { Tables } from "@/types/database.types";
 import { calculateBirthZodiac } from "@/components/fortune/BirthZodiac";
 import ProfileSection from "@/components/mypage/ProfileSection";
 import PostSection from "@/components/mypage/PostSection";
+import {
+  useUserStore,
+  useModalStore,
+  initializeUserStore,
+} from "@/store/store";
 type Board = Tables<"board">;
-import useModalStore from "@/store/store";
-import { useUserStore } from "@/store/store";
-import { initializeUserStore } from "@/store/store";
+
 const MyPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEdited, setIsEdited] = useState(false);
