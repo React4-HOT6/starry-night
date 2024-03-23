@@ -5,9 +5,13 @@ import { PostInfo } from "@/components/board/read/PostInfo";
 import { SelectCategory } from "@/components/board/write/SelectCategory";
 import { SelectImages } from "@/components/board/write/SelectImages";
 import { getUserId } from "@/libs/utils/api/supabase/authAPI";
-import { selectPost, updatePost } from "@/libs/utils/api/supabase/postAPI";
-import { uploadImage } from "@/libs/utils/api/supabase/storeAPI";
-import { Comment } from "@/types";
+import {
+  deletePost,
+  selectPost,
+  updatePost,
+} from "@/libs/utils/api/supabase/postAPI";
+import { uploadImage, deleteImages } from "@/libs/utils/api/supabase/storeAPI";
+import { Comment, Post } from "@/types";
 import { usePathname, useRouter } from "next/navigation";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 
@@ -15,11 +19,12 @@ const DetailPage = () => {
   let postId = useRef("");
   let userId = useRef("");
   let isPermitted = useRef(false);
+  let post = useRef<Post>();
   const url = usePathname();
   const router = useRouter();
 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState(" ");
+  const [content, setContent] = useState("  ");
   const [category, setCategory] = useState("");
   const [date, setDate] = useState("");
   const [avatar, setAvatar] = useState("");
@@ -42,29 +47,29 @@ const DetailPage = () => {
     postId.current = getPostId(url);
     const userIdResponse = await getUserId();
     if (userIdResponse.status === "fail") {
-      alert(userIdResponse); //NOTE - 유저 id를 불러올 수 없음
+      alert("유저 정보를 불러오는데 실패했습니다."); //NOTE - 유저 id를 불러올 수 없음
       return;
     }
     const userUuid = userIdResponse.result;
     userId.current = userUuid;
     const postResponse = await selectPost(postId.current);
     if (postResponse.status === "fail") {
-      alert(postResponse.result); //NOTE - 해당하는 게시글 id에 해당하는 게시글이 db에 없음
+      alert("게시글 정보를 불러오는데 실패했습니다."); //NOTE - 해당하는 게시글 id에 해당하는 게시글이 db에 없음
       return;
     }
 
-    const post = postResponse.result;
-    const images = post.images;
+    post.current = postResponse.result;
+    const images = post.current.images;
     if (images && images.length > 0) {
       setImagesSrc(images);
     }
-    setTitle(post.title);
-    setContent(post.content);
-    setCategory(post.category);
-    setDate(post.created_at);
-    setAvatar(post.avatar);
-    setComments(post.comments);
-    isPermitted.current = userId.current === post.user_id;
+    setTitle(post.current.title!);
+    setContent(post.current.content!);
+    setCategory(post.current.category!);
+    setDate(post.current.created_at!);
+    setAvatar(post.current.avatar!);
+    // setComments(post.current.comments!);
+    isPermitted.current = userId.current === post.current.user_id;
   }; //NOTE - 위치 생각하기
 
   const onEdit = async (e: MouseEvent) => {
@@ -93,7 +98,7 @@ const DetailPage = () => {
     //NOTE - supabase 실패할 경우 구현할 것
     const response = await uploadImage(file, path);
     if (response.status === "fail") {
-      return;
+      return alert("storage에 이미지 업로드 실패");
     }
     const imageSrc = response.result;
     const fullPath =
@@ -105,7 +110,6 @@ const DetailPage = () => {
     const promise = imagesFile.map(async (file) => {
       const imagePath = getImagePath(id!, file);
       const uploadedImagePath = await getUploadedImagePath(file, imagePath);
-      console.log("각각의 경로", uploadedImagePath);
       imagesPath.push(uploadedImagePath!);
     });
     await Promise.all(promise);
@@ -123,22 +127,27 @@ const DetailPage = () => {
       }),
     });
     if (response.status === "success") {
-      alert("성공");
+      alert("데이터베이스 업데이트 성공");
     } else {
-      alert("실패");
+      alert("데이터베이스 업데이트 실패");
+    }
+  };
+
+  const deleteStorageImages = async (images: string[] | undefined) => {
+    if (typeof images === "undefined") {
+      return alert("게시글에 저장된 이미지가 없습니다.");
+    }
+    const response = await deleteImages(images);
+    if (response.status === "fail") {
+      alert("이미지 삭제 실패");
     }
   };
 
   const onConfirm = async (e: MouseEvent) => {
     e.preventDefault();
-    setImagesSrc([]);
-    const id = getPostId(url);
-    const images = await getUploadedImagesPath(id!);
-    console.log(images);
-    console.log("테스트", images);
-    // const imageString = changeArrayToString(images);
-
-    await updateBoard(id!, images);
+    deleteStorageImages(post.current?.images);
+    const images = await getUploadedImagesPath(postId.current);
+    await updateBoard(postId.current, images);
 
     //NOTE - 게시판으로 이동 넣기
   };
@@ -146,6 +155,12 @@ const DetailPage = () => {
   const onDelete = async (e: MouseEvent) => {
     //NOTE - 삭제 구현하기
     e.preventDefault();
+    const response = await deletePost(postId.current);
+    if (response.status === "success") {
+      alert(response.result);
+    } else {
+      alert("post 삭제 실패" + response.result);
+    }
   };
 
   useEffect(() => {

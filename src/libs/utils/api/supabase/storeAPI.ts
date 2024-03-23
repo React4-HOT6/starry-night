@@ -20,12 +20,13 @@ export const getImageURL = async (path: string) => {
   console.log(data);
 };
 
-const deleteImages = async (paths: string[]) => {
+export const deleteImages = async (paths: string[]) => {
   const { data, error } = await supabase.storage.from("images").remove(paths);
+
   if (error) {
-    console.log(error);
-    return false;
+    console.log(error); //NOTE - 테스트 코드
+    return { status: "fail", result: error } as const;
   }
-  console.log(data);
-  return data;
+  console.log(data); //NOTE - 테스트 코드
+  return { status: "success", result: data } as const;
 };
