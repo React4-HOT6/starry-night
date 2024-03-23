@@ -23,7 +23,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   handleEdit,
 }) => {
   return (
-    <div className="w-80 md:w-1/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg">
+    <div className="w-[400px] h-3/5 md:w-1/3 md:h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg">
       <div className="px-10 pt-10">
         <label htmlFor="fileInput" className="flex justify-center items-center">
           <img
@@ -57,7 +57,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
           </h2>
         )}
         <h2 className="mt-8 font-bold text-lg">{birth}</h2>
-        <div className="mt-48 flex justify-center gap-4">
+        <div className="mt-34 md:mt-48 flex justify-center gap-4">
           {isEdited ? (
             <>
               <button

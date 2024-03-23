@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Kumar+One&family=Stoke:wght@300;400&display=swap");
 @font-face {
   font-family: "PyeongChangPeace-Bold";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2")
@@ -22,23 +21,6 @@
 body {
   box-sizing: border-box;
   font-family: "Pretendard-Regular";
-}
-
-.stoke-light {
-  font-family: "Stoke", serif;
-  font-weight: 300;
-  font-style: normal;
-}
-
-.stoke-regular {
-  font-family: "Stoke", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-.kumar-one-regular {
-  font-family: "Kumar One", serif;
-  font-weight: 400;
-  font-style: normal;
 }
 
 .main-title {
