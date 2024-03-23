@@ -147,7 +147,6 @@ const WritePage = () => {
   }, []);
 
   //NOTE - 이미지 로딩 중일 때 이미지 구현하기
-  //NOTE - 아바타 클릭하면 계정 정보 모달창 띄우기
   //NOTE - main pt-20 임시로 설정
   //NOTE - alert 창 유저에게 보여줄 것 제외하고 삭제
   return (
