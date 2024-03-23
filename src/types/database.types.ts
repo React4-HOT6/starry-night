@@ -17,7 +17,7 @@ export type Database = {
           content: string;
           created_at: string;
           id: string;
-          images: string | null;
+          images: string[];
           nickname: string;
           title: string;
           user_id: string;
@@ -29,7 +29,7 @@ export type Database = {
           content?: string;
           created_at?: string;
           id?: string;
-          images?: string | null;
+          images: string[];
           nickname?: string;
           title?: string;
           user_id?: string;
@@ -41,7 +41,7 @@ export type Database = {
           content?: string;
           created_at?: string;
           id?: string;
-          images?: string | null;
+          images?: string[];
           nickname?: string;
           title?: string;
           user_id?: string;
@@ -60,7 +60,7 @@ export type Database = {
         Insert: {
           avatar?: string;
           content?: string;
-          created_at?: string;
+          created_at: string;
           id?: string;
           nickname?: string;
           post_id_fkey?: string | null;
@@ -134,149 +134,6 @@ export type Database = {
           s_img_url?: string | null;
           star_sign_description?: string | null;
           star_sign_name?: string | null;
-        };
-        Relationships: [];
-      };
-      test: {
-        Row: {
-          created_at: string;
-          id: number;
-          user_id: string | null;
-        };
-        Insert: {
-          created_at?: string;
-          id?: number;
-          user_id?: string | null;
-        };
-        Update: {
-          created_at?: string;
-          id?: number;
-          user_id?: string | null;
-        };
-        Relationships: [];
-      };
-      test_board: {
-        Row: {
-          comment_id: string | null;
-          content: string | null;
-          created_at: string;
-          id: string;
-          images: string[] | null;
-          title: string | null;
-        };
-        Insert: {
-          comment_id?: string | null;
-          content?: string | null;
-          created_at?: string;
-          id?: string;
-          images?: string[] | null;
-          title?: string | null;
-        };
-        Update: {
-          comment_id?: string | null;
-          content?: string | null;
-          created_at?: string;
-          id?: string;
-          images?: string[] | null;
-          title?: string | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "public_test_board_comment_id_fkey";
-            columns: ["comment_id"];
-            isOneToOne: false;
-            referencedRelation: "test_comment";
-            referencedColumns: ["id"];
-          }
-        ];
-      };
-      test_board_users: {
-        Row: {
-          board_id: string;
-          user_id: string;
-        };
-        Insert: {
-          board_id: string;
-          user_id: string;
-        };
-        Update: {
-          board_id?: string;
-          user_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "public_test_board_users_board_id_fkey";
-            columns: ["board_id"];
-            isOneToOne: false;
-            referencedRelation: "test_board";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "public_test_board_users_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "test_users";
-            referencedColumns: ["id"];
-          }
-        ];
-      };
-      test_comment: {
-        Row: {
-          board_id: string | null;
-          content: string | null;
-          created_at: string;
-          id: string;
-          user_id: string | null;
-        };
-        Insert: {
-          board_id?: string | null;
-          content?: string | null;
-          created_at?: string;
-          id?: string;
-          user_id?: string | null;
-        };
-        Update: {
-          board_id?: string | null;
-          content?: string | null;
-          created_at?: string;
-          id?: string;
-          user_id?: string | null;
-        };
-        Relationships: [];
-      };
-      test_users: {
-        Row: {
-          birth: string | null;
-          email: string | null;
-          id: string;
-          nickname: string;
-        };
-        Insert: {
-          birth?: string | null;
-          email?: string | null;
-          id: string;
-          nickname: string;
-        };
-        Update: {
-          birth?: string | null;
-          email?: string | null;
-          id?: string;
-          nickname?: string;
-        };
-        Relationships: [];
-      };
-      users_teams: {
-        Row: {
-          team_id: number;
-          user_id: number;
-        };
-        Insert: {
-          team_id: number;
-          user_id: number;
-        };
-        Update: {
-          team_id?: number;
-          user_id?: number;
         };
         Relationships: [];
       };
