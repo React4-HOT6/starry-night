@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/libs/supabase/client";
 import MessageModal from "../modal/MessageModal";
 import SignInOutButton from "@/components/main/SignInOutButton";
+import { useUserStore } from "@/store/store";
 import Image from "next/image";
 import logo from "@/assets/logo2.png";
 
@@ -12,7 +13,7 @@ const Header = () => {
   const [isSignIn, setIsSignIn] = useState<boolean>(false);
   const [toggleModal, setToggleModal] = useState(false);
   const [modalData, setModalData] = useState({});
-
+  const nickname = useUserStore((state) => state.nickname);
   const signOut = async () => {
     await supabase.auth.signOut();
   };

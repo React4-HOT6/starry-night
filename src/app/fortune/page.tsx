@@ -38,46 +38,44 @@ const FortunePage = () => {
   }, []);
 
   return (
-    <div className="">
-      <div className="flex w-full justify-center items-center h-screen ">
-        {selectedFortune && (
-          <FortunePinContainer imageUrl={selectedFortune.imgUrl}>
-            <div className="p-8 bg-black bg-opacity-50 rounded-lg shadow-md w-[550px]">
-              <Meteors number={20} />
-              <div className="text-center mb-4 ">
-                <h2 className="font-bold text-3xl bg-gradient-to-t from-[#4C17BF] to-[#51FFCB] text-transparent bg-clip-text tracking-widest">
-                  {selectedFortune.name}
-                </h2>
-                <p className="text-sm">{selectedFortune.month}</p>
-              </div>
-              <div>
-                <h3 className="stroke-light bg-gradient-to-t from-[#4C17BF] to-[#51FFCB] text-transparent bg-clip-text text-lg font-semibold mb-2">
-                  별자리 성격
-                </h3>
-                <p className="fstoke-regular">{selectedFortune.personality}</p>
-              </div>
-              <div>
-                <h3 className="bg-gradient-to-t from-[#4C17BF] to-[#51FFCB] text-transparent bg-clip-text text-lg font-semibold mb-2">
-                  총 운
-                </h3>
-                <p>{selectedFortune.horoscope_every}</p>
-              </div>
-              <div>
-                <h3 className="bg-gradient-to-t from-[#4C17BF] to-[#51FFCB] text-transparent bg-clip-text text-lg font-semibold mb-2">
-                  금전 운
-                </h3>
-                <p>{selectedFortune.horoscope_money}</p>
-              </div>
-              <div>
-                <h3 className="bg-gradient-to-t from-[#4C17BF] to-[#51FFCB] text-transparent bg-clip-text text-lg font-semibold mb-2">
-                  연애 운
-                </h3>
-                <p>{selectedFortune.horoscope_love}</p>
-              </div>
+    <div className="md:mt-7 flex w-full justify-center items-center min-h-screen ">
+      {selectedFortune && (
+        <FortunePinContainer imageUrl={selectedFortune.imgUrl}>
+          <div className="p-8 bg-black bg-opacity-50 rounded-lg shadow-md w-[350px] md:w-[550px]">
+            <Meteors number={20} />
+            <div className="text-center mb-4 ">
+              <h2 className="fortune-title font-bold text-3xl bg-gradient-to-t from-[#4C17BF] to-[#51FFCB] text-transparent bg-clip-text tracking-widest">
+                {selectedFortune.name}
+              </h2>
+              <p className="fortune-title text-sm">{selectedFortune.month}</p>
             </div>
-          </FortunePinContainer>
-        )}
-      </div>
+            <div>
+              <h3 className="fortune-content bg-gradient-to-t from-[#4C17BF] to-[#51FFCB] text-transparent bg-clip-text text-lg font-semibold mb-2">
+                별자리 성격
+              </h3>
+              <p>{selectedFortune.personality}</p>
+            </div>
+            <div>
+              <h3 className="fortune-content bg-gradient-to-t from-[#4C17BF] to-[#51FFCB] text-transparent bg-clip-text text-lg font-semibold mb-2">
+                총 운
+              </h3>
+              <p>{selectedFortune.horoscope_every}</p>
+            </div>
+            <div>
+              <h3 className="fortune-content bg-gradient-to-t from-[#4C17BF] to-[#51FFCB] text-transparent bg-clip-text text-lg font-semibold mb-2">
+                금전 운
+              </h3>
+              <p>{selectedFortune.horoscope_money}</p>
+            </div>
+            <div>
+              <h3 className="fortune-content bg-gradient-to-t from-[#4C17BF] to-[#51FFCB] text-transparent bg-clip-text text-lg font-semibold mb-2">
+                연애 운
+              </h3>
+              <p>{selectedFortune.horoscope_love}</p>
+            </div>
+          </div>
+        </FortunePinContainer>
+      )}
     </div>
   );
 };
