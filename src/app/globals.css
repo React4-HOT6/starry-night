@@ -18,7 +18,8 @@
 }
 
 *,
-body {
+body,
+pre {
   box-sizing: border-box;
   font-family: "Pretendard-Regular";
 }
