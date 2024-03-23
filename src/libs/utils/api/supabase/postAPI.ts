@@ -54,3 +54,17 @@ export const deletePost = async (id: string) => {
   console.log(true); //NOTE - 테스트 코드
   return true;
 };
+
+export const selectBoardPosts = async () => {
+  const { data, error } = await supabase
+    .from("board")
+    .select("id, title, nickname, images, created_at, category")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+
+  return data;
+};

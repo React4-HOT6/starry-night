@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import { Fortune } from "@/types";
+
 import { FortunePinContainer } from "@/components/fortune/fortuneContainer";
 import { useState } from "react";
 import { Meteors } from "@/components/fortune/fortuneContainer";
 import { getUserBirth } from "@/components/fortune/GetUserBirth";
 import { calculateBirthZodiac } from "@/components/fortune/BirthZodiac";
 import { supabase } from "@/libs/supabase/client";
-
+import { Tables } from "@/types/database.types";
+type Fortune = Tables<"fortune">;
 const FortunePage = () => {
   const [selectedFortune, setSelectedFortune] = useState<Fortune | null>(null);
 
@@ -20,8 +21,7 @@ const FortunePage = () => {
       const { data: fortune, error } = await supabase
         .from("fortune")
         .select("*")
-        .eq("name", zodiac);
-
+        .eq("name", zodiac.name);
       if (error) {
         throw error;
       }
@@ -38,8 +38,8 @@ const FortunePage = () => {
   }, []);
 
   return (
-    <div className="relative">
-      <div className="flex justify-center items-center h-screen ">
+    <div className="">
+      <div className="flex w-full justify-center items-center h-screen ">
         {selectedFortune && (
           <FortunePinContainer imageUrl={selectedFortune.imgUrl}>
             <div className="p-8 bg-black bg-opacity-50 rounded-lg shadow-md w-[550px]">
