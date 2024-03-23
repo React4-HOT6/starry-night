@@ -134,6 +134,11 @@ const Header = () => {
               </Link>
             </li>
             <li>
+              <Link href="/mypage" className="tracking-widest">
+                MYPAGE
+              </Link>
+            </li>
+            <li>
               <button onClick={onClickLogout} className="tracking-widest">
                 LOGOUT
               </button>
