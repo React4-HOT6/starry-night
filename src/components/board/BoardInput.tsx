@@ -8,15 +8,15 @@ const BoardInput = () => {
   const setSelectedCategory = useBoardStore(
     (state) => state.setSelectedCategory
   );
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitleInput(e.target.value);
   };
 
-  const handleSearchClick = () => {
+  const onClickSearch = () => {
     setSelectedCategory(null);
     setSelectedTitle(titleInput);
   };
-  const handleResetFilter = () => {
+  const onClickReset = () => {
     setSelectedCategory(null);
     setTitleInput("");
     setSelectedTitle("");
@@ -26,17 +26,17 @@ const BoardInput = () => {
       <div>
         <input
           value={titleInput}
-          onChange={handleInputChange}
+          onChange={onChangeInput}
           type="text"
           placeholder="제목을 입력하세요"
           className="input flex input-bordered w-[300px] bg-base-200 max-w-xs"
         />
       </div>
-      <button onClick={handleSearchClick} className="btn ml-2 flex btn-primary">
+      <button onClick={onClickSearch} className="btn ml-2 flex btn-primary">
         검색
       </button>
       <button
-        onClick={handleResetFilter}
+        onClick={onClickReset}
         className="btn  ml-2 text-black flex btn-neutral"
       >
         초기화

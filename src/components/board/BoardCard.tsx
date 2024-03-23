@@ -1,12 +1,14 @@
-import Image from "next/image";
 import React from "react";
 import Link from "next/link";
+
 interface BoardCardProps {
   id: string;
   title: string;
   nickname: string;
   imagesSrc: string[];
   category: string;
+  created_at: string;
+  content: string;
 }
 
 const BoardCard: React.FC<BoardCardProps> = ({
@@ -15,37 +17,38 @@ const BoardCard: React.FC<BoardCardProps> = ({
   nickname,
   imagesSrc,
   category,
+  created_at,
+  content,
 }) => {
   return (
     <Link href={`board/detail/${id}`}>
-      <div className="flex w-[60vw] min-h-[5vh] mb-2  border-solid border-2 border-gray-700 rounded bg-base-200 items-center justify-between px-4">
-        <div className="flex items-center mr-4 ...">
+      <div className="flex ml-2 mt-2 transform h-[350px] hover:-translate-y-1  duration-400 flex-col justify-between rounded-lg  shadow-lg overflow-hidden bg-base-300 hover:bg-base-200 transition-colors duration-200 ease-in-out">
+        <div className="flex justify-center items-center h-40 overflow-hidden">
           {imagesSrc.length > 0 ? (
-            <div className="flex space-x-2">
-              {imagesSrc.map((src, index) => (
-                <img
-                  key={index}
-                  src={src}
-                  alt={`Board Image ${index + 1}`}
-                  width={30}
-                  height={30}
-                />
-              ))}
-            </div>
+            imagesSrc.map((src, index) => (
+              <img
+                key={index}
+                src={src}
+                alt="Board Image"
+                className="w-auto h-full"
+                style={{ minWidth: "100%" }}
+              />
+            ))
           ) : (
-            <div className="text-white text-sm w-[30px] h-[30px]">
+            <div className="flex justify-center items-center text-white bg-base-400 w-full h-full">
               No Images
             </div>
           )}
-          <div className="border-r border-white mx-2"></div>
-          <div className="text-white flex-grow truncate">{title}</div>
         </div>
-        <div className="flex items-center flex-none">
-          <div className="text-white truncate mr-2 text-sm w-[120px]">
-            {nickname}
+        <div className="p-4 space-y-2">
+          <div className="text-xs text-gray-500">
+            {nickname} · {created_at}
           </div>
-          <div className="border-r border-white mx-2"></div>
-          <div className="text-white truncate text-sm w-[80px]">{category}</div>
+          <div className="font-bold text-white truncate">{title}</div>
+          <p className="text-sm h-6 w-[200px] max-h-12 text-gray-300 overflow-hidden">
+            {content}
+          </p>
+          <div className=" text-primary text-xs font-semibold">{category}</div>
         </div>
       </div>
     </Link>

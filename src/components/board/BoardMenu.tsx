@@ -21,12 +21,12 @@ const BoardMenu = () => {
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
-  const onClickCategoryHandler = (category: string) => {
+  const onClickCategory = (category: string) => {
     setSelectedCategory(category);
     setIsDropdownOpen(false);
   };
 
-  const onClickToggleMenuHandler = () => {
+  const onClickToggleMenu = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
@@ -35,7 +35,7 @@ const BoardMenu = () => {
       {isMobile ? (
         <div className="dropdown  dropdown-bottom">
           <div
-            onClick={onClickToggleMenuHandler}
+            onClick={onClickToggleMenu}
             tabIndex={0}
             role="button"
             className="btn m-1"
@@ -48,65 +48,65 @@ const BoardMenu = () => {
               className="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box w-52"
             >
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("")}>전체</button>
+                <button onClick={() => onClickCategory("")}>전체</button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("물병자리")}>
+                <button onClick={() => onClickCategory("물병자리")}>
                   물병자리
                 </button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("양자리")}>
+                <button onClick={() => onClickCategory("양자리")}>
                   양자리
                 </button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("게자리")}>
+                <button onClick={() => onClickCategory("게자리")}>
                   게자리
                 </button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("염소자리")}>
+                <button onClick={() => onClickCategory("염소자리")}>
                   염소자리
                 </button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("쌍둥이자리")}>
+                <button onClick={() => onClickCategory("쌍둥이자리")}>
                   쌍둥이자리
                 </button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("사자자리")}>
+                <button onClick={() => onClickCategory("사자자리")}>
                   사자자리
                 </button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("천칭자리")}>
+                <button onClick={() => onClickCategory("천칭자리")}>
                   천칭자리
                 </button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("물고기자리")}>
+                <button onClick={() => onClickCategory("물고기자리")}>
                   물고기자리
                 </button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("궁수자리")}>
+                <button onClick={() => onClickCategory("궁수자리")}>
                   궁수자리
                 </button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("전갈자리")}>
+                <button onClick={() => onClickCategory("전갈자리")}>
                   전갈자리
                 </button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("황소자리")}>
+                <button onClick={() => onClickCategory("황소자리")}>
                   황소자리
                 </button>
               </li>
               <li className="border-b border-gray-700">
-                <button onClick={() => onClickCategoryHandler("처녀자리")}>
+                <button onClick={() => onClickCategory("처녀자리")}>
                   처녀자리
                 </button>
               </li>
@@ -116,65 +116,61 @@ const BoardMenu = () => {
       ) : (
         <ul className="menu bg-base-200 w-56 rounded-box">
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("")}>전체</button>
+            <button onClick={() => onClickCategory("")}>전체</button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("물병자리")}>
+            <button onClick={() => onClickCategory("물병자리")}>
               물병자리
             </button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("양자리")}>
-              양자리
-            </button>
+            <button onClick={() => onClickCategory("양자리")}>양자리</button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("게자리")}>
-              게자리
-            </button>
+            <button onClick={() => onClickCategory("게자리")}>게자리</button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("염소자리")}>
+            <button onClick={() => onClickCategory("염소자리")}>
               염소자리
             </button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("쌍둥이자리")}>
+            <button onClick={() => onClickCategory("쌍둥이자리")}>
               쌍둥이자리
             </button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("사자자리")}>
+            <button onClick={() => onClickCategory("사자자리")}>
               사자자리
             </button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("천칭자리")}>
+            <button onClick={() => onClickCategory("천칭자리")}>
               천칭자리
             </button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("물고기자리")}>
+            <button onClick={() => onClickCategory("물고기자리")}>
               물고기자리
             </button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("궁수자리")}>
+            <button onClick={() => onClickCategory("궁수자리")}>
               궁수자리
             </button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("전갈자리")}>
+            <button onClick={() => onClickCategory("전갈자리")}>
               전갈자리
             </button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("황소자리")}>
+            <button onClick={() => onClickCategory("황소자리")}>
               황소자리
             </button>
           </li>
           <li className="border-b border-gray-700">
-            <button onClick={() => onClickCategoryHandler("처녀자리")}>
+            <button onClick={() => onClickCategory("처녀자리")}>
               처녀자리
             </button>
           </li>

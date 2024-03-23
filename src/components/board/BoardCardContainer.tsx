@@ -17,11 +17,13 @@ const BoardCardContainer = () => {
   }, [selectedCategory, selectedTitle, refetch]);
 
   return (
-    <div className=" flex p-2 flex-col ">
+    <div className="grid p-2 grid-cols-4 ">
       {posts?.map((post) => {
         const imagesSrcArray = Array.isArray(post.images) ? post.images : [];
         return (
           <BoardCard
+            created_at={post.created_at}
+            content={post.content}
             id={post.id}
             key={post.id}
             title={post.title}

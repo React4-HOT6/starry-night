@@ -61,7 +61,7 @@ export const selectBoardPosts = async (
 ) => {
   let query = supabase
     .from("board")
-    .select("id, title, nickname, images, created_at, category")
+    .select("id, title, nickname, images, created_at, category,content")
     .order("created_at", { ascending: false });
 
   if (category) {
