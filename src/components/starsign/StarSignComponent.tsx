@@ -1,5 +1,5 @@
 import { getStarSign } from "@/libs/utils/api/supabase/starsignAPI";
-import useStore from "@/store/store";
+import { useModalStore } from "@/store/store";
 import Image, { StaticImageData } from "next/image";
 type StarSignComponentProps = {
   src: StaticImageData;
@@ -12,7 +12,8 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
   name,
   starSignId,
 }) => {
-  const { toggleModal, setStarSignData, setModalData, setBtnData } = useStore();
+  const { toggleModal, setStarSignData, setModalData, setBtnData } =
+    useModalStore();
   const onClickModalBtn = () => {
     toggleModal();
   };
