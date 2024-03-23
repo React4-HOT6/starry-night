@@ -17,7 +17,7 @@ const BoardCardContainer = () => {
   }, [selectedCategory, selectedTitle, refetch]);
 
   return (
-    <div className="grid p-2 grid-cols-4 ">
+    <div className="grid p-2 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2  ">
       {posts?.map((post) => {
         const imagesSrcArray = Array.isArray(post.images) ? post.images : [];
         return (
