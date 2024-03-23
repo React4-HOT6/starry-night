@@ -14,7 +14,7 @@ import {
   Aries,
   Virgo,
 } from "./StarSigns";
-import Modal from "@/components/CustomModal";
+import Modal from "@/components/modal/CustomModal";
 import useModalStore from "@/store/store";
 const StarSignForm = () => {
   const { isModalOpen } = useModalStore();
