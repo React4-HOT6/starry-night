@@ -54,4 +54,4 @@ yarn start
 
 ### 최희라
 
-- 
+- Main, Header, Team 페이지 구현
