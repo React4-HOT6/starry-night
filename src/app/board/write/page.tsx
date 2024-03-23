@@ -1,26 +1,25 @@
 "use client";
 import { Button } from "@/components/board/common/Button";
-import { ImagesCarousel } from "@/components/board/common/ImagesCarousel";
-import { PostInfo } from "@/components/board/read/PostInfo";
 import { SelectCategory } from "@/components/board/write/SelectCategory";
 import { SelectImages } from "@/components/board/write/SelectImages";
 import MessageModal from "@/components/modal/MessageModal";
-import { getUserId } from "@/libs/utils/api/supabase/authAPI";
 import {
-  deletePost,
-  selectPost,
-  updatePost,
-} from "@/libs/utils/api/supabase/postAPI";
-import { uploadImage, deleteImages } from "@/libs/utils/api/supabase/storeAPI";
-import { Comment, Post } from "@/types";
+  getUserBirthday,
+  getUserId,
+  getUserNickname,
+} from "@/libs/utils/api/supabase/authAPI";
+import { insertPost } from "@/libs/utils/api/supabase/postAPI";
+import { uploadImage } from "@/libs/utils/api/supabase/storeAPI";
 import { usePathname, useRouter } from "next/navigation";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 
-const DetailPage = () => {
+const WritePage = () => {
   let postId = useRef("");
   let userId = useRef("");
-  let isPermitted = useRef(false);
-  let post = useRef<Post>();
+  let userBirthday = useRef("");
+  let userNickname = useRef("");
+  let userAvatar = useRef("");
+
   const url = usePathname();
   const router = useRouter();
 
@@ -29,13 +28,9 @@ const DetailPage = () => {
 
   const [title, setTitle] = useState(" ");
   const [content, setContent] = useState("  ");
-  const [category, setCategory] = useState("");
-  const [date, setDate] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [category, setCategory] = useState("양자리");
   const [imagesSrc, setImagesSrc] = useState<string[]>([]);
   const [imagesFile, setImagesFile] = useState<File[]>([]);
-  // const [comments, setComments] = useState<Comment[]>([]);
-  const [readMode, setReadMode] = useState(true);
 
   const setPostId = (url: string) => {
     const params = url.split("/");
@@ -62,39 +57,21 @@ const DetailPage = () => {
     const userIdResponse = await getUserId();
     if (userIdResponse.status === "success") {
       userId.current = userIdResponse.result;
+    }
+    const userBirthdayResponse = await getUserBirthday();
+    if (userBirthdayResponse.status === "success") {
+      userBirthday.current = userBirthdayResponse.result;
     } else {
-      userId.current = "";
+      userBirthday.current = "";
     }
-    const postResponse = await selectPost(postId.current);
-    if (postResponse.status === "fail") {
-      return popAlertModal(
-        "게시글 정보",
-        "게시글 정보를 불러오는데 실패했습니다."
-      );
+    const userNicknameResponse = await getUserNickname();
+    if (userNicknameResponse.status === "success") {
+      userNickname.current = userNicknameResponse.result;
+    } else {
+      userNickname.current = "";
     }
-
-    post.current = postResponse.result;
-    const images = post.current.images;
-    if (images && images.length > 0) {
-      setImagesSrc(images);
-    }
-    setTitle(post.current.title!);
-    setContent(post.current.content!);
-    setCategory(post.current.category!);
-    setDate(post.current.created_at!);
-    setAvatar(post.current.avatar!);
-    // setComments(post.current.comments!);
-    isPermitted.current = userId.current === post.current.user_id;
-  };
-
-  const onEdit = (e: MouseEvent) => {
-    e.preventDefault();
-
-    if (!isPermitted.current) {
-      return popAlertModal("게시글 수정", "자신의 글만 수정할 수 있습니다.");
-    }
-
-    setReadMode(false);
+    userAvatar.current = `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}${userId.current}/avatar.png`;
+    console.log(userAvatar.current);
   };
 
   const onCancel = (e: MouseEvent) => {
@@ -124,6 +101,7 @@ const DetailPage = () => {
       process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BOARD_URL + imageSrc.path;
     return fullPath;
   };
+
   const getUploadedImagesPath = async (id: string) => {
     const imagesPath: string[] = [];
     const promise = imagesFile.map(async (file) => {
@@ -134,58 +112,33 @@ const DetailPage = () => {
     await Promise.all(promise);
     return imagesPath;
   };
-
-  const updateBoard = async (id: string, images: string[]) => {
-    const response = await updatePost(id!, {
+  const writeBoard = async (images: string[]) => {
+    const response = await insertPost({
       title,
-      category,
       content,
-      images: images,
       created_at: new Date().toLocaleString("ko-KR", {
         timeZone: "Asia/Seoul",
       }),
+      category,
+      user_id: userId.current,
+      avatar: userAvatar.current,
+      birthday: userBirthday.current,
+      nickname: userNickname.current,
+      images,
     });
     if (response.status === "success") {
-      return popAlertModal("게시글 수정", "게시글을 수정하였습니다.");
+      return popAlertModal("게시글 작성", "게시글을 작성하였습니다.");
     } else {
-      return popAlertModal("게시글 수정", "게시글을 수정하지 못했습니다.");
+      return popAlertModal("게시글 작성", "게시글을 작성하지 못했습니다.");
     }
   };
 
-  const deleteStorageImages = async (images: string[] | undefined) => {
-    if (typeof images === "undefined") {
-      return popAlertModal(
-        "게시글 이미지",
-        "게시글에 저장된 이미지가 없습니다.."
-      );
-    }
-    const response = await deleteImages(images);
-    if (response.status === "fail") {
-      return popAlertModal(
-        "게시글 이미지",
-        "이미지를 삭제하는데 실패했습니다.."
-      );
-    }
-  };
-
-  const onConfirm = async (e: MouseEvent) => {
+  const onWrite = async (e: MouseEvent) => {
     e.preventDefault();
-    deleteStorageImages(post.current?.images);
     const images = await getUploadedImagesPath(postId.current);
-    await updateBoard(postId.current, images);
+    await writeBoard(images);
 
     router.push("/board");
-  };
-
-  const onDelete = async (e: MouseEvent) => {
-    e.preventDefault();
-    const response = await deletePost(postId.current);
-    if (response.status === "success") {
-      popAlertModal("게시글 삭제", "게시글을 삭제하였습니다..");
-      return router.push("/board");
-    } else {
-      return popAlertModal("게시글 삭제", "게시글을 삭제하지 못했습니다.");
-    }
   };
 
   useEffect(() => {
@@ -194,6 +147,7 @@ const DetailPage = () => {
 
   //NOTE - 이미지 로딩 중일 때 이미지 구현하기
   //NOTE - main pt-20 임시로 설정
+  //NOTE - alert 창 유저에게 보여줄 것 제외하고 삭제
   return (
     <main className="flex flex-col justify-center pt-20 mx-auto w-2/3">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">
@@ -204,23 +158,8 @@ const DetailPage = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           maxLength={50}
-          readOnly={readMode}
         />
-        {readMode && (
-          <PostInfo
-            category={category}
-            date={date}
-            avatar={avatar}
-            birthday={post.current?.birthday!}
-            nickname={post.current?.nickname!}
-          />
-        )}
-        {!readMode && (
-          <SelectCategory
-            setCategory={setCategory}
-            selectedCategory={category}
-          />
-        )}
+        <SelectCategory setCategory={setCategory} selectedCategory={category} />
         <textarea
           className="textarea textarea-bordered resize-none h-80 font-bold text-black "
           placeholder="본문을 입력하세요."
@@ -228,47 +167,22 @@ const DetailPage = () => {
           onChange={(e) => setContent(e.target.value)}
           rows={50}
           maxLength={500}
-          readOnly={readMode}
         ></textarea>
-        {!readMode && (
-          <SelectImages
-            imagesSrc={imagesSrc}
-            setImagesSrc={setImagesSrc}
-            setImagesFile={setImagesFile}
-          />
-        )}
-        {readMode && imagesSrc.length > 0 && (
-          <ImagesCarousel
-            imagesSrc={imagesSrc}
-            countOfImages={imagesSrc.length}
-          />
-        )}
-        {readMode ? (
-          <section className="flex flex-row justify-end gap-x-5">
-            <Button
-              onClick={(e) => {
-                onEdit(e);
-              }}
-            >
-              수정
-            </Button>
-            <Button
-              onClick={(e) => {
-                onDelete(e);
-              }}
-            >
-              삭제
-            </Button>
-            <Button onClick={(e) => onCancel(e)}>목록</Button>
-          </section>
-        ) : (
-          <section className="flex flex-row justify-end gap-x-5">
-            <Button type="submit" onClick={(e) => onConfirm(e)}>
-              확인
-            </Button>
-            <Button onClick={(e) => onCancel(e)}>목록</Button>
-          </section>
-        )}
+        <SelectImages
+          imagesSrc={imagesSrc}
+          setImagesSrc={setImagesSrc}
+          setImagesFile={setImagesFile}
+        />
+        <section className="flex flex-row justify-end gap-x-5">
+          <Button
+            onClick={(e) => {
+              onWrite(e);
+            }}
+          >
+            작성
+          </Button>
+          <Button onClick={(e) => onCancel(e)}>목록</Button>
+        </section>
       </form>
       {toggleModal && (
         <MessageModal modalToggle={setToggleModal} {...modalData} />
@@ -288,4 +202,4 @@ const DetailPage = () => {
   );
 };
 
-export default DetailPage;
+export default WritePage;

@@ -13,10 +13,11 @@ export const Button = ({
   switch (children) {
     case "확인":
     case "수정":
+    case "작성":
       className = "btn btn-primary";
       break;
     case "삭제":
-      className = "btn btn-accent";
+      className = "btn btn-error text-white";
       break;
 
     case "목록":
