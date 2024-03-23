@@ -36,4 +36,6 @@ const useModalStore = create<Store>((set) => ({
   setBtnData: (data) => set(() => ({ BtnData: data })),
 }));
 
+const useProfileStore = create<Store>((set) => ({}));
+
 export default useModalStore;
