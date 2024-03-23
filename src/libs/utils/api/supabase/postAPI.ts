@@ -5,7 +5,8 @@ export const selectPost = async (id: string) => {
   const { data, error } = await supabase
     .from("board")
     .select(
-      "title, content, created_at, images, category, user_id, avatar, birthday, nickname, comments(created_at, content, avatar, nickname)"
+      // "title, content, created_at, images, category, user_id, avatar, birthday, nickname, comments(id, created_at, content, avatar, nickname)"
+      "*"
     )
     .eq("id", id)
     .single();
@@ -27,14 +28,17 @@ export const updatePost = async (id: string, newPost: Post) => {
 
   if (error) {
     console.log(error); //NOTE - 테스트 코드
-    return false;
+    return { status: "fail", result: error } as const;
   }
   console.log(data); //NOTE - 테스트 코드
-  return data;
+  return { status: "success", result: data } as const;
 };
 
 export const insertPost = async (newPost: Post) => {
-  const { data, error } = await supabase.from("board").insert(newPost).select();
+  const { data, error } = await supabase
+    .from("board")
+    .insert(newPost) //NOTE - 이유 찾기
+    .select();
 
   if (error) {
     console.log(error); //NOTE - 테스트 코드
@@ -49,8 +53,7 @@ export const deletePost = async (id: string) => {
 
   if (error) {
     console.log(error); //NOTE - 테스트 코드
-    return false;
+    return { status: "fail", result: error } as const;
   }
-  console.log(true); //NOTE - 테스트 코드
-  return true;
+  return { status: "success", result: "post 삭제 성공" } as const;
 };
