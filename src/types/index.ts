@@ -13,7 +13,7 @@ export type Post = {
   content?: string;
   created_at?: string;
   id?: string;
-  images?: string;
+  images?: string[];
   title?: string;
   avatar?: string;
   birthday?: string;

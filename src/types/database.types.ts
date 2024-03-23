@@ -17,7 +17,7 @@ export type Database = {
           content: string;
           created_at: string;
           id: string;
-          images: string | null;
+          images: string[] | null;
           nickname: string;
           title: string;
           user_id: string;
@@ -29,7 +29,7 @@ export type Database = {
           content?: string;
           created_at?: string;
           id?: string;
-          images?: string | null;
+          images?: string[] | null;
           nickname?: string;
           title?: string;
           user_id?: string;
@@ -41,7 +41,7 @@ export type Database = {
           content?: string;
           created_at?: string;
           id?: string;
-          images?: string | null;
+          images?: string[] | null;
           nickname?: string;
           title?: string;
           user_id?: string;
@@ -60,7 +60,7 @@ export type Database = {
         Insert: {
           avatar?: string;
           content?: string;
-          created_at?: string;
+          created_at: string;
           id?: string;
           nickname?: string;
           post_id_fkey?: string | null;
@@ -157,7 +157,6 @@ export type Database = {
       };
       test_board: {
         Row: {
-          comment_id: string | null;
           content: string | null;
           created_at: string;
           id: string;
@@ -165,7 +164,6 @@ export type Database = {
           title: string | null;
         };
         Insert: {
-          comment_id?: string | null;
           content?: string | null;
           created_at?: string;
           id?: string;
@@ -173,16 +171,37 @@ export type Database = {
           title?: string | null;
         };
         Update: {
-          comment_id?: string | null;
           content?: string | null;
           created_at?: string;
           id?: string;
           images?: string[] | null;
           title?: string | null;
         };
+        Relationships: [];
+      };
+      test_board_comment: {
+        Row: {
+          board_id: string;
+          comment_id: string;
+        };
+        Insert: {
+          board_id?: string;
+          comment_id?: string;
+        };
+        Update: {
+          board_id?: string;
+          comment_id?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "public_test_board_comment_id_fkey";
+            foreignKeyName: "public_test_board_comment_board_id_fkey";
+            columns: ["board_id"];
+            isOneToOne: false;
+            referencedRelation: "test_board";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_test_board_comment_comment_id_fkey";
             columns: ["comment_id"];
             isOneToOne: false;
             referencedRelation: "test_comment";
@@ -222,27 +241,51 @@ export type Database = {
       };
       test_comment: {
         Row: {
-          board_id: string | null;
           content: string | null;
           created_at: string;
           id: string;
-          user_id: string | null;
         };
         Insert: {
-          board_id?: string | null;
           content?: string | null;
           created_at?: string;
           id?: string;
-          user_id?: string | null;
         };
         Update: {
-          board_id?: string | null;
           content?: string | null;
           created_at?: string;
           id?: string;
-          user_id?: string | null;
         };
         Relationships: [];
+      };
+      test_comment_users: {
+        Row: {
+          comment_id: string;
+          user_id: string;
+        };
+        Insert: {
+          comment_id?: string;
+          user_id?: string;
+        };
+        Update: {
+          comment_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_test_comment_users_comment_id_fkey";
+            columns: ["comment_id"];
+            isOneToOne: false;
+            referencedRelation: "test_comment";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_test_comment_users_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "test_users";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       test_users: {
         Row: {
@@ -262,21 +305,6 @@ export type Database = {
           email?: string | null;
           id?: string;
           nickname?: string;
-        };
-        Relationships: [];
-      };
-      users_teams: {
-        Row: {
-          team_id: number;
-          user_id: number;
-        };
-        Insert: {
-          team_id: number;
-          user_id: number;
-        };
-        Update: {
-          team_id?: number;
-          user_id?: number;
         };
         Relationships: [];
       };

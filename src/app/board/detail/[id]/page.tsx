@@ -9,11 +9,15 @@ import { selectPost, updatePost } from "@/libs/utils/api/supabase/postAPI";
 import { uploadImage } from "@/libs/utils/api/supabase/storeAPI";
 import { Comment } from "@/types";
 import { usePathname, useRouter } from "next/navigation";
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 
 const DetailPage = () => {
+  let postId = useRef("");
+  let userId = useRef("");
+  let isPermitted = useRef(false);
   const url = usePathname();
   const router = useRouter();
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
@@ -22,19 +26,50 @@ const DetailPage = () => {
   const [imagesSrc, setImagesSrc] = useState<string[]>([]);
   const [imagesFile, setImagesFile] = useState<File[]>([]);
   const [comments, setComments] = useState<Comment[]>([]);
-  const [userId, setUserId] = useState<string>("");
   const [readMode, setReadMode] = useState(true);
-  const [isPermitted, setIsPermitted] = useState<boolean>(false);
 
-  const getParamId = (url: string) => {
+  const getPostId = (url: string) => {
     const params = url.split("/");
     const id = params.pop();
+    if (typeof id === "undefined") {
+      alert("잘못된 페이지입니다."); //NOTE - url이 잘못되었음
+      return "";
+    }
     return id;
   };
 
+  const init = async () => {
+    postId.current = getPostId(url);
+    const userIdResponse = await getUserId();
+    if (userIdResponse.status === "fail") {
+      alert(userIdResponse); //NOTE - 유저 id를 불러올 수 없음
+      return;
+    }
+    const userUuid = userIdResponse.result;
+    userId.current = userUuid;
+    const postResponse = await selectPost(postId.current);
+    if (postResponse.status === "fail") {
+      alert(postResponse.result); //NOTE - 해당하는 게시글 id에 해당하는 게시글이 db에 없음
+      return;
+    }
+
+    const post = postResponse.result;
+    const images = post.images;
+    if (images && images.length > 0) {
+      setImagesSrc(images);
+    }
+    setTitle(post.title);
+    setContent(post.content);
+    setCategory(post.category);
+    setDate(post.created_at);
+    setAvatar(post.avatar);
+    setComments(post.comments);
+    isPermitted.current = userId.current === post.user_id;
+  }; //NOTE - 위치 생각하기
+
   const onEdit = async (e: MouseEvent) => {
     e.preventDefault();
-    if (isPermitted) {
+    if (!isPermitted) {
       return alert("자신의 글만 수정할 수 있습니다.");
     }
     setReadMode(false);
@@ -66,72 +101,55 @@ const DetailPage = () => {
     return fullPath;
   };
   const getUploadedImagesPath = async (id: string) => {
-    let imagesPath: string[] = [];
-    imagesFile.forEach(async (file) => {
+    const imagesPath: string[] = [];
+    const promise = imagesFile.map(async (file) => {
       const imagePath = getImagePath(id!, file);
       const uploadedImagePath = await getUploadedImagePath(file, imagePath);
+      console.log("각각의 경로", uploadedImagePath);
       imagesPath.push(uploadedImagePath!);
     });
+    await Promise.all(promise);
+    return imagesPath;
   };
+
+  const updateBoard = async (id: string, images: string[]) => {
+    const response = await updatePost(id!, {
+      title,
+      category,
+      content,
+      images: images,
+      created_at: new Date().toLocaleString("ko-KR", {
+        timeZone: "Asia/Seoul",
+      }),
+    });
+    if (response.status === "success") {
+      alert("성공");
+    } else {
+      alert("실패");
+    }
+  };
+
   const onConfirm = async (e: MouseEvent) => {
     e.preventDefault();
     setImagesSrc([]);
-    const id = getParamId(url);
-    const date = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
-    let images: string[] = [];
+    const id = getPostId(url);
+    const images = await getUploadedImagesPath(id!);
+    console.log(images);
+    console.log("테스트", images);
+    // const imageString = changeArrayToString(images);
 
-    // imagesFile.forEach(async (file) => {
-    //   const imagePath = getImagePath(id!, file);
-    //   const uploadedImagePath = await getUploadedImagePath(file, imagePath);
-    //   setImagesSrc((prev) => [...prev, uploadedImagePath!]);
-    // });
-    console.log(imagesSrc);
-    // images.forEach((image) => (inputImages += image.concat(" ")));
-    // inputImages = inputImages.trim();
-    // const response = await updatePost(id!, {
-    //   title,
-    //   category,
-    //   content,
-    //   // images: imagesSrc,
-    //   created_at: date,
-    // });
-    // if (response.status === "success") {
-    //   alert("성공");
-    // } else {
-    //   alert("실패");
-    // }
+    await updateBoard(id!, images);
+
     //NOTE - 게시판으로 이동 넣기
   };
 
+  const onDelete = async (e: MouseEvent) => {
+    //NOTE - 삭제 구현하기
+    e.preventDefault();
+  };
+
   useEffect(() => {
-    const test = async () => {
-      const postId = getParamId(url);
-      const userIdResponse = await getUserId();
-      if (userIdResponse.status === "fail") {
-        alert(userIdResponse);
-        return;
-      }
-      const userUuid = userIdResponse.result;
-      const postResponse = await selectPost(postId!);
-      if (postResponse.status === "fail") {
-        alert(postResponse.result);
-        return;
-      }
-      const post = postResponse.result;
-      const images = post.images?.split(" ");
-      if (images && images.length > 0) {
-        setImagesSrc(images);
-      }
-      setTitle(post.title);
-      setContent(post.content);
-      setCategory(post.category);
-      setDate(post.created_at);
-      setAvatar(post.avatar);
-      setComments(post.comments);
-      setUserId(userUuid);
-      setIsPermitted(userId === post.user_id);
-    };
-    test();
+    init();
   }, []);
 
   //NOTE - 가로 길이 수정할 것
@@ -176,7 +194,7 @@ const DetailPage = () => {
             setImagesFile={setImagesFile}
           />
         )}
-        {readMode && (
+        {readMode && imagesSrc.length > 0 && (
           <ImagesCarousel
             imagesSrc={imagesSrc}
             countOfImages={imagesSrc.length}
@@ -190,6 +208,13 @@ const DetailPage = () => {
               }}
             >
               수정
+            </Button>
+            <Button
+              onClick={(e) => {
+                onDelete(e);
+              }}
+            >
+              삭제
             </Button>
             <Button onClick={(e) => onCancel(e)}>목록</Button>
           </section>

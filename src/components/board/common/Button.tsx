@@ -15,6 +15,9 @@ export const Button = ({
     case "수정":
       className = "btn btn-primary";
       break;
+    case "삭제":
+      className = "btn btn-accent";
+      break;
 
     case "목록":
     case "취소":
