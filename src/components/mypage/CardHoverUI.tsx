@@ -11,6 +11,7 @@ export const HoverEffect = ({
     title: string;
     description: string;
     link: string;
+    images?: string;
   }[];
   className?: string;
 }) => {
@@ -48,7 +49,7 @@ export const HoverEffect = ({
               />
             )}
           </AnimatePresence>
-          <Card>
+          <Card imgUrl={item.images}>
             <CardTitle>{item.title}</CardTitle>
             <CardDescription>{item.description}</CardDescription>
           </Card>
@@ -61,9 +62,11 @@ export const HoverEffect = ({
 export const Card = ({
   className,
   children,
+  imgUrl,
 }: {
   className?: string;
   children: React.ReactNode;
+  imgUrl?: string;
 }) => {
   return (
     <div
@@ -73,6 +76,11 @@ export const Card = ({
       )}
     >
       <div className="relative z-50">
+        <img
+          src={imgUrl}
+          alt="Post"
+          className="mb-4 rounded-lg w-full h-32 object-cover"
+        />
         <div className="p-4">{children}</div>
       </div>
     </div>
@@ -98,14 +106,22 @@ export const CardDescription = ({
   className?: string;
   children: React.ReactNode;
 }) => {
+  const maxLines = 2;
+
+  // 표시할 내용
+  const displayText =
+    typeof children === "string"
+      ? children.split("\n").slice(0, maxLines).join("\n") +
+        (children.split("\n").length > maxLines ? "..." : "")
+      : children;
   return (
     <p
       className={cn(
-        "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
+        "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm line-clamp-2",
         className
       )}
     >
-      {children}
+      {displayText}
     </p>
   );
 };

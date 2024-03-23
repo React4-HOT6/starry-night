@@ -5,8 +5,10 @@ const useTypingAnimation = (text: string, speed: number) => {
 
   useEffect(() => {
     let index = 0;
+    setTypingText("");
     const intervalTime = setInterval(() => {
-      setTypingText((prev) => prev + text.charAt(index));
+      const next = text[index];
+      setTypingText((prev) => prev + next);
       index++;
       if (index === text.length) {
         clearInterval(intervalTime);
@@ -15,7 +17,6 @@ const useTypingAnimation = (text: string, speed: number) => {
 
     return () => clearInterval(intervalTime);
   }, [text, speed]);
-
   return typingText;
 };
 
