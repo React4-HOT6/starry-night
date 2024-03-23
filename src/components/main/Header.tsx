@@ -12,7 +12,6 @@ const Header = () => {
   const { isModalOpen, toggleModal, setModalData, setBtnData } =
     useModalStore();
 
-  console.log(isModalOpen);
   const onClickLogout = () => {
     toggleModal();
     setModalData(
@@ -28,7 +27,7 @@ const Header = () => {
           onClick={async () => {
             await supabase.auth.signOut();
             setModalData(
-              <p className="text-center text-lg">로그아웃 되었습니다.</p>
+              <p className="text-center text-lg px-2">로그아웃 되었습니다.</p>
             );
             setBtnData(
               <button className="text-primary" onClick={toggleModal}>
