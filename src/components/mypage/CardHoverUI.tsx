@@ -79,7 +79,7 @@ export const Card = ({
         <img
           src={imgUrl}
           alt="Post"
-          className="mb-4 rounded-lg w-full h-24 object-cover"
+          className="mb-4 rounded-lg w-full h-32 object-cover"
         />
         <div className="p-4">{children}</div>
       </div>
