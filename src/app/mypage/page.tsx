@@ -17,9 +17,11 @@ const MyPage = () => {
   const [avatarUrl, setAvatarUrl] = useState("");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [userPosts, setUserPosts] = useState<Board[]>([]);
+
   useEffect(() => {
     fetchPostsAndProfile();
   }, []);
+
   //프로필정보랑 게시글 불러오기
   const fetchPostsAndProfile = async () => {
     setIsLoading(true);
@@ -27,7 +29,6 @@ const MyPage = () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      //console.log(user);
       const zodiac = calculateBirthZodiac(user?.user_metadata.birth);
       setEmail(user?.user_metadata.email);
       setNickname(user?.user_metadata.nickname);
@@ -41,7 +42,7 @@ const MyPage = () => {
       if (avatarResponse.error) {
         avatarUrl = "/default_img.png";
       } else {
-        // 프로필 이미지가 없을 경우 기본 이미지 URL 설정
+        // 프로필 이미지가 있는 경우 기본 이미지 URL 설정
 
         avatarUrl = URL.createObjectURL(avatarResponse.data);
       }
@@ -116,11 +117,11 @@ const MyPage = () => {
     setIsEdited(!isEdited);
   };
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex pt-[70px] justify-center items-center h-screen">
       {isLoading ? (
         <span className="loading loading-dots loading-lg"></span>
       ) : (
-        <div className="w-[1200px] flex justify-center items-center h-full">
+        <div className="w-[1200px] flex-col md:flex-row flex justify-center items-center h-full">
           <ProfileSection
             avatarUrl={avatarUrl}
             handleAvatarChange={handleAvatarChange}
@@ -132,7 +133,7 @@ const MyPage = () => {
             email={email}
             updateProfile={updateProfile}
           />
-          <div className="hidden md:block w-2/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg">
+          <div className="mt-[10px] md:block w-full md:w-2/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg md:overflow-y-auto overflow-x-auto">
             <PostSection userPosts={userPosts} />
           </div>
         </div>
