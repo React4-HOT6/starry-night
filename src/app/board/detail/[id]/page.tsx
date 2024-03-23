@@ -4,6 +4,7 @@ import { ImagesCarousel } from "@/components/board/common/ImagesCarousel";
 import { PostInfo } from "@/components/board/read/PostInfo";
 import { SelectCategory } from "@/components/board/write/SelectCategory";
 import { SelectImages } from "@/components/board/write/SelectImages";
+import MessageModal from "@/components/modal/MessageModal";
 import { getUserId } from "@/libs/utils/api/supabase/authAPI";
 import {
   deletePost,
@@ -23,6 +24,9 @@ const DetailPage = () => {
   const url = usePathname();
   const router = useRouter();
 
+  const [toggleModal, setToggleModal] = useState(false);
+  const [modalData, setModalData] = useState({});
+
   const [title, setTitle] = useState(" ");
   const [content, setContent] = useState("  ");
   const [category, setCategory] = useState("");
@@ -30,7 +34,7 @@ const DetailPage = () => {
   const [avatar, setAvatar] = useState("");
   const [imagesSrc, setImagesSrc] = useState<string[]>([]);
   const [imagesFile, setImagesFile] = useState<File[]>([]);
-  const [comments, setComments] = useState<Comment[]>([]);
+  // const [comments, setComments] = useState<Comment[]>([]);
   const [readMode, setReadMode] = useState(true);
 
   const setPostId = (url: string) => {
@@ -39,21 +43,33 @@ const DetailPage = () => {
     if (typeof id === "string") {
       postId.current = id;
     } else {
-      alert("잘못된 페이지입니다.");
+      popAlertModal("페이지 오류", "잘못된 페이지 입니다.");
       router.push("/board");
     }
+  };
+
+  const popAlertModal = (name: string, text: string) => {
+    setToggleModal(true);
+    setModalData({
+      type: "alert",
+      name,
+      text,
+    });
   };
 
   const init = async () => {
     setPostId(url);
     const userIdResponse = await getUserId();
     if (userIdResponse.status === "fail") {
-      return alert("유저 정보를 불러오는데 실패했습니다."); //NOTE - 유저 id를 불러올 수 없음
+      return popAlertModal("유저 정보", "유저 정보를 불러오는데 실패했습니다.");
     }
     userId.current = userIdResponse.result;
     const postResponse = await selectPost(postId.current);
     if (postResponse.status === "fail") {
-      return alert("게시글 정보를 불러오는데 실패했습니다."); //NOTE - 해당하는 게시글 id에 해당하는 게시글이 db에 없음
+      return popAlertModal(
+        "게시글 정보",
+        "게시글 정보를 불러오는데 실패했습니다."
+      );
     }
 
     post.current = postResponse.result;
@@ -68,18 +84,15 @@ const DetailPage = () => {
     setAvatar(post.current.avatar!);
     // setComments(post.current.comments!);
     isPermitted.current = userId.current === post.current.user_id;
-  }; //NOTE - 위치 생각하기
+  };
 
   const onEdit = (e: MouseEvent) => {
     e.preventDefault();
-    console.log("로그인한 유저 아이디", userId.current);
-    console.log("작성자 아이디", post.current?.user_id);
 
     if (!isPermitted.current) {
-      console.log("같나", isPermitted);
-      alert("자신의 글만 수정할 수 있습니다.");
-      return;
+      return popAlertModal("게시글 수정", "자신의 글만 수정할 수 있습니다.");
     }
+
     setReadMode(false);
   };
 
@@ -98,10 +111,12 @@ const DetailPage = () => {
   };
 
   const getUploadedImagePath = async (file: File, path: string) => {
-    //NOTE - supabase 실패할 경우 구현할 것
     const response = await uploadImage(file, path);
     if (response.status === "fail") {
-      return alert("storage에 이미지 업로드 실패");
+      return popAlertModal(
+        "이미지 업로드",
+        "storage에 이미지를 업로드하는데 실패"
+      );
     }
     const imageSrc = response.result;
     const fullPath =
@@ -130,19 +145,25 @@ const DetailPage = () => {
       }),
     });
     if (response.status === "success") {
-      alert("데이터베이스 업데이트 성공");
+      return popAlertModal("게시글 수정", "게시글을 수정하였습니다.");
     } else {
-      alert("데이터베이스 업데이트 실패");
+      return popAlertModal("게시글 수정", "게시글을 수정하지 못했습니다.");
     }
   };
 
   const deleteStorageImages = async (images: string[] | undefined) => {
     if (typeof images === "undefined") {
-      return alert("게시글에 저장된 이미지가 없습니다.");
+      return popAlertModal(
+        "게시글 이미지",
+        "게시글에 저장된 이미지가 없습니다.."
+      );
     }
     const response = await deleteImages(images);
     if (response.status === "fail") {
-      alert("이미지 삭제 실패");
+      return popAlertModal(
+        "게시글 이미지",
+        "이미지를 삭제하는데 실패했습니다.."
+      );
     }
   };
 
@@ -152,7 +173,7 @@ const DetailPage = () => {
     const images = await getUploadedImagesPath(postId.current);
     await updateBoard(postId.current, images);
 
-    //NOTE - 게시판으로 이동 넣기
+    router.push("/board");
   };
 
   const onDelete = async (e: MouseEvent) => {
@@ -160,9 +181,9 @@ const DetailPage = () => {
     e.preventDefault();
     const response = await deletePost(postId.current);
     if (response.status === "success") {
-      alert(response.result);
+      return popAlertModal("게시글 삭제", "게시글을 삭제하였습니다..");
     } else {
-      alert("post 삭제 실패" + response.result);
+      return popAlertModal("게시글 삭제", "게시글을 삭제하지 못했습니다..");
     }
   };
 
@@ -173,6 +194,7 @@ const DetailPage = () => {
   //NOTE - 이미지 로딩 중일 때 이미지 구현하기
   //NOTE - 아바타 클릭하면 계정 정보 모달창 띄우기
   //NOTE - main pt-20 임시로 설정
+  //NOTE - alert 창 유저에게 보여줄 것 제외하고 삭제
   return (
     <main className="flex flex-col justify-center pt-20 mx-auto w-2/3">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">
@@ -186,7 +208,13 @@ const DetailPage = () => {
           readOnly={readMode}
         />
         {readMode && (
-          <PostInfo category={category} date={date} avatar={avatar} />
+          <PostInfo
+            category={category}
+            date={date}
+            avatar={avatar}
+            birthday={post.current?.birthday!}
+            nickname={post.current?.nickname!}
+          />
         )}
         {!readMode && (
           <SelectCategory
@@ -243,6 +271,9 @@ const DetailPage = () => {
           </section>
         )}
       </form>
+      {toggleModal && (
+        <MessageModal modalToggle={setToggleModal} {...modalData} />
+      )}
       {/* <div className="flex flex-col m-4 w-full justify-center gap-y-5">
         <section className="flex flex-row justify-start gap-x-5"></section>
         {comments.map((comment, index) => (
