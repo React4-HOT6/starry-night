@@ -35,7 +35,10 @@ const BoardInput = () => {
       <button onClick={handleSearchClick} className="btn ml-2 flex btn-primary">
         검색
       </button>
-      <button onClick={handleResetFilter} className="btn ml-2 flex btn-primary">
+      <button
+        onClick={handleResetFilter}
+        className="btn  ml-2 text-black flex btn-neutral"
+      >
         초기화
       </button>
     </div>

@@ -18,15 +18,19 @@ const BoardCardContainer = () => {
 
   return (
     <div className=" flex p-2 flex-col ">
-      {posts?.map((post) => (
-        <BoardCard
-          key={post.id}
-          title={post.title}
-          nickname={post.nickname}
-          image={post.images}
-          category={post.category}
-        />
-      ))}
+      {posts?.map((post) => {
+        const imagesSrcArray = Array.isArray(post.images) ? post.images : [];
+        return (
+          <BoardCard
+            id={post.id}
+            key={post.id}
+            title={post.title}
+            nickname={post.nickname}
+            imagesSrc={imagesSrcArray}
+            category={post.category}
+          />
+        );
+      })}
     </div>
   );
 };
