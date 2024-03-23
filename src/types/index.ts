@@ -26,7 +26,6 @@ export type TypingAnimationProps = {
 export interface SignInOutButtonType {
   isSignIn: boolean;
   onClickLogout: () => void;
-  avatarUrl: string;
 }
 
 const Zodiac = {
