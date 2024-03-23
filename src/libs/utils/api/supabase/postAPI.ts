@@ -57,3 +57,29 @@ export const deletePost = async (id: string) => {
   }
   return { status: "success", result: "post 삭제 성공" } as const;
 };
+
+export const selectBoardPosts = async (
+  category: string | null,
+  title: string | ""
+) => {
+  let query = supabase
+    .from("board")
+    .select("id, title, nickname, images, created_at, category,content")
+    .order("created_at", { ascending: false });
+
+  if (category) {
+    query = query.eq("category", category);
+  }
+  if (title) {
+    query = query.ilike("title", `%${title}%`);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+
+  return data;
+};

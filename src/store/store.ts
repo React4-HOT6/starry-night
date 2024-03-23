@@ -8,7 +8,7 @@ export type StarSignData = {
   s_img_url: string | null | undefined;
 };
 
-type Store = {
+type ModalStore = {
   isModalOpen: boolean;
   toggleModal: () => void;
   starSignData: StarSignData | null;
@@ -19,8 +19,14 @@ type Store = {
   BtnData: ReactNode;
   setBtnData: (data: ReactNode | null) => void;
 };
+type BoardStore = {
+  selectedCategory: string | null;
+  selectedTitle: string | "";
+  setSelectedCategory: (category: string | null) => void;
+  setSelectedTitle: (title: string | "") => void;
+};
 
-const useModalStore = create<Store>((set) => ({
+export const useModalStore = create<ModalStore>((set) => ({
   //초기값 설정
   isModalOpen: false,
   starSignData: null,
@@ -36,6 +42,10 @@ const useModalStore = create<Store>((set) => ({
   setBtnData: (data) => set(() => ({ BtnData: data })),
 }));
 
-const useProfileStore = create<Store>((set) => ({}));
-
-export default useModalStore;
+export const useBoardStore = create<BoardStore>((set) => ({
+  selectedCategory: null,
+  selectedTitle: "",
+  setSelectedCategory: (category) =>
+    set(() => ({ selectedCategory: category })),
+  setSelectedTitle: (title) => set(() => ({ selectedTitle: title })),
+}));

@@ -15,7 +15,7 @@ import {
   Virgo,
 } from "./StarSigns";
 import Modal from "@/components/modal/CustomModal";
-import useModalStore from "@/store/store";
+import { useModalStore } from "@/store/store";
 const StarSignForm = () => {
   const { isModalOpen } = useModalStore();
 
