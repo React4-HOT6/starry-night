@@ -1,6 +1,6 @@
 # - 별 헤는 밤(starry night) -
 
-<img width="1468" alt="Screen Shot 2024-02-14 at 3 19 44 PM" src="">
+<img width="1468" alt="starry night" src="">
 
 - 배포 URL :
 
