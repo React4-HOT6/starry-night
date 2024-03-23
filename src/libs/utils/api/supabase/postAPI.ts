@@ -55,11 +55,23 @@ export const deletePost = async (id: string) => {
   return true;
 };
 
-export const selectBoardPosts = async () => {
-  const { data, error } = await supabase
+export const selectBoardPosts = async (
+  category: string | null,
+  title: string | ""
+) => {
+  let query = supabase
     .from("board")
     .select("id, title, nickname, images, created_at, category")
     .order("created_at", { ascending: false });
+
+  if (category) {
+    query = query.eq("category", category);
+  }
+  if (title) {
+    query = query.ilike("title", `%${title}%`);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     console.error(error);

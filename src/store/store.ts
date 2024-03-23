@@ -1,3 +1,4 @@
+import { type } from "os";
 import { ReactNode } from "react";
 import { create } from "zustand";
 
@@ -19,6 +20,12 @@ type Store = {
   BtnData: ReactNode;
   setBtnData: (data: ReactNode | null) => void;
 };
+type BoardStore = {
+  selectedCategory: string | null;
+  selectedTitle: string | "";
+  setSelectedCategory: (category: string | null) => void;
+  setSelectedTitle: (title: string | "") => void;
+};
 
 const useStore = create<Store>((set) => ({
   //초기값 설정
@@ -37,3 +44,11 @@ const useStore = create<Store>((set) => ({
 }));
 
 export default useStore;
+
+export const useBoardStore = create<BoardStore>((set) => ({
+  selectedCategory: null,
+  selectedTitle: "",
+  setSelectedCategory: (category) =>
+    set(() => ({ selectedCategory: category })),
+  setSelectedTitle: (title) => set(() => ({ selectedTitle: title })),
+}));
