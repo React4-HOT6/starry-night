@@ -33,7 +33,11 @@ export const PostInfo = ({
         {`${category} | ${date}`}
       </p>
       {avatar && (
-        <div className="hover:cursor-pointer">
+        <div
+          className="tooltip text-black"
+          data-tip={`nickname : ${nickname} 
+          birthday : ${birthday}`}
+        >
           <Image
             onClick={(e) => onClick(e)}
             src={avatar}
