@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# - 별 헤는 밤(starry night) -
 
-## Getting Started
+<img width="1468" alt="Screen Shot 2024-02-14 at 3 19 44 PM" src="">
 
-First, run the development server:
+- 배포 URL :
 
-```bash
-npm run dev
-# or
+## 실행방법
+
+- 실행
+
+```
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn build
+yarn start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 프로젝트 소개
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 팀원구성
 
-## Learn More
+- 김명환
+- 김예린
+- 양희철
+- 여태원
+- 최희라
 
-To learn more about Next.js, take a look at the following resources:
+## 1.개발 환경
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Front : tailwind css, Aceternity UI, daisy ui,  zustand, react-query, typescript, next.js, supabase 
+- 버전 및 이슈관리 : Github
+- 협업툴 : Zep, Notion
+- 서비스 배포 환경 : vercel
+- 디자인 : Figma
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 2. 역할 분담
 
-## Deploy on Vercel
+### 김명환
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- 
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 김예린
+
+- 
+
+### 양희철
+
+- 
+
+### 여태원
+
+- 별자리 페이지,게시판 페이지 구현
+
+### 최희라
+
+- 
