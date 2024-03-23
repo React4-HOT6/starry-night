@@ -42,10 +42,10 @@ export const insertPost = async (newPost: any) => {
 
   if (error) {
     console.log(error); //NOTE - 테스트 코드
-    return false;
+    return { status: "fail", result: error } as const;
   }
   console.log(data); //NOTE - 테스트 코드
-  return data;
+  return { status: "success", result: data } as const;
 };
 
 export const deletePost = async (id: string) => {

@@ -3,22 +3,24 @@ import { Button } from "@/components/board/common/Button";
 import { SelectCategory } from "@/components/board/write/SelectCategory";
 import { SelectImages } from "@/components/board/write/SelectImages";
 import MessageModal from "@/components/modal/MessageModal";
-import { getUserId } from "@/libs/utils/api/supabase/authAPI";
 import {
-  deletePost,
-  selectPost,
-  updatePost,
-} from "@/libs/utils/api/supabase/postAPI";
-import { uploadImage, deleteImages } from "@/libs/utils/api/supabase/storeAPI";
+  getUserBirthday,
+  getUserId,
+  getUserNickname,
+} from "@/libs/utils/api/supabase/authAPI";
+import { insertPost } from "@/libs/utils/api/supabase/postAPI";
+import { uploadImage } from "@/libs/utils/api/supabase/storeAPI";
 import { Post } from "@/types";
 import { usePathname, useRouter } from "next/navigation";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 
-const DetailPage = () => {
+const WritePage = () => {
   let postId = useRef("");
   let userId = useRef("");
-  let isPermitted = useRef(false);
-  let post = useRef<Post>();
+  let userBirthday = useRef("");
+  let userNickname = useRef("");
+  let userAvatar = useRef("");
+
   const url = usePathname();
   const router = useRouter();
 
@@ -27,12 +29,20 @@ const DetailPage = () => {
 
   const [title, setTitle] = useState(" ");
   const [content, setContent] = useState("  ");
-  const [category, setCategory] = useState("");
-  const [date, setDate] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [category, setCategory] = useState("양자리");
   const [imagesSrc, setImagesSrc] = useState<string[]>([]);
   const [imagesFile, setImagesFile] = useState<File[]>([]);
-  // const [comments, setComments] = useState<Comment[]>([]);
+
+  const setPostId = (url: string) => {
+    const params = url.split("/");
+    const id = params.pop();
+    if (typeof id === "string") {
+      postId.current = id;
+    } else {
+      popAlertModal("페이지 오류", "잘못된 페이지 입니다.");
+      router.push("/board");
+    }
+  };
 
   const popAlertModal = (name: string, text: string) => {
     setToggleModal(true);
@@ -44,31 +54,25 @@ const DetailPage = () => {
   };
 
   const init = async () => {
+    setPostId(url);
     const userIdResponse = await getUserId();
     if (userIdResponse.status === "success") {
       userId.current = userIdResponse.result;
+    }
+    const userBirthdayResponse = await getUserBirthday();
+    if (userBirthdayResponse.status === "success") {
+      userBirthday.current = userBirthdayResponse.result;
     } else {
-      userId.current = "";
+      userBirthday.current = "";
     }
-    const postResponse = await selectPost(postId.current);
-    if (postResponse.status === "fail") {
-      return popAlertModal(
-        "게시글 정보",
-        "게시글 정보를 불러오는데 실패했습니다."
-      );
+    const userNicknameResponse = await getUserNickname();
+    if (userNicknameResponse.status === "success") {
+      userNickname.current = userNicknameResponse.result;
+    } else {
+      userNickname.current = "";
     }
-
-    post.current = postResponse.result;
-    const images = post.current.images;
-    if (images && images.length > 0) {
-      setImagesSrc(images);
-    }
-    setTitle(post.current.title!);
-    setContent(post.current.content!);
-    setCategory(post.current.category!);
-    setDate(post.current.created_at!);
-    setAvatar(post.current.avatar!);
-    isPermitted.current = userId.current === post.current.user_id;
+    userAvatar.current = `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}${userId.current}/avatar.png`;
+    console.log(userAvatar.current);
   };
 
   const onCancel = (e: MouseEvent) => {
@@ -95,9 +99,10 @@ const DetailPage = () => {
     }
     const imageSrc = response.result;
     const fullPath =
-      process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL + imageSrc.path;
+      process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BOARD_URL + imageSrc.path;
     return fullPath;
   };
+
   const getUploadedImagesPath = async (id: string) => {
     const imagesPath: string[] = [];
     const promise = imagesFile.map(async (file) => {
@@ -108,45 +113,31 @@ const DetailPage = () => {
     await Promise.all(promise);
     return imagesPath;
   };
-
-  const updateBoard = async (id: string, images: string[]) => {
-    const response = await updatePost(id!, {
+  const writeBoard = async (images: string[]) => {
+    const response = await insertPost({
       title,
-      category,
       content,
-      images: images,
       created_at: new Date().toLocaleString("ko-KR", {
         timeZone: "Asia/Seoul",
       }),
+      category,
+      user_id: userId.current,
+      avatar: userAvatar.current,
+      birthday: userBirthday.current,
+      nickname: userNickname.current,
+      images,
     });
     if (response.status === "success") {
-      return popAlertModal("게시글 수정", "게시글을 수정하였습니다.");
+      return popAlertModal("게시글 작성", "게시글을 작성하였습니다.");
     } else {
-      return popAlertModal("게시글 수정", "게시글을 수정하지 못했습니다.");
+      return popAlertModal("게시글 작성", "게시글을 작성하지 못했습니다.");
     }
   };
 
-  const deleteStorageImages = async (images: string[] | undefined) => {
-    if (typeof images === "undefined") {
-      return popAlertModal(
-        "게시글 이미지",
-        "게시글에 저장된 이미지가 없습니다.."
-      );
-    }
-    const response = await deleteImages(images);
-    if (response.status === "fail") {
-      return popAlertModal(
-        "게시글 이미지",
-        "이미지를 삭제하는데 실패했습니다.."
-      );
-    }
-  };
-
-  const onConfirm = async (e: MouseEvent) => {
+  const onWrite = async (e: MouseEvent) => {
     e.preventDefault();
-    deleteStorageImages(post.current?.images);
     const images = await getUploadedImagesPath(postId.current);
-    await updateBoard(postId.current, images);
+    await writeBoard(images);
 
     router.push("/board");
   };
@@ -187,7 +178,7 @@ const DetailPage = () => {
         <section className="flex flex-row justify-end gap-x-5">
           <Button
             onClick={(e) => {
-              onDelete(e);
+              onWrite(e);
             }}
           >
             작성
@@ -213,4 +204,4 @@ const DetailPage = () => {
   );
 };
 
-export default DetailPage;
+export default WritePage;

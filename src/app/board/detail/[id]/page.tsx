@@ -121,7 +121,7 @@ const DetailPage = () => {
     }
     const imageSrc = response.result;
     const fullPath =
-      process.env.NEXT_PUBLIC_SUPABASE_STORAGE_URL + imageSrc.path;
+      process.env.NEXT_PUBLIC_SUPABASE_STORAGE_BOARD_URL + imageSrc.path;
     return fullPath;
   };
   const getUploadedImagesPath = async (id: string) => {
@@ -178,13 +178,13 @@ const DetailPage = () => {
   };
 
   const onDelete = async (e: MouseEvent) => {
-    //NOTE - 삭제 구현하기
     e.preventDefault();
     const response = await deletePost(postId.current);
     if (response.status === "success") {
-      return popAlertModal("게시글 삭제", "게시글을 삭제하였습니다..");
+      popAlertModal("게시글 삭제", "게시글을 삭제하였습니다..");
+      return router.push("/board");
     } else {
-      return popAlertModal("게시글 삭제", "게시글을 삭제하지 못했습니다..");
+      return popAlertModal("게시글 삭제", "게시글을 삭제하지 못했습니다.");
     }
   };
 
@@ -193,9 +193,7 @@ const DetailPage = () => {
   }, []);
 
   //NOTE - 이미지 로딩 중일 때 이미지 구현하기
-  //NOTE - 아바타 클릭하면 계정 정보 모달창 띄우기
   //NOTE - main pt-20 임시로 설정
-  //NOTE - alert 창 유저에게 보여줄 것 제외하고 삭제
   return (
     <main className="flex flex-col justify-center pt-20 mx-auto w-2/3">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">
