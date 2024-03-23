@@ -10,7 +10,6 @@ import {
 } from "@/libs/utils/api/supabase/authAPI";
 import { insertPost } from "@/libs/utils/api/supabase/postAPI";
 import { uploadImage } from "@/libs/utils/api/supabase/storeAPI";
-import { Post } from "@/types";
 import { usePathname, useRouter } from "next/navigation";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 
