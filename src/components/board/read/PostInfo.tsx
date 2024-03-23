@@ -33,19 +33,13 @@ export const PostInfo = ({
         {`${category} | ${date}`}
       </p>
       {avatar && (
-        <div
-          className="tooltip text-black"
-          data-tip={`nickname : ${nickname} 
-          birthday : ${birthday}`}
-        >
-          <Image
-            onClick={(e) => onClick(e)}
-            src={avatar}
-            width={50}
-            height={50}
-            alt="아바타 이미지"
-          ></Image>
-        </div>
+        <Image
+          onClick={(e) => onClick(e)}
+          src={avatar}
+          width={50}
+          height={50}
+          alt="아바타 이미지"
+        ></Image>
       )}
       {toggleModal && (
         <MessageModal modalToggle={setToggleModal} {...modalData} />
