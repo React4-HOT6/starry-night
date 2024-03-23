@@ -1,13 +1,3 @@
-export type Fortune = {
-  horoscope_every: string | null;
-  horoscope_love: string | null;
-  horoscope_money: string | null;
-  id: number;
-  imgUrl: string | undefined;
-  month: string | null;
-  name: string | null;
-  personality: string | null;
-};
 export type Post = {
   category?: ZodiacType;
   content?: string;
