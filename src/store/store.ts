@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { create } from "zustand";
 import { supabase } from "@/libs/supabase/client";
-
 export type StarSignData = {
   id: number | undefined;
   star_sign_name: string | null | undefined;
@@ -36,5 +35,41 @@ const useModalStore = create<Store>((set) => ({
   //모달 버튼부분 state관리
   setBtnData: (data) => set(() => ({ BtnData: data })),
 }));
+type UserStoreType = {
+  nickname: string;
+  avatarUrl: string;
+  setNickname: (newNickname: string) => void;
+  setAvatarUrl: (newAvatarUrl: string) => void;
+};
+// type User={
+//   id: string;
+//   email: string;
+//   user_metadata: {
+//     nickname?: string;
 
+//   };
+//   avatarUrl?: string;
+// }
+export const useUserStore = create<UserStoreType>((set) => ({
+  nickname: "",
+  avatarUrl: "",
+  setNickname: (newNickname) => set({ nickname: newNickname }),
+  setAvatarUrl: (newAvatarUrl) => set({ avatarUrl: newAvatarUrl }),
+}));
+export const initializeUserStore = async (user: any) => {
+  if (user) {
+    let avatarUrl = "";
+    const avatarResponse = await supabase.storage
+      .from("profileAvatars")
+      .download(`${user.id}/avatar.png`);
+
+    if (avatarResponse.error) {
+      avatarUrl = "/default_img.png";
+    } else {
+      avatarUrl = URL.createObjectURL(avatarResponse.data);
+    }
+    useUserStore.getState().setNickname(user.user_metadata.nickname || "");
+    useUserStore.getState().setAvatarUrl(avatarUrl);
+  }
+};
 export default useModalStore;

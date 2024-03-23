@@ -6,13 +6,16 @@ import SignInOutButton from "@/components/main/SignInOutButton";
 import { supabase } from "@/libs/supabase/client";
 import Modal from "../CustomModal";
 import useModalStore from "@/store/store";
+import { useUserStore } from "@/store/store";
 
 const Header = () => {
   const [isSignIn, setIsSignIn] = useState<boolean>(false);
   const { isModalOpen, toggleModal, setModalData, setBtnData } =
     useModalStore();
-
-  console.log(isModalOpen);
+  const nickname = useUserStore((state) => state.nickname);
+  const avatarUrl = useUserStore((state) => state.avatarUrl);
+  console.log(nickname);
+  // console.log(isModalOpen);
   const onClickLogout = () => {
     toggleModal();
     setModalData(
@@ -141,6 +144,7 @@ const Header = () => {
                 TEAM
               </Link>
             </li>
+            <li>{nickname}</li>
           </ul>
         </div>
         <div className="navbar-end hidden lg:flex">

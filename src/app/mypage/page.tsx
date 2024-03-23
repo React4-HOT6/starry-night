@@ -9,6 +9,8 @@ import ProfileSection from "@/components/mypage/ProfileSection";
 import PostSection from "@/components/mypage/PostSection";
 type Board = Tables<"board">;
 import useModalStore from "@/store/store";
+import { useUserStore } from "@/store/store";
+import { initializeUserStore } from "@/store/store";
 const MyPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEdited, setIsEdited] = useState(false);
@@ -19,7 +21,8 @@ const MyPage = () => {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [userPosts, setUserPosts] = useState<Board[]>([]);
   const { toggleModal, setModalData, setBtnData } = useModalStore();
-
+  const setUserNickname = useUserStore((state) => state.setNickname);
+  const setUserAvatarUrl = useUserStore((state) => state.setAvatarUrl);
   useEffect(() => {
     fetchPostsAndProfile();
   }, []);
@@ -31,22 +34,24 @@ const MyPage = () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
+      //user정보 받아 온 값 넣어서 초기값 설정
+      await initializeUserStore(user);
       const zodiac = calculateBirthZodiac(user?.user_metadata.birth);
       setEmail(user?.user_metadata.email);
       setNickname(user?.user_metadata.nickname);
       setBirth(zodiac.name);
-      let avatarUrl = "";
+      //let avatarUrl = "";
 
-      const avatarResponse = await supabase.storage
-        .from("profileAvatars")
-        .download(`${user?.id}/avatar.png`);
-      if (avatarResponse.error) {
-        avatarUrl = "/default_img.png";
-      } else {
-        // 프로필 이미지가 있는 경우 기본 이미지 URL 설정
-        avatarUrl = URL.createObjectURL(avatarResponse.data);
-      }
-      setAvatarUrl(avatarUrl);
+      // const avatarResponse = await supabase.storage
+      //   .from("profileAvatars")
+      //   .download(`${user?.id}/avatar.png`);
+      // if (avatarResponse.error) {
+      //   avatarUrl = "/default_img.png";
+      // } else {
+      //   // 프로필 이미지가 있는 경우 기본 이미지 URL 설정
+      //   avatarUrl = URL.createObjectURL(avatarResponse.data);
+      // }
+      // setAvatarUrl(avatarUrl);
 
       if (user && user.id) {
         const { data: posts } = await supabase
@@ -97,6 +102,7 @@ const MyPage = () => {
         newAvatarUrl = data.path; // 새로운 아바타 URL 저장
       }
       setAvatarUrl(newAvatarUrl); // 프로필 이미지 URL로 설정
+      setUserAvatarUrl(newAvatarUrl);
 
       const { error: nicknameError } = await supabase.auth.updateUser({
         data: {
@@ -104,11 +110,11 @@ const MyPage = () => {
         },
       });
       if (nicknameError) throw nicknameError;
+      setUserNickname(nickname);
 
       console.log("Profile updated successfully!");
       setIsEdited(false);
       //프로필 업데이트하고 다시 불러오기..
-
       fetchPostsAndProfile();
     } catch (error) {
       console.error("Error updating profile:", error);
