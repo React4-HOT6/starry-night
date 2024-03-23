@@ -58,18 +58,30 @@ export const useUserStore = create<UserStoreType>((set) => ({
 }));
 export const initializeUserStore = async (user: any) => {
   if (user) {
-    let avatarUrl = "";
-    const avatarResponse = await supabase.storage
-      .from("profileAvatars")
-      .download(`${user.id}/avatar.png`);
+    try {
+      let avatarUrl = "";
+      const avatarResponse = await supabase.storage
+        .from("profileAvatars")
+        .download(`${user.id}/avatar.png`);
 
-    if (avatarResponse.error) {
-      avatarUrl = "/default_img.png";
-    } else {
-      avatarUrl = URL.createObjectURL(avatarResponse.data);
+      if (avatarResponse.error) {
+        console.error("Error downloading avatar:", avatarResponse.error);
+        avatarUrl = "/default_img.png";
+      } else {
+        avatarUrl = URL.createObjectURL(avatarResponse.data);
+      }
+
+      // 로그 추가
+      console.log("Avatar URL:", avatarUrl);
+
+      // 상태 업데이트
+      useUserStore.getState().setNickname(user.user_metadata.nickname || "");
+      useUserStore.getState().setAvatarUrl(avatarUrl);
+    } catch (error) {
+      console.error("Error in initializeUserStore:", error);
     }
-    useUserStore.getState().setNickname(user.user_metadata.nickname || "");
-    useUserStore.getState().setAvatarUrl(avatarUrl);
+  } else {
+    console.error("User object is null or undefined");
   }
 };
 export default useModalStore;

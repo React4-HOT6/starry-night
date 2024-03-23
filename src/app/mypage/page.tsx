@@ -15,14 +15,14 @@ const MyPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEdited, setIsEdited] = useState(false);
   const [birth, setBirth] = useState("");
-  const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [userPosts, setUserPosts] = useState<Board[]>([]);
   const { toggleModal, setModalData, setBtnData } = useModalStore();
-  const setUserNickname = useUserStore((state) => state.setNickname);
-  const setUserAvatarUrl = useUserStore((state) => state.setAvatarUrl);
+  const nickname = useUserStore((state) => state.nickname);
+  const avatarUrl = useUserStore((state) => state.avatarUrl);
+  const setNickname = useUserStore((state) => state.setNickname);
+  const setAvatarUrl = useUserStore((state) => state.setAvatarUrl);
   useEffect(() => {
     fetchPostsAndProfile();
   }, []);
@@ -36,22 +36,14 @@ const MyPage = () => {
       } = await supabase.auth.getUser();
       //user정보 받아 온 값 넣어서 초기값 설정
       await initializeUserStore(user);
+      console.log(
+        "Avatar URL after initialization:",
+        useUserStore.getState().avatarUrl
+      );
       const zodiac = calculateBirthZodiac(user?.user_metadata.birth);
       setEmail(user?.user_metadata.email);
       setNickname(user?.user_metadata.nickname);
       setBirth(zodiac.name);
-      //let avatarUrl = "";
-
-      // const avatarResponse = await supabase.storage
-      //   .from("profileAvatars")
-      //   .download(`${user?.id}/avatar.png`);
-      // if (avatarResponse.error) {
-      //   avatarUrl = "/default_img.png";
-      // } else {
-      //   // 프로필 이미지가 있는 경우 기본 이미지 URL 설정
-      //   avatarUrl = URL.createObjectURL(avatarResponse.data);
-      // }
-      // setAvatarUrl(avatarUrl);
 
       if (user && user.id) {
         const { data: posts } = await supabase
@@ -101,8 +93,7 @@ const MyPage = () => {
         if (error) throw error;
         newAvatarUrl = data.path; // 새로운 아바타 URL 저장
       }
-      setAvatarUrl(newAvatarUrl); // 프로필 이미지 URL로 설정
-      setUserAvatarUrl(newAvatarUrl);
+      setAvatarUrl(newAvatarUrl);
 
       const { error: nicknameError } = await supabase.auth.updateUser({
         data: {
@@ -110,7 +101,7 @@ const MyPage = () => {
         },
       });
       if (nicknameError) throw nicknameError;
-      setUserNickname(nickname);
+      setNickname(nickname);
 
       console.log("Profile updated successfully!");
       setIsEdited(false);
@@ -125,7 +116,7 @@ const MyPage = () => {
     if (file) {
       setAvatarFile(file);
       const url = URL.createObjectURL(file);
-      setAvatarUrl(url); // 미리보기 업데이트
+      setAvatarUrl(url);
     }
   };
   const handleEdit = () => {

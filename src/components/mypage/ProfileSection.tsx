@@ -6,7 +6,7 @@ type ProfileSectionProps = {
   isEdited: boolean;
   nickname: string;
   handleEdit: () => void;
-  setNickname: React.Dispatch<React.SetStateAction<string>>;
+  setNickname: (newNickname: string) => void;
   birth: string;
   email: string;
   updateProfile: () => Promise<void>;
