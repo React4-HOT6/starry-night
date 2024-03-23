@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 import { supabase } from "@/libs/supabase/client";
-
 import MessageModal from "../modal/MessageModal";
 import SignInOutButton from "@/components/main/SignInOutButton";
 import { useUserStore } from "@/store/store";
+import Image from "next/image";
+import logo from "@/assets/logo2.png";
+
 const Header = () => {
   const [isSignIn, setIsSignIn] = useState<boolean>(false);
   const [toggleModal, setToggleModal] = useState(false);
@@ -105,8 +106,12 @@ const Header = () => {
               </li>
             </ul>
           </div>
-          <Link href="/" className="btn btn-ghost text-xl tracking-widest">
-            STARRY NIGHT
+          <Link href="/" className="">
+            <Image
+              src={logo}
+              alt="starry night logo"
+              className="w-auto max-h-8 ml-2"
+            />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
