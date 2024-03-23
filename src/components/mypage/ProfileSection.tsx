@@ -33,13 +33,18 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
           />
         </label>
         {isEdited && (
-          <input
-            type="file"
-            id="fileInput"
-            accept="image/*"
-            onChange={handleAvatarChange}
-            className="hidden cursor-pointer border-b-2 border-info"
-          />
+          <label
+            htmlFor="fileInput"
+            className="flex cursor-pointer justify-center items-center"
+          >
+            <input
+              type="file"
+              id="fileInput"
+              accept="image/*"
+              onChange={handleAvatarChange}
+              className="hidden border-b-2 border-info"
+            />
+          </label>
         )}
       </div>
       <div className="mt-6 items-center text-center p-3">
@@ -56,7 +61,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
             {nickname}
           </h2>
         )}
-        <h2 className="mt-8 font-bold text-lg">{birth}</h2>
+        <h2 className="mt-4 mb-4 md:mt-8 font-bold text-lg">{birth}</h2>
         <div className="mt-34 md:mt-48 flex justify-center gap-4">
           {isEdited ? (
             <>

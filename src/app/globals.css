@@ -27,3 +27,11 @@ body {
   font-family: "PyeongChangPeace-Bold";
   font-weight: 700;
 }
+.fortune-title {
+  font-family: "PyeongChangPeace-Bold";
+  font-weight: 200;
+}
+.fortune-content {
+  font-family: "PyeongChangPeace-Bold";
+  font-weight: 80;
+}

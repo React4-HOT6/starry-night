@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { create } from "zustand";
+import { supabase } from "@/libs/supabase/client";
 
 export type StarSignData = {
   id: number | undefined;

@@ -8,6 +8,7 @@ import { calculateBirthZodiac } from "@/components/fortune/BirthZodiac";
 import ProfileSection from "@/components/mypage/ProfileSection";
 import PostSection from "@/components/mypage/PostSection";
 type Board = Tables<"board">;
+import useModalStore from "@/store/store";
 const MyPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEdited, setIsEdited] = useState(false);
@@ -17,6 +18,7 @@ const MyPage = () => {
   const [avatarUrl, setAvatarUrl] = useState("");
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [userPosts, setUserPosts] = useState<Board[]>([]);
+  const { toggleModal, setModalData, setBtnData } = useModalStore();
 
   useEffect(() => {
     fetchPostsAndProfile();
@@ -33,7 +35,6 @@ const MyPage = () => {
       setEmail(user?.user_metadata.email);
       setNickname(user?.user_metadata.nickname);
       setBirth(zodiac.name);
-      // 프로필 이미지 가져오기
       let avatarUrl = "";
 
       const avatarResponse = await supabase.storage
@@ -43,7 +44,6 @@ const MyPage = () => {
         avatarUrl = "/default_img.png";
       } else {
         // 프로필 이미지가 있는 경우 기본 이미지 URL 설정
-
         avatarUrl = URL.createObjectURL(avatarResponse.data);
       }
       setAvatarUrl(avatarUrl);
@@ -71,7 +71,16 @@ const MyPage = () => {
       } = await supabase.auth.getUser(); // 사용자 정보 다시 가져오기
       const userId = user?.id;
       if (!avatarFile && nickname === user?.user_metadata.nickname) {
-        alert("변경사항이 없다");
+        toggleModal();
+        setModalData(
+          <p className="text-center text-lg">변경사항이 없습니다.</p>
+        );
+        setBtnData(
+          <button onClick={toggleModal} className="text-primary">
+            확인
+          </button>
+        );
+
         return;
       }
       let newAvatarUrl = avatarUrl; // 기존 아바타 URL 사용
