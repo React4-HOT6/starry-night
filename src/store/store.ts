@@ -8,7 +8,7 @@ export type StarSignData = {
   s_img_url: string | null | undefined;
 };
 
-type Store = {
+type ModalStore = {
   isModalOpen: boolean;
   toggleModal: () => void;
   starSignData: StarSignData | null;
@@ -19,8 +19,14 @@ type Store = {
   BtnData: ReactNode;
   setBtnData: (data: ReactNode | null) => void;
 };
+type BoardStore = {
+  selectedCategory: string | null;
+  selectedTitle: string | "";
+  setSelectedCategory: (category: string | null) => void;
+  setSelectedTitle: (title: string | "") => void;
+};
 
-const useModalStore = create<Store>((set) => ({
+export const useModalStore = create<ModalStore>((set) => ({
   //초기값 설정
   isModalOpen: false,
   starSignData: null,
@@ -47,41 +53,10 @@ type UserStoreType = {
 //   user_metadata: {
 //     nickname?: string;
 
-//   };
-//   avatarUrl?: string;
-// }
-export const useUserStore = create<UserStoreType>((set) => ({
-  nickname: "",
-  avatarUrl: "",
-  setNickname: (newNickname) => set({ nickname: newNickname }),
-  setAvatarUrl: (newAvatarUrl) => set({ avatarUrl: newAvatarUrl }),
+export const useBoardStore = create<BoardStore>((set) => ({
+  selectedCategory: null,
+  selectedTitle: "",
+  setSelectedCategory: (category) =>
+    set(() => ({ selectedCategory: category })),
+  setSelectedTitle: (title) => set(() => ({ selectedTitle: title })),
 }));
-export const initializeUserStore = async (user: any) => {
-  if (user) {
-    try {
-      let avatarUrl = "";
-      const avatarResponse = await supabase.storage
-        .from("profileAvatars")
-        .download(`${user.id}/avatar.png`);
-
-      if (avatarResponse.error) {
-        console.error("Error downloading avatar:", avatarResponse.error);
-        avatarUrl = "/default_img.png";
-      } else {
-        avatarUrl = URL.createObjectURL(avatarResponse.data);
-      }
-
-      // 로그 추가
-      console.log("Avatar URL:", avatarUrl);
-
-      // 상태 업데이트
-      useUserStore.getState().setNickname(user.user_metadata.nickname || "");
-      useUserStore.getState().setAvatarUrl(avatarUrl);
-    } catch (error) {
-      console.error("Error in initializeUserStore:", error);
-    }
-  } else {
-    console.error("User object is null or undefined");
-  }
-};
-export default useModalStore;

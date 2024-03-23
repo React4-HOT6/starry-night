@@ -1,9 +1,9 @@
-import { Meteors } from "@/components/ui/meteors";
+import BoardContainer from "@/components/board/BoardContainer";
 
 const BoardPage = () => {
   return (
-    <div>
-      <Meteors />
+    <div className="flex  p-[30px] min-h-screen ">
+      <BoardContainer />
     </div>
   );
 };

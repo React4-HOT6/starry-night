@@ -1,5 +1,5 @@
 import { getStarSign } from "@/libs/utils/api/supabase/starsignAPI";
-import useModalStore from "@/store/store";
+import { useModalStore } from "@/store/store";
 import Image, { StaticImageData } from "next/image";
 type StarSignComponentProps = {
   src: StaticImageData;
@@ -19,7 +19,6 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
   };
 
   const onClickStarsign = async () => {
-    //supabase data 가져오기
     const data = await getStarSign(starSignId);
     try {
       setStarSignData({

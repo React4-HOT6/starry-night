@@ -3,7 +3,7 @@ export type Post = {
   content?: string;
   created_at?: string;
   id?: string;
-  images?: string;
+  images?: string[];
   title?: string;
   avatar?: string;
   birthday?: string;
@@ -12,11 +12,11 @@ export type Post = {
 };
 
 export type Comment = {
-  avatar?: string;
-  content?: string;
-  created_at?: string;
-  id?: string;
-  nickname?: "";
+  avatar: string;
+  content: string;
+  created_at: string;
+  id: string;
+  nickname: string;
 };
 
 export type TypingAnimationProps = {
@@ -26,7 +26,6 @@ export type TypingAnimationProps = {
 export interface SignInOutButtonType {
   isSignIn: boolean;
   onClickLogout: () => void;
-  avatarUrl: string;
 }
 
 const Zodiac = {

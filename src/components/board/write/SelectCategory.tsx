@@ -2,8 +2,10 @@ import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 export const SelectCategory = ({
   setCategory,
+  selectedCategory,
 }: {
   setCategory: Dispatch<SetStateAction<string>>;
+  selectedCategory: string;
 }) => {
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const category = e.target.value;
@@ -16,8 +18,9 @@ export const SelectCategory = ({
       required={true}
       onChange={(e) => onSelectChange(e)}
       className="select select-bordered w-full max-w-xs text-black"
+      value={selectedCategory}
     >
-      <option disabled selected>
+      <option value="별자리 선택" disabled>
         별자리 선택
       </option>
       <option value="양자리">♈양자리</option>
