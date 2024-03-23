@@ -1,51 +1,30 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import SignInOutButton from "@/components/main/SignInOutButton";
+import { useEffect, useState } from "react";
+
 import { supabase } from "@/libs/supabase/client";
-import Modal from "../CustomModal";
-import useModalStore from "@/store/store";
+
+import MessageModal from "../modal/MessageModal";
+import SignInOutButton from "@/components/main/SignInOutButton";
 
 const Header = () => {
   const [isSignIn, setIsSignIn] = useState<boolean>(false);
-  const { isModalOpen, toggleModal, setModalData, setBtnData } =
-    useModalStore();
+  const [toggleModal, setToggleModal] = useState(false);
+  const [modalData, setModalData] = useState({});
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+  };
 
   const onClickLogout = () => {
-    toggleModal();
-    setModalData(
-      <div className="px-10 py-2">
-        <h2 className="text-2xl font-bold text-center mb-1">로그아웃</h2>
-        <p className="text-center text-lg">로그아웃 하시겠습니까?</p>
-      </div>
-    );
-    setBtnData(
-      <div className="flex gap-2 mt-2">
-        <button
-          className="btn btn-primary px-8 tracking-widest duration-200 h-10 min-h-6"
-          onClick={async () => {
-            await supabase.auth.signOut();
-            setModalData(
-              <p className="text-center text-lg px-2">로그아웃 되었습니다.</p>
-            );
-            setBtnData(
-              <button className="text-primary" onClick={toggleModal}>
-                확인
-              </button>
-            );
-          }}
-        >
-          확인
-        </button>
-        <button
-          className="btn btn-neutral text-black px-8 tracking-widest duration-200 h-10 min-h-6"
-          onClick={toggleModal}
-        >
-          취소
-        </button>
-      </div>
-    );
+    setToggleModal(true);
+    setModalData({
+      type: "confirm",
+      name: "로그아웃",
+      text: "로그아웃 하시겠습니까?",
+      func: signOut,
+    });
   };
 
   useEffect(() => {
@@ -53,6 +32,19 @@ const Header = () => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setIsSignIn(!!session?.user);
+        if (event === "SIGNED_IN") {
+          setToggleModal(true);
+          setModalData({
+            type: "alert",
+            text: "로그인 되었습니다.",
+          });
+        } else if (event === "SIGNED_OUT") {
+          setToggleModal(true);
+          setModalData({
+            type: "alert",
+            text: "로그아웃 되었습니다.",
+          });
+        }
       }
     );
 
@@ -199,7 +191,9 @@ const Header = () => {
           )}
         </div>
       </div>
-      {isModalOpen && <Modal />}
+      {toggleModal && (
+        <MessageModal modalToggle={setToggleModal} {...modalData} />
+      )}
     </>
   );
 };
