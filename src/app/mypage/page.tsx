@@ -11,9 +11,11 @@ import {
   useModalStore,
   initializeUserStore,
 } from "@/store/store";
+import { useAuthPage } from "@/hooks/useAuthRoute";
 type Board = Tables<"board">;
 
 const MyPage = () => {
+  useAuthPage();
   const [isLoading, setIsLoading] = useState(true);
   const [isEdited, setIsEdited] = useState(false);
   const [birth, setBirth] = useState("");
