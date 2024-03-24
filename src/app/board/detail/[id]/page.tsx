@@ -262,7 +262,9 @@ const DetailPage = () => {
               alt="이미지 미리보기"
             ></Image>
           )
-        ) : null}
+        ) : (
+          <></>
+        )}
         {readMode ? (
           <section className="flex flex-row justify-end gap-x-5">
             <Button

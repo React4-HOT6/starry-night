@@ -1,5 +1,6 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { ImagesCarousel } from "@/components/board/common/ImagesCarousel";
+import Image from "next/image";
 
 export const SelectImages = ({
   imagesSrc,
@@ -18,6 +19,7 @@ export const SelectImages = ({
       return;
     }
     if (e.target.files.length === 0) {
+      console.log("선택한 이미지 없음");
       return setImagesSrc([]);
     }
 
@@ -45,10 +47,25 @@ export const SelectImages = ({
           multiple
           onChange={(e) => onImageUpload(e)}
         />
-        <ImagesCarousel
-          imagesSrc={imagesSrc}
-          countOfImages={countOfImages}
-        ></ImagesCarousel>
+        {imagesSrc.length > 0 ? (
+          imagesSrc.length > 1 ? (
+            <ImagesCarousel
+              imagesSrc={imagesSrc}
+              countOfImages={imagesSrc.length}
+            />
+          ) : (
+            <Image
+              className="w-full h-80"
+              src={imagesSrc[0]}
+              quality={100}
+              width={100}
+              height={100}
+              alt="이미지 미리보기"
+            ></Image>
+          )
+        ) : (
+          <></>
+        )}
       </section>
     </section>
   );
