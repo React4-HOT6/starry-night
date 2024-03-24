@@ -43,6 +43,7 @@ const MyPage = () => {
 
       const zodiac = calculateBirthZodiac(user?.user_metadata.birth);
       setEmail(user?.user_metadata.email);
+      setNickname(user?.user_metadata.nickname);
       setBirth(zodiac.name);
       if (user && user.id) {
         const { data: posts } = await supabase
@@ -79,22 +80,21 @@ const MyPage = () => {
 
         return;
       }
-      let newAvatarUrl = avatarUrl; // 기존 아바타 URL 사용
+      let newAvatarUrl = ""; // 기존 아바타 URL 사용
 
       // 아바타 변경이 있을 경우에만 업로드 처리
       if (avatarFile) {
-        console.log("아바타파일 있는경우");
         const { data, error } = await supabase.storage
           .from("profileAvatars")
           .upload(`${userId}/avatar.png`, avatarFile!, {
             upsert: true,
           });
-        console.log("스토리지 업로드=>", data);
         if (error) throw error;
         newAvatarUrl = data.path; // 새로운 아바타 URL 저장
       }
-      console.log("newAvatarUrl=>", newAvatarUrl);
       setAvatarUrl(newAvatarUrl);
+      console.log("newAvatarUrl=>", newAvatarUrl);
+
       const { error: nicknameError } = await supabase.auth.updateUser({
         data: {
           nickname,
@@ -104,7 +104,8 @@ const MyPage = () => {
       setNickname(nickname);
 
       console.log("Profile updated successfully!");
-      await fetchPostsAndProfile();
+      // await fetchPostsAndProfile();
+      await initializeUserStore(user);
       setIsEdited(false);
       setAvatarFile(null);
       //프로필 업데이트하고 다시 불러오기..
