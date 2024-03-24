@@ -25,7 +25,7 @@ const MyPage = () => {
   const avatarUrl = useUserStore((state) => state.avatarUrl);
   const setNickname = useUserStore((state) => state.setNickname);
   const setAvatarUrl = useUserStore((state) => state.setAvatarUrl);
-  // const [localAvatarUrl, setLocalAvatarUrl] = useState(avatarUrl);
+  const [localAvatarUrl, setLocalAvatarUrl] = useState<string | null>(null);
   useEffect(() => {
     fetchPostsAndProfile();
   }, []);
@@ -88,17 +88,18 @@ const MyPage = () => {
 
       // 아바타 변경이 있을 경우에만 업로드 처리
       if (avatarFile) {
+        console.log("아바타파일 있는경우");
         const { data, error } = await supabase.storage
           .from("profileAvatars")
           .upload(`${userId}/avatar.png`, avatarFile!, {
             upsert: true,
           });
-
+        console.log("스토리지 업로드=>", data);
         if (error) throw error;
         newAvatarUrl = data.path; // 새로운 아바타 URL 저장
       }
+      console.log("newAvatarUrl=>", newAvatarUrl);
       setAvatarUrl(newAvatarUrl);
-      // setLocalAvatarUrl(newAvatarUrl); //?????
       const { error: nicknameError } = await supabase.auth.updateUser({
         data: {
           nickname,
@@ -108,19 +109,20 @@ const MyPage = () => {
       setNickname(nickname);
 
       console.log("Profile updated successfully!");
+      fetchPostsAndProfile();
       setIsEdited(false);
       //프로필 업데이트하고 다시 불러오기..
-      fetchPostsAndProfile();
     } catch (error) {
       console.error("Error updating profile:", error);
     }
   };
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+    console.log("dddd");
     if (file) {
       setAvatarFile(file);
       const url = URL.createObjectURL(file);
-      setAvatarUrl(url);
+      setLocalAvatarUrl(url);
     }
   };
   const handleEdit = () => {
@@ -134,6 +136,7 @@ const MyPage = () => {
         <div className="w-[1200px] flex-col md:flex-row flex justify-center items-center h-full">
           <ProfileSection
             avatarUrl={avatarUrl}
+            localAvatarUrl={localAvatarUrl}
             handleAvatarChange={handleAvatarChange}
             isEdited={isEdited}
             handleEdit={handleEdit}

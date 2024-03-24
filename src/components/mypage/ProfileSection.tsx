@@ -2,6 +2,7 @@ import React from "react";
 
 type ProfileSectionProps = {
   avatarUrl: string;
+  localAvatarUrl: string | null;
   handleAvatarChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isEdited: boolean;
   nickname: string;
@@ -13,6 +14,7 @@ type ProfileSectionProps = {
 };
 const ProfileSection: React.FC<ProfileSectionProps> = ({
   avatarUrl,
+  localAvatarUrl,
   handleAvatarChange,
   isEdited,
   nickname,
@@ -24,7 +26,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
 }) => {
   return (
     <div className="w-[400px] h-3/5 md:w-1/3 md:h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg">
-      <div className="px-10 pt-6">
+      <form className="px-10 pt-10">
         <label
           htmlFor="fileInput"
           className={`flex justify-center items-center ${
@@ -32,22 +34,23 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
           }`}
         >
           <img
-            src={avatarUrl}
+            src={localAvatarUrl || avatarUrl}
             alt="Profile"
             className="rounded-full w-36 h-36"
           />
-
-          {isEdited && (
-            <input
-              type="file"
-              id="fileInput"
-              accept="image/*"
-              onChange={handleAvatarChange}
-              className="hidden border-b-2 border-info"
-            />
-          )}
         </label>
-      </div>
+
+        {isEdited && (
+          <input
+            type="file"
+            id="fileInput"
+            name="fileInput"
+            accept="image/*"
+            onChange={handleAvatarChange}
+            className="hidden border-b-2 border-info"
+          />
+        )}
+      </form>
       <div className="mt-6 items-center text-center p-3">
         {isEdited ? (
           <input
@@ -66,10 +69,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
         <div className="mt-34 md:mt-48 flex justify-center gap-4">
           {isEdited ? (
             <>
-              <button
-                className="btn btn-primary"
-                onClick={() => updateProfile()}
-              >
+              <button className="btn btn-primary" onClick={updateProfile}>
                 저장
               </button>
               <button className="btn btn-primary" onClick={() => handleEdit()}>
