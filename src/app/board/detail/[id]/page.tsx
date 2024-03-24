@@ -139,6 +139,7 @@ const DetailPage = () => {
   };
 
   const updateBoard = async (id: string, images: string[]) => {
+    images = setDefaultImage(images, category);
     const response = await updatePost(id!, {
       title,
       category,
