@@ -7,31 +7,31 @@ import yerin from "@/assets/profile/profile-yerin.png";
 export const teamMembers = [
   {
     name: "HEERA",
-    role: "나는 강하다.\n하지만 눈물을 흘린다.",
+    role: "다시는 반응형을\n쉽게 생각하지 않겠습니다.",
     imageUrl: heera,
     gitURL: "https://github.com/gkstnadl",
   },
   {
     name: "HEECHUL",
-    role: "나는 똑똑하다.",
+    role: "고생하셨습니다.\n최종도 화이팅합시다.",
     imageUrl: heechul,
     gitURL: "https://github.com/heechul94",
   },
   {
     name: "MYEONGHWAN",
-    role: "나는 잘생겼다.",
+    role: "저는 이번에 supabase에\n대해서 많이 배워갑니다.",
     imageUrl: myeonghwan,
     gitURL: "https://github.com/baram55/",
   },
   {
     name: "TAEWON",
-    role: "나는 전설이다.",
+    role: "이번 기회에\ncss 많이 배웠습니다.",
     imageUrl: taewon,
     gitURL: "https://github.com/ccccliff",
   },
   {
     name: "YERIN",
-    role: "나는 귀엽다.",
+    role: "타입스크립트\n너무 어렵다.",
     imageUrl: yerin,
     gitURL: "https://github.com/yeriniii",
   },
