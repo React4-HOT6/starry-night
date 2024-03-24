@@ -12,6 +12,7 @@ import {
   updatePost,
 } from "@/libs/utils/api/supabase/postAPI";
 import { uploadImage, deleteImages } from "@/libs/utils/api/supabase/storeAPI";
+import { setDefaultImage } from "@/libs/utils/api/supabase/uploadDefaultImageAPI";
 import { Post } from "@/types";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";

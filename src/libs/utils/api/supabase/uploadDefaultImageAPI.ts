@@ -1,4 +1,4 @@
-const setDefaultImage = (images: string[], category: string) => {
+export const setDefaultImage = (images: string[], category: string) => {
   if (images.length === 0) {
     switch (category) {
       case "게자리":
