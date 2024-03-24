@@ -70,17 +70,10 @@ export const initializeUserStore = async (user: any) => {
       useUserStore.getState().setAvatarUrl("/default_img.png");
       return;
     }
-
     try {
       const avatarResponse = await supabase.storage
         .from("profileAvatars")
         .getPublicUrl(`${user.id}/avatar.png`);
-      // console.log(avatarResponse);
-      // if (avatarResponse.error==="404") {
-      //   console.error("Error downloading avatar:", avatarResponse.error);
-      //   avatarUrl = "/default_img.png";
-      // }
-
       // 로그 추가
       console.log(avatarResponse.data.publicUrl);
       // 상태 업데이트
