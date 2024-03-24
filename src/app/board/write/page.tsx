@@ -34,6 +34,14 @@ const WritePage = () => {
   const [imagesSrc, setImagesSrc] = useState<string[]>([]);
   const [imagesFile, setImagesFile] = useState<File[]>([]);
 
+  const popAlertModal = (name: string, text: string) => {
+    setToggleModal(true);
+    setModalData({
+      type: "alert",
+      name,
+      text,
+    });
+  };
   const setPostId = (url: string) => {
     const params = url.split("/");
     const id = params.pop();
@@ -44,16 +52,37 @@ const WritePage = () => {
       router.push("/board");
     }
   };
-
-  const popAlertModal = (name: string, text: string) => {
-    setToggleModal(true);
-    setModalData({
-      type: "alert",
-      name,
-      text,
-    });
+  const init = async () => {
+    setPostId(url);
+    const userIdResponse = await getUserId();
+    if (userIdResponse.status === "success") {
+      userId.current = userIdResponse.result;
+    }
+    const userBirthdayResponse = await getUserBirthday();
+    if (userBirthdayResponse.status === "success") {
+      userBirthday.current = userBirthdayResponse.result;
+    } else {
+      userBirthday.current = "";
+    }
+    const userNicknameResponse = await getUserNickname();
+    if (userNicknameResponse.status === "success") {
+      userNickname.current = userNicknameResponse.result;
+    } else {
+      userNickname.current = "";
+    }
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}${userId.current}/avatar.png`
+      );
+      if (response.ok) {
+        userAvatar.current = `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}${userId.current}/avatar.png`;
+      } else {
+        userAvatar.current = `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}default/defaultAvatar.svg`;
+      }
+    } catch (error) {
+      popAlertModal("아바타 불러오기", "아바타를 불러오는데 실패했습니다.");
+    }
   };
-
   const onCancel = (e: MouseEvent) => {
     e.preventDefault();
     router.push("/board");
@@ -124,39 +153,8 @@ const WritePage = () => {
   };
 
   useEffect(() => {
-    const init = async () => {
-      setPostId(url);
-      const userIdResponse = await getUserId();
-      if (userIdResponse.status === "success") {
-        userId.current = userIdResponse.result;
-      }
-      const userBirthdayResponse = await getUserBirthday();
-      if (userBirthdayResponse.status === "success") {
-        userBirthday.current = userBirthdayResponse.result;
-      } else {
-        userBirthday.current = "";
-      }
-      const userNicknameResponse = await getUserNickname();
-      if (userNicknameResponse.status === "success") {
-        userNickname.current = userNicknameResponse.result;
-      } else {
-        userNickname.current = "";
-      }
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}${userId.current}/avatar.png`
-        );
-        if (response.ok) {
-          userAvatar.current = `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}${userId.current}/avatar.png`;
-        } else {
-          userAvatar.current = `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}default/defaultAvatar.svg`;
-        }
-      } catch (error) {
-        popAlertModal("아바타 불러오기", "아바타를 불러오는데 실패했습니다.");
-      }
-    };
     init();
-  }, [setPostId, url]);
+  }, []);
 
   return (
     <main className="flex flex-col justify-center pt-20 mx-auto pb-10 w-2/3">
