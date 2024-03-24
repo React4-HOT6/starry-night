@@ -73,6 +73,12 @@ const DetailPage = () => {
       );
     }
 
+    if (post.current?.avatar! === "") {
+      setAvatar(
+        `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}defaultAvatar.png`
+      );
+    }
+
     post.current = postResponse.result;
     const images = post.current.images;
     if (images && images.length > 0) {
@@ -195,7 +201,7 @@ const DetailPage = () => {
   //NOTE - 이미지 로딩 중일 때 이미지 구현하기
   //NOTE - main pt-20 임시로 설정
   return (
-    <main className="flex flex-col justify-center pt-20 mx-auto w-2/3">
+    <main className="flex flex-col justify-center pt-20 mx-auto w-2/3 my-4">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">
         <input
           type="text"

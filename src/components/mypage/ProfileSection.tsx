@@ -52,19 +52,19 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
         )}
       </form>
       <div className="mt-6 items-center text-center p-3">
-        <h2 className="font-bold text-lg">{email}</h2>
         {isEdited ? (
           <input
             type="text"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
-            className="mt-4 border-b-2 border-info bg-black bg-opacity-50 font-medium text-lg"
+            className="mt-4 border-b-2 border-info bg-black bg-opacity-50 font-medium text-2xl"
           />
         ) : (
-          <h2 className="mt-4 font-medium text-lg word-wrap break-words">
+          <h2 className="mt-4 font-medium text-xl word-wrap break-words">
             {nickname}
           </h2>
         )}
+        <h2 className="mt-4 font-bold text-lg">{email}</h2>
         <h2 className="mt-4 mb-4 md:mt-8 font-bold text-lg">{birth}</h2>
         <div className="mt-34 md:mt-48 flex justify-center gap-4">
           {isEdited ? (
