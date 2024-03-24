@@ -35,6 +35,40 @@
 `게시판 카테고리 필터` : 게시판 글 중에서 원하는 별자리에 해당하는 게시글만 필터링<br>
 `팀 소개` : 프로젝트를 만든 개발자들의 아바타와 설명 조회 가능<br>
 
+## 페이지 시연
+
+### 메인 페이지 애니메이션
+
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/252b3ba7-a60a-4bdb-b114-69bbbae547b4></p>
+
+### 메인 페이지 반응형
+
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/0ff6d182-bd1b-4a2c-bfca-c9a54070a307></p>
+
+### 별자리 페이지
+
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/fb6f9767-6971-4996-b715-bde96415eef5></p>
+
+### 운세 페이지
+
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/d6b70a59-f545-4d99-831f-056e82b916a8></p>
+
+### 팀 페이지
+
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/1f2e0cef-6af4-43a3-a06c-7cb131d93ad8></p>
+
+### 마이 페이지
+
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/866d795a-4ce6-4070-8b2c-565d85e7d1d6></p>
+
+### 게시글 디테일 페이지
+
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/9d922181-6d23-4da7-884f-f97d96728fcd></p>
+
+### 게시판
+
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/1d08a43d-2638-4512-820b-a95a831693af></p>
+
 ## 기술 스택
 
 ### CSS
@@ -189,6 +223,6 @@
 
 ## 역할 분담
 
-|                 `여태원`                  |                 `김명환`                 |    `김예린`    |                  `양희철`                   |               `최희라`                |
-| :---------------------------------------: | :--------------------------------------: | :------------: | :-----------------------------------------: | :-----------------------------------: |
-| Fortune 페이지 구현<br> Board 페이지 구현 | Detail 페이지 구현<br> Write 페이지 구현 | My 페이지 구현 | Sign in 페이지 구현<br> Sign up 페이지 구현 | Main 페이지 구현m<br>Team 페이지 구현 |
+|                 `여태원`                  |                 `김명환`                 |                `김예린`                |                  `양희철`                   |               `최희라`               |
+| :---------------------------------------: | :--------------------------------------: | :------------------------------------: | :-----------------------------------------: | :----------------------------------: |
+| Fortune 페이지 구현<br> Board 페이지 구현 | Detail 페이지 구현<br> Write 페이지 구현 | Fortune 페이지 구현<br> My 페이지 구현 | Sign in 페이지 구현<br> Sign up 페이지 구현 | Main 페이지 구현<br>Team 페이지 구현 |

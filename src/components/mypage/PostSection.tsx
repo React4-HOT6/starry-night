@@ -14,10 +14,14 @@ const PostSection = ({ userPosts }: { userPosts: Board[] }) => {
   });
   return (
     <>
-      <div className="p-3 ">
-        <h2 className="font-bold text-lg">내 게시글 보기</h2>
+      <h2 className="p-3 font-bold text-lg">내 게시글 보기</h2>
+      {userPosts.length === 0 ? (
+        <div className="flex flex-col items-center justify-center h-4/5 w-full">
+          <p className="text-gray-500">내 게시물이 없습니다.</p>
+        </div>
+      ) : (
         <HoverEffect items={hoverItems} />
-      </div>
+      )}
     </>
   );
 };
