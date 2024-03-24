@@ -1,6 +1,6 @@
 # - 별 헤는 밤(starry night) -
 
-<img width="1468" alt="starry night" src="">
+<img width="1437" alt="스크린샷 2024-03-24 오전 4 07 37" src="https://github.com/React4-HOT6/starry-night/assets/151899123/6a96ebbe-f2b9-44c0-acce-da8d484d472c">
 
 - 배포 URL :
 
@@ -16,7 +16,7 @@ yarn start
 
 ## 프로젝트 소개
 
-- 
+- 별자리에 대한 정보, 운세를 보여주고 커뮤니티를 이용하는 반응형 웹 사이트
 
 ## 팀원구성
 
@@ -54,4 +54,4 @@ yarn start
 
 ### 최희라
 
-- 
+- Main, Header, Team 페이지 구현
