@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/libs/supabase/client";
 import MessageModal from "../modal/MessageModal";
 import SignInOutButton from "@/components/main/SignInOutButton";
-import { useUserStore } from "@/store/store";
+import { initializeUserStore, useUserStore } from "@/store/store";
 import Image from "next/image";
 import logo from "@/assets/logo2.png";
 
@@ -40,6 +40,9 @@ const Header = () => {
             type: "alert",
             text: "로그아웃 되었습니다.",
           });
+        }
+        if (session?.user) {
+          initializeUserStore(session.user);
         }
       }
     );
