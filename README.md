@@ -39,35 +39,35 @@
 
 ### 메인 페이지 애니메이션
 
-![메인페이지애니메이션](https://github.com/React4-HOT6/starry-night/assets/118904207/252b3ba7-a60a-4bdb-b114-69bbbae547b4)
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/252b3ba7-a60a-4bdb-b114-69bbbae547b4></p>
 
 ### 메인 페이지 반응형
 
-![메인페이지반응형](https://github.com/React4-HOT6/starry-night/assets/118904207/0ff6d182-bd1b-4a2c-bfca-c9a54070a307)
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/0ff6d182-bd1b-4a2c-bfca-c9a54070a307></p>
 
 ### 별자리 페이지
 
-![별자리페이지애니메이션](https://github.com/React4-HOT6/starry-night/assets/118904207/fb6f9767-6971-4996-b715-bde96415eef5)
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/fb6f9767-6971-4996-b715-bde96415eef5></p>
 
 ### 운세 페이지
 
-![운세페이지애니메이션](https://github.com/React4-HOT6/starry-night/assets/118904207/d6b70a59-f545-4d99-831f-056e82b916a8)
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/d6b70a59-f545-4d99-831f-056e82b916a8></p>
 
 ### 팀 페이지
 
-![팀페이지](https://github.com/React4-HOT6/starry-night/assets/118904207/1f2e0cef-6af4-43a3-a06c-7cb131d93ad8)
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/1f2e0cef-6af4-43a3-a06c-7cb131d93ad8></p>
 
 ### 마이 페이지
 
-![마이페이지이미지](https://github.com/React4-HOT6/starry-night/assets/118904207/866d795a-4ce6-4070-8b2c-565d85e7d1d6)
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/866d795a-4ce6-4070-8b2c-565d85e7d1d6></p>
 
 ### 게시글 디테일 페이지
 
-![게시글디테일페이지](https://github.com/React4-HOT6/starry-night/assets/118904207/9d922181-6d23-4da7-884f-f97d96728fcd)
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/9d922181-6d23-4da7-884f-f97d96728fcd></p>
 
 ### 게시판
 
-![게시판목록](https://github.com/React4-HOT6/starry-night/assets/118904207/1d08a43d-2638-4512-820b-a95a831693af)
+<p align="center"><img src=https://github.com/React4-HOT6/starry-night/assets/118904207/1d08a43d-2638-4512-820b-a95a831693af></p>
 
 ## 기술 스택
 

@@ -185,6 +185,11 @@ const DetailPage = () => {
 
   const onDelete = async (e: MouseEvent) => {
     e.preventDefault();
+
+    if (!isPermitted) {
+      return popAlertModal("게시글 삭제", "자신의 글만 삭제할 수 있습니다.");
+    }
+
     const response = await deletePost(postId.current);
     if (response.status === "success") {
       popAlertModal("게시글 삭제", "게시글을 삭제하였습니다..");
