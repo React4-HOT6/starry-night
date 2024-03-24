@@ -16,6 +16,7 @@ const Header = () => {
   const nickname = useUserStore((state) => state.nickname);
   const signOut = async () => {
     await supabase.auth.signOut();
+    sessionStorage.clear();
   };
 
   const onClickLogout = () => {
@@ -33,13 +34,7 @@ const Header = () => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setIsSignIn(!!session?.user);
-        if (event === "SIGNED_IN") {
-          setToggleModal(true);
-          setModalData({
-            type: "alert",
-            text: "로그인 되었습니다.",
-          });
-        } else if (event === "SIGNED_OUT") {
+        if (event === "SIGNED_OUT") {
           setToggleModal(true);
           setModalData({
             type: "alert",
