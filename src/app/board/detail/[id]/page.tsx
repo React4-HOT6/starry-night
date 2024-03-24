@@ -60,37 +60,6 @@ const DetailPage = () => {
     });
   };
 
-  const init = async () => {
-    setPostId(url);
-    const userIdResponse = await getUserId();
-    if (userIdResponse.status === "success") {
-      userId.current = userIdResponse.result;
-    } else {
-      userId.current = "";
-    }
-    const postResponse = await selectPost(postId.current);
-    if (postResponse.status === "fail") {
-      return popAlertModal(
-        "게시글 정보",
-        "게시글 정보를 불러오는데 실패했습니다."
-      );
-    }
-
-    post.current = postResponse.result;
-    const images = post.current.images;
-    if (images && images.length > 0) {
-      setImagesSrc(images);
-    }
-    setTitle(post.current.title!);
-    setContent(post.current.content!);
-    setCategory(post.current.category!);
-    setDate(post.current.created_at!);
-    if (post.current.avatar) {
-      setAvatar(post.current.avatar!);
-    }
-    isPermitted.current = userId.current === post.current.user_id;
-  };
-
   const onEdit = (e: MouseEvent) => {
     e.preventDefault();
 
@@ -199,8 +168,38 @@ const DetailPage = () => {
   };
 
   useEffect(() => {
+    const init = async () => {
+      setPostId(url);
+      const userIdResponse = await getUserId();
+      if (userIdResponse.status === "success") {
+        userId.current = userIdResponse.result;
+      } else {
+        userId.current = "";
+      }
+      const postResponse = await selectPost(postId.current);
+      if (postResponse.status === "fail") {
+        return popAlertModal(
+          "게시글 정보",
+          "게시글 정보를 불러오는데 실패했습니다."
+        );
+      }
+
+      post.current = postResponse.result;
+      const images = post.current.images;
+      if (images && images.length > 0) {
+        setImagesSrc(images);
+      }
+      setTitle(post.current.title!);
+      setContent(post.current.content!);
+      setCategory(post.current.category!);
+      setDate(post.current.created_at!);
+      if (post.current.avatar) {
+        setAvatar(post.current.avatar!);
+      }
+      isPermitted.current = userId.current === post.current.user_id;
+    };
     init();
-  }, []);
+  }, [setPostId, url]);
 
   return (
     <main className="flex flex-col justify-center pt-20 mx-auto w-2/3 pb-10">
