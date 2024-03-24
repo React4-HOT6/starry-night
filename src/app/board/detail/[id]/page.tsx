@@ -12,7 +12,8 @@ import {
   updatePost,
 } from "@/libs/utils/api/supabase/postAPI";
 import { uploadImage, deleteImages } from "@/libs/utils/api/supabase/storeAPI";
-import { Comment, Post } from "@/types";
+import { Post } from "@/types";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 
@@ -245,12 +246,23 @@ const DetailPage = () => {
             setImagesFile={setImagesFile}
           />
         )}
-        {readMode && imagesSrc.length > 0 && (
-          <ImagesCarousel
-            imagesSrc={imagesSrc}
-            countOfImages={imagesSrc.length}
-          />
-        )}
+        {readMode && imagesSrc.length > 0 ? (
+          imagesSrc.length > 1 ? (
+            <ImagesCarousel
+              imagesSrc={imagesSrc}
+              countOfImages={imagesSrc.length}
+            />
+          ) : (
+            <Image
+              className="w-full h-80"
+              src={imagesSrc[0]}
+              quality={100}
+              width={100}
+              height={100}
+              alt="이미지 미리보기"
+            ></Image>
+          )
+        ) : null}
         {readMode ? (
           <section className="flex flex-row justify-end gap-x-5">
             <Button
