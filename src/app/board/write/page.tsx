@@ -149,7 +149,7 @@ const WritePage = () => {
   //NOTE - main pt-20 임시로 설정
   //NOTE - alert 창 유저에게 보여줄 것 제외하고 삭제
   return (
-    <main className="flex flex-col justify-center pt-20 mx-auto w-2/3">
+    <main className="flex flex-col justify-center pt-20 mx-auto my-4 w-2/3">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">
         <input
           type="text"
