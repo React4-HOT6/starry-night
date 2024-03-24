@@ -31,7 +31,9 @@ const DetailPage = () => {
   const [content, setContent] = useState("  ");
   const [category, setCategory] = useState("");
   const [date, setDate] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(
+    `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}default/defaultAvatar.svg`
+  );
   const [imagesSrc, setImagesSrc] = useState<string[]>([]);
   const [imagesFile, setImagesFile] = useState<File[]>([]);
   // const [comments, setComments] = useState<Comment[]>([]);
@@ -73,12 +75,6 @@ const DetailPage = () => {
       );
     }
 
-    if (post.current?.avatar! === "") {
-      setAvatar(
-        `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}defaultAvatar.png`
-      );
-    }
-
     post.current = postResponse.result;
     const images = post.current.images;
     if (images && images.length > 0) {
@@ -88,8 +84,9 @@ const DetailPage = () => {
     setContent(post.current.content!);
     setCategory(post.current.category!);
     setDate(post.current.created_at!);
-    setAvatar(post.current.avatar!);
-    // setComments(post.current.comments!);
+    if (post.current.avatar) {
+      setAvatar(post.current.avatar!);
+    }
     isPermitted.current = userId.current === post.current.user_id;
   };
 
@@ -186,7 +183,7 @@ const DetailPage = () => {
   const onDelete = async (e: MouseEvent) => {
     e.preventDefault();
 
-    if (!isPermitted) {
+    if (!isPermitted.current) {
       return popAlertModal("게시글 삭제", "자신의 글만 삭제할 수 있습니다.");
     }
 
@@ -206,7 +203,7 @@ const DetailPage = () => {
   //NOTE - 이미지 로딩 중일 때 이미지 구현하기
   //NOTE - main pt-20 임시로 설정
   return (
-    <main className="flex flex-col justify-center pt-20 mx-auto w-2/3 my-4">
+    <main className="flex flex-col justify-center pt-20 mx-auto w-2/3 pb-10">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">
         <input
           type="text"
