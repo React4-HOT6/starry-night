@@ -76,11 +76,18 @@ export const Card = ({
       )}
     >
       <div className="relative z-50">
-        <img
-          src={imgUrl}
-          alt="Post"
-          className="mb-4 rounded-lg w-full h-32 object-cover"
-        />
+        {imgUrl ? (
+          <img
+            src={imgUrl}
+            alt="Post"
+            className="mb-4 rounded-lg w-full h-32 object-cover"
+          />
+        ) : (
+          <div className="mb-4 flex justify-center items-center text-white bg-base-400 w-full h-32">
+            No Images
+          </div>
+        )}
+
         <div className="p-4">{children}</div>
       </div>
     </div>

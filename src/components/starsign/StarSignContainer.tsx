@@ -26,7 +26,7 @@ const StarSignForm = () => {
           <Modal />
         </>
       ) : (
-        <div className=" pt-[90px] max-w-[1200px] gap-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="pt-[90px] pb-6 max-w-[1200px] gap-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <Leo />
           <Cancer />
           <Aquarius />

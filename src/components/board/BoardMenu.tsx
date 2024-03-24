@@ -9,7 +9,7 @@ const BoardMenu = () => {
   );
   const [isMobile, setIsMobile] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  // 768px 미만일시 모바일로 간주
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -21,6 +21,7 @@ const BoardMenu = () => {
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
+  //카테고리 선택시 드롭다운 닫힙니다
   const onClickCategory = (category: string) => {
     setSelectedCategory(category);
     setIsDropdownOpen(false);
