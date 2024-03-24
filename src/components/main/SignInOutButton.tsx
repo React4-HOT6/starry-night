@@ -4,14 +4,11 @@ import Link from "next/link";
 import { SignInOutButtonType } from "@/types";
 import Image from "next/image";
 import useUserProfile from "@/hooks/useUserProfile";
-import { useUserStore } from "@/store/store";
 
 const SignInOutButton: React.FC<SignInOutButtonType> = ({
   isSignIn,
   onClickLogout,
 }) => {
-  // const nickname = useUserStore((state) => state.nickname);
-  // const avatarUrl = useUserStore((state) => state.avatarUrl);
   const { avatarUrl, nickname } = useUserProfile();
   return (
     <>

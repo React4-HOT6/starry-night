@@ -64,24 +64,18 @@ export const useUserStore = create<UserStoreType>((set) => ({
 export const initializeUserStore = async (user: any) => {
   if (user) {
     try {
-      let avatarUrl = "";
       const avatarResponse = await supabase.storage
         .from("profileAvatars")
-        .download(`${user.id}/avatar.png`);
-
-      if (avatarResponse.error) {
-        console.error("Error downloading avatar:", avatarResponse.error);
-        avatarUrl = "/default_img.png";
-      } else {
-        avatarUrl = URL.createObjectURL(avatarResponse.data);
-      }
-
-      // 로그 추가
-      console.log("Avatar URL:", avatarUrl);
+        .getPublicUrl(`${user.id}/avatar.png`);
+      console.log(avatarResponse);
 
       // 상태 업데이트
       useUserStore.getState().setNickname(user.user_metadata.nickname || "");
-      useUserStore.getState().setAvatarUrl(avatarUrl);
+      useUserStore
+        .getState()
+        .setAvatarUrl(avatarResponse.data.publicUrl + `?${Date.now()}`);
+
+      // console.log("Avatar URL:", avatarUrl);
     } catch (error) {
       console.error("Error in initializeUserStore:", error);
     }
