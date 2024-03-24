@@ -25,7 +25,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   handleEdit,
 }) => {
   return (
-    <div className="w-[400px] h-3/5 md:w-1/3 md:h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg">
+    <div className="min-w-[343px] max-w-[400px] max-h-3/5 md:w-1/3 md:h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg">
       <form className="px-10 pt-10">
         <label
           htmlFor="fileInput"
