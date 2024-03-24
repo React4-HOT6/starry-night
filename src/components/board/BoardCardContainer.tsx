@@ -19,6 +19,7 @@ const BoardCardContainer = () => {
   return (
     <div className="grid p-2 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2">
       {posts && posts.length > 0 ? (
+        //필터 결과 있고 없고 확인
         posts.map((post) => {
           const imagesSrcArray = Array.isArray(post.images) ? post.images : [];
           return (
