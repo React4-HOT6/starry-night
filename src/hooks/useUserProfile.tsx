@@ -1,10 +1,12 @@
 import { supabase } from "@/libs/supabase/client";
+import { initializeUserStore } from "@/store/store";
 import { useEffect, useState } from "react";
-
+import { useUserStore } from "@/store/store";
 const useUserProfile = () => {
-  const [avatarUrl, setAvatarUrl] = useState("/default_img.png");
-  const [nickname, setNickname] = useState("");
-
+  // const [avatarUrl, setAvatarUrl] = useState("/default_img.png");
+  // const [nickname, setNickname] = useState("");
+  const nickname = useUserStore((state) => state.nickname);
+  const avatarUrl = useUserStore((state) => state.avatarUrl);
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
@@ -15,22 +17,7 @@ const useUserProfile = () => {
 
         if (error) throw error;
 
-        if (user) {
-          // 프로필 이미지 가져오기
-          const avatarResponse = await supabase.storage
-            .from("profileAvatars")
-            .download(`${user.id}/avatar.png`);
-
-          if (avatarResponse.error) {
-            setAvatarUrl("/default_img.png");
-          } else {
-            const url = URL.createObjectURL(avatarResponse.data);
-            setAvatarUrl(url); // 프로필 이미지 설정
-          }
-
-          // 닉네임 설정
-          setNickname(user.user_metadata.nickname || "user");
-        }
+        await initializeUserStore(user);
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }

@@ -18,7 +18,6 @@ const MyPage = () => {
   const [isEdited, setIsEdited] = useState(false);
   const [birth, setBirth] = useState("");
   const [email, setEmail] = useState("");
-
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [userPosts, setUserPosts] = useState<Board[]>([]);
   const { toggleModal, setModalData, setBtnData } = useModalStore();
@@ -26,7 +25,7 @@ const MyPage = () => {
   const avatarUrl = useUserStore((state) => state.avatarUrl);
   const setNickname = useUserStore((state) => state.setNickname);
   const setAvatarUrl = useUserStore((state) => state.setAvatarUrl);
-  const [localAvatarUrl, setLocalAvatarUrl] = useState(avatarUrl);
+  // const [localAvatarUrl, setLocalAvatarUrl] = useState(avatarUrl);
   useEffect(() => {
     fetchPostsAndProfile();
   }, []);
@@ -38,6 +37,7 @@ const MyPage = () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
+      console.log(user);
       //user정보 받아 온 값 넣어서 초기값 설정
       await initializeUserStore(user);
       console.log(
@@ -120,7 +120,7 @@ const MyPage = () => {
     if (file) {
       setAvatarFile(file);
       const url = URL.createObjectURL(file);
-      setLocalAvatarUrl(url);
+      setAvatarUrl(url);
     }
   };
   const handleEdit = () => {
@@ -143,7 +143,7 @@ const MyPage = () => {
             email={email}
             updateProfile={updateProfile}
           />
-          <div className="mt-[10px] md:block w-full md:w-2/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg md:overflow-y-auto snap-x overflow-x-auto">
+          <div className="mt-[10px] md:block w-full md:w-2/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg md:overflow-y-auto overflow-x-auto">
             <PostSection userPosts={userPosts} />
           </div>
         </div>
