@@ -17,7 +17,7 @@ const BoardCardContainer = () => {
   }, [selectedCategory, selectedTitle, refetch]);
 
   return (
-    <div className="grid p-2 gap-4 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 max-w-[789px]">
+    <div className="grid p-2 gap-4 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2 max-w-[1050px]">
       {posts && posts.length > 0 ? (
         //필터 결과 있고 없고 확인
         posts.map((post) => {
@@ -36,7 +36,7 @@ const BoardCardContainer = () => {
           );
         })
       ) : (
-        <div className="text-white m-auto lg:w-[789px] text-center">
+        <div className="text-white m-auto lg:w-[1050px] text-center">
           검색 결과가 없습니다.
         </div>
       )}
