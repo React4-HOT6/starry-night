@@ -15,7 +15,7 @@ const SignInOutButton: React.FC<SignInOutButtonType> = ({
       {isSignIn ? (
         <div className="flex gap-3 m-2 items-center">
           <Link
-            href="/"
+            href="/board/write"
             className="min-h-6 btn btn-neutral tracking-widest text-black hover:bg-[#aaaaaa] transition duration-200 px-8 h-10 text-base"
           >
             글작성
