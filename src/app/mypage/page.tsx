@@ -126,7 +126,7 @@ const MyPage = () => {
     setIsEdited(!isEdited);
   };
   return (
-    <div className="flex pt-[70px] justify-center items-center h-screen">
+    <div className="flex pt-[70px] pb-8 justify-center items-center min-h-screen">
       {isLoading ? (
         <span className="loading loading-dots loading-lg"></span>
       ) : (
@@ -143,7 +143,7 @@ const MyPage = () => {
             email={email}
             updateProfile={updateProfile}
           />
-          <div className="mt-[10px] md:block w-full md:w-2/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg md:overflow-y-auto overflow-x-auto">
+          <div className="md:block md:w-2/3 md:h-[648px] bg-black bg-opacity-50 shadow-xl p-6 m-4 rounded-lg md:overflow-y-auto lg:overflow-x-auto">
             <PostSection userPosts={userPosts} />
           </div>
         </div>
