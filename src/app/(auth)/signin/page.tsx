@@ -1,6 +1,9 @@
-import SignInForm from "@/components/auth/SignInForm";
+"use client";
 
+import SignInForm from "@/components/auth/SignInForm";
+import { useNonAuthPage } from "@/hooks/useAuthRoute";
 const SignInPage = () => {
+  useNonAuthPage();
   return (
     <div className="flex flex-col items-center lg:w-96 md:w-80 sm:w-70">
       <div className="flex flex-col items-center mb-5">
