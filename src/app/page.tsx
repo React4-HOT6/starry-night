@@ -1,9 +1,14 @@
+import { BackgroundBeams } from "@/components/main/BackgroundBeams";
+import TypingAnimation from "@/components/main/TypingAnimation";
 import Image from "next/image";
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Home!!
-    </main>
+    <>
+      <TypingAnimation />
+      <BackgroundBeams />
+    </>
   );
-}
+};
+
+export default Home;
