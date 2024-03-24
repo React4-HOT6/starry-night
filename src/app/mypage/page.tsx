@@ -130,7 +130,7 @@ const MyPage = () => {
       {isLoading ? (
         <span className="loading loading-dots loading-lg"></span>
       ) : (
-        <div className="w-[1200px] flex-col md:flex-row flex justify-center items-center h-full">
+        <div className="max-w-[1200px] flex-col md:flex-row flex justify-center items-center h-full">
           <ProfileSection
             avatarUrl={avatarUrl}
             localAvatarUrl={localAvatarUrl}

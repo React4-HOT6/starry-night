@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${inter.className} min-h-screen bg-main bg-cover bg-no-repeat bg-fixed`}
+        className={`${inter.className} min-h-screen min-w-fit bg-main bg-cover bg-no-repeat bg-fixed`}
       >
         <Header />
         <QueryProvider>{children}</QueryProvider>
