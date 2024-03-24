@@ -106,7 +106,6 @@ const MyPage = () => {
       setNickname(nickname);
 
       console.log("Profile updated successfully!");
-      // await fetchPostsAndProfile();
       await initializeUserStore(user);
       setIsEdited(false);
       setAvatarFile(null);
