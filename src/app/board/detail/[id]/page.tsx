@@ -12,7 +12,8 @@ import {
   updatePost,
 } from "@/libs/utils/api/supabase/postAPI";
 import { uploadImage, deleteImages } from "@/libs/utils/api/supabase/storeAPI";
-import { Comment, Post } from "@/types";
+import { Post } from "@/types";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { MouseEvent, useEffect, useRef, useState } from "react";
 
@@ -31,7 +32,9 @@ const DetailPage = () => {
   const [content, setContent] = useState("  ");
   const [category, setCategory] = useState("");
   const [date, setDate] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(
+    `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}default/defaultAvatar.svg`
+  );
   const [imagesSrc, setImagesSrc] = useState<string[]>([]);
   const [imagesFile, setImagesFile] = useState<File[]>([]);
   // const [comments, setComments] = useState<Comment[]>([]);
@@ -73,12 +76,6 @@ const DetailPage = () => {
       );
     }
 
-    if (post.current?.avatar! === "") {
-      setAvatar(
-        `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}defaultAvatar.png`
-      );
-    }
-
     post.current = postResponse.result;
     const images = post.current.images;
     if (images && images.length > 0) {
@@ -88,8 +85,9 @@ const DetailPage = () => {
     setContent(post.current.content!);
     setCategory(post.current.category!);
     setDate(post.current.created_at!);
-    setAvatar(post.current.avatar!);
-    // setComments(post.current.comments!);
+    if (post.current.avatar) {
+      setAvatar(post.current.avatar!);
+    }
     isPermitted.current = userId.current === post.current.user_id;
   };
 
@@ -185,6 +183,11 @@ const DetailPage = () => {
 
   const onDelete = async (e: MouseEvent) => {
     e.preventDefault();
+
+    if (!isPermitted.current) {
+      return popAlertModal("게시글 삭제", "자신의 글만 삭제할 수 있습니다.");
+    }
+
     const response = await deletePost(postId.current);
     if (response.status === "success") {
       popAlertModal("게시글 삭제", "게시글을 삭제하였습니다..");
@@ -201,7 +204,7 @@ const DetailPage = () => {
   //NOTE - 이미지 로딩 중일 때 이미지 구현하기
   //NOTE - main pt-20 임시로 설정
   return (
-    <main className="flex flex-col justify-center pt-20 mx-auto w-2/3 my-4">
+    <main className="flex flex-col justify-center pt-20 mx-auto w-2/3 pb-10">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">
         <input
           type="text"
@@ -243,11 +246,26 @@ const DetailPage = () => {
             setImagesFile={setImagesFile}
           />
         )}
-        {readMode && imagesSrc.length > 0 && (
-          <ImagesCarousel
-            imagesSrc={imagesSrc}
-            countOfImages={imagesSrc.length}
-          />
+        {readMode && imagesSrc.length > 0 ? (
+          imagesSrc.length > 1 ? (
+            <ImagesCarousel
+              imagesSrc={imagesSrc}
+              countOfImages={imagesSrc.length}
+            />
+          ) : (
+            <Image
+              className="w-full h-80"
+              src={imagesSrc[0]}
+              quality={100}
+              width={100}
+              height={100}
+              alt="이미지 미리보기"
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII="
+            ></Image>
+          )
+        ) : (
+          <></>
         )}
         {readMode ? (
           <section className="flex flex-row justify-end gap-x-5">
