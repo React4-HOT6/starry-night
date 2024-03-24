@@ -1,6 +1,10 @@
+"use client";
+
 import SignUpForm from "@/components/auth/SignUpForm";
+import { useNonAuthPage } from "@/hooks/useAuthRoute";
 
 const SignUpPage = () => {
+  useNonAuthPage();
   return (
     <div className="flex flex-col items-center lg:w-96 md:w-80 sm:w-70">
       <div className="flex flex-col items-center mb-5">

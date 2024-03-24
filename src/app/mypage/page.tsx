@@ -11,9 +11,11 @@ import {
   useModalStore,
   initializeUserStore,
 } from "@/store/store";
+import { useAuthPage } from "@/hooks/useAuthRoute";
 type Board = Tables<"board">;
 
 const MyPage = () => {
+  useAuthPage();
   const [isLoading, setIsLoading] = useState(true);
   const [isEdited, setIsEdited] = useState(false);
   const [birth, setBirth] = useState("");
@@ -37,18 +39,13 @@ const MyPage = () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      console.log(user);
+
       //user정보 받아 온 값 넣어서 초기값 설정
       await initializeUserStore(user);
-      console.log(
-        "Avatar URL after initialization:",
-        useUserStore.getState().avatarUrl
-      );
+
       const zodiac = calculateBirthZodiac(user?.user_metadata.birth);
       setEmail(user?.user_metadata.email);
-      setNickname(user?.user_metadata.nickname);
       setBirth(zodiac.name);
-
       if (user && user.id) {
         const { data: posts } = await supabase
           .from("board")
@@ -109,8 +106,9 @@ const MyPage = () => {
       setNickname(nickname);
 
       console.log("Profile updated successfully!");
-      fetchPostsAndProfile();
+      await fetchPostsAndProfile();
       setIsEdited(false);
+      setAvatarFile(null);
       //프로필 업데이트하고 다시 불러오기..
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -118,7 +116,6 @@ const MyPage = () => {
   };
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    console.log("dddd");
     if (file) {
       setAvatarFile(file);
       const url = URL.createObjectURL(file);

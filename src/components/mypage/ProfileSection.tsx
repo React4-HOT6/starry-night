@@ -60,7 +60,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
             className="mt-4 border-b-2 border-info bg-black bg-opacity-50 font-medium text-2xl"
           />
         ) : (
-          <h2 className="mt-4 font-medium text-xl word-wrap break-words">
+          <h2 className="mt-4 font-medium text-2xl word-wrap break-words">
             {nickname}
           </h2>
         )}

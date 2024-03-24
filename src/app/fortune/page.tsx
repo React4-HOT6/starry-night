@@ -9,8 +9,10 @@ import { getUserBirth } from "@/components/fortune/GetUserBirth";
 import { calculateBirthZodiac } from "@/components/fortune/BirthZodiac";
 import { supabase } from "@/libs/supabase/client";
 import { Tables } from "@/types/database.types";
+import { useAuthPage } from "@/hooks/useAuthRoute";
 type Fortune = Tables<"fortune">;
 const FortunePage = () => {
+  useAuthPage();
   const [selectedFortune, setSelectedFortune] = useState<Fortune | null>(null);
 
   const fetchTableData = async () => {

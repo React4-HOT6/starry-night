@@ -134,11 +134,11 @@ const Header = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-end hidden lg:flex">
+        <div className="navbar-end hidden sm:flex">
           <SignInOutButton isSignIn={isSignIn} onClickLogout={onClickLogout} />
         </div>
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost sm:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -157,7 +157,7 @@ const Header = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-zinc-950 rounded-box w-52"
             >
               <li>
-                <Link href="/board/write" className="tracking-widest">
+                <Link href="/" className="tracking-widest">
                   글작성
                 </Link>
               </li>

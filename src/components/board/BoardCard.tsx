@@ -22,7 +22,7 @@ const BoardCard: React.FC<BoardCardProps> = ({
 }) => {
   return (
     <Link className="max-h-[300px]" href={`board/detail/${id}`}>
-      <div className="flex ml-2 mt-2 transform w-[250px] h-[300px] hover:-translate-y-1  duration-400 flex-col justify-between rounded-lg  shadow-lg overflow-hidden bg-base-300 hover:bg-base-200 transition-colors duration-200 ease-in-out">
+      <div className="flex transform w-[250px] h-[300px] hover:-translate-y-1  duration-400 flex-col justify-between rounded-lg  shadow-lg overflow-hidden bg-base-300 hover:bg-base-200 transition-colors duration-200 ease-in-out">
         <div className="flex justify-center items-center h-40 overflow-hidden">
           {imagesSrc.length > 0 ? (
             <img

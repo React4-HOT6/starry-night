@@ -13,8 +13,9 @@ import { uploadImage } from "@/libs/utils/api/supabase/storeAPI";
 import { setDefaultImage } from "@/libs/utils/api/supabase/uploadDefaultImageAPI";
 import { usePathname, useRouter } from "next/navigation";
 import { MouseEvent, useEffect, useRef, useState } from "react";
-
+import { useAuthPage } from "@/hooks/useAuthRoute";
 const WritePage = () => {
+  useAuthPage();
   let postId = useRef("");
   let userId = useRef("");
   let userBirthday = useRef("");
