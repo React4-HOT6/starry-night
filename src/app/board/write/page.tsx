@@ -70,8 +70,18 @@ const WritePage = () => {
     } else {
       userNickname.current = "";
     }
-    userAvatar.current = `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}${userId.current}/avatar.png`;
-    console.log(userAvatar.current);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}${userId.current}/avatar.png`
+      );
+      if (response.ok) {
+        userAvatar.current = `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}${userId.current}/avatar.png`;
+      } else {
+        userAvatar.current = `${process.env.NEXT_PUBLIC_SUPABASE_STORAGE_AVATAR_URL}default/defaultAvatar.svg`;
+      }
+    } catch (error) {
+      popAlertModal("아바타 불러오기", "아바타를 불러오는데 실패했습니다.");
+    }
   };
 
   const onCancel = (e: MouseEvent) => {
@@ -93,7 +103,7 @@ const WritePage = () => {
     if (response.status === "fail") {
       return popAlertModal(
         "이미지 업로드",
-        "storage에 이미지를 업로드하는데 실패"
+        "storage에 이미지를 업로드하는데 실패했습니다."
       );
     }
     const imageSrc = response.result;
@@ -214,8 +224,6 @@ const WritePage = () => {
     init();
   }, []);
 
-  //NOTE - 이미지 로딩 중일 때 이미지 구현하기
-  //NOTE - alert 창 유저에게 보여줄 것 제외하고 삭제
   return (
     <main className="flex flex-col justify-center pt-20 mx-auto pb-10 w-2/3">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">

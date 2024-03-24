@@ -39,7 +39,7 @@ export const SelectImages = ({
 
   return (
     <section className="flex flex-col justify-start gap-5">
-      <section className="flex flex-col justify-around bg-white p-4 rounded-lg gap-5 p-4">
+      <section className="flex flex-col justify-around bg-white p-4 rounded-lg gap-5">
         <input
           type="file"
           className="file-input file-input-bordered w-full max-w-xs none"

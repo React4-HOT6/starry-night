@@ -37,7 +37,6 @@ const DetailPage = () => {
   );
   const [imagesSrc, setImagesSrc] = useState<string[]>([]);
   const [imagesFile, setImagesFile] = useState<File[]>([]);
-  // const [comments, setComments] = useState<Comment[]>([]);
   const [readMode, setReadMode] = useState(true);
 
   const setPostId = (url: string) => {
@@ -201,8 +200,6 @@ const DetailPage = () => {
     init();
   }, []);
 
-  //NOTE - 이미지 로딩 중일 때 이미지 구현하기
-  //NOTE - main pt-20 임시로 설정
   return (
     <main className="flex flex-col justify-center pt-20 mx-auto w-2/3 pb-10">
       <form className="flex flex-col mx-auto w-full justify-center gap-y-5 ">
@@ -297,17 +294,6 @@ const DetailPage = () => {
       {toggleModal && (
         <MessageModal modalToggle={setToggleModal} {...modalData} />
       )}
-      {/* <div className="flex flex-col m-4 w-full justify-center gap-y-5">
-        <section className="flex flex-row justify-start gap-x-5"></section>
-        {comments.map((comment, index) => (
-          <div key={index} className="flex flex-row justify-start gap-x-5">
-            <p key={index} className="text-black bg-white rounded-lg p-2 m-1">
-              {`닉네임 : ${comment.nickname} | 내용 : ${comment.content} | 날짜 : ${comment.created_at}`}
-            </p>
-            {!readMode && <Button onClick={() => alert("hahaha")}>X</Button>}
-          </div>
-        ))}
-      </div> */}
     </main>
   );
 };
