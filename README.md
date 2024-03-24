@@ -43,7 +43,7 @@
   <tr>
     <th>tailwindcss</th>
     <th>daisyUI</th>
-    <th>Aceternity<th>
+    <th>Aceternity</th>
   </tr>
   <tr>
     <td width="100" height="100">
