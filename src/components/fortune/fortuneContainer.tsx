@@ -66,9 +66,9 @@ export const PinPerspective = ({
   return (
     <motion.div className="pointer-events-none  w-96 h-80 flex items-center justify-center opacity-0 group-hover/pin:opacity-100 z-[60] transition duration-500">
       <div className=" w-full h-full -mt-8 flex-none  inset-0">
-        <div className="absolute -top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+        <div className="absolute -top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
           {imageUrl && (
-            <div className="relative rounded-full overflow-hidden shadow-md w-60 h-60">
+            <div className="relative rounded-full overflow-hidden shadow-md w-56 h-56">
               <img
                 src={imageUrl}
                 alt="Fortune Image"
