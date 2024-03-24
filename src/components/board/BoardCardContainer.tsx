@@ -17,24 +17,30 @@ const BoardCardContainer = () => {
   }, [selectedCategory, selectedTitle, refetch]);
 
   return (
-    <div className="grid p-2 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2  ">
-      {posts?.map((post) => {
-        const imagesSrcArray = Array.isArray(post.images) ? post.images : [];
-        return (
-          <BoardCard
-            created_at={post.created_at}
-            content={post.content}
-            id={post.id}
-            key={post.id}
-            title={post.title}
-            nickname={post.nickname}
-            imagesSrc={imagesSrcArray}
-            category={post.category}
-          />
-        );
-      })}
+    <div className="grid p-2 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2">
+      {posts && posts.length > 0 ? (
+        //필터 결과 있고 없고 확인
+        posts.map((post) => {
+          const imagesSrcArray = Array.isArray(post.images) ? post.images : [];
+          return (
+            <BoardCard
+              created_at={post.created_at}
+              content={post.content}
+              id={post.id}
+              key={post.id}
+              title={post.title}
+              nickname={post.nickname}
+              imagesSrc={imagesSrcArray}
+              category={post.category}
+            />
+          );
+        })
+      ) : (
+        <div className="w-[60vw] h-full flex items-center justify-center text-white">
+          <div>검색 결과가 없습니다.</div>
+        </div>
+      )}
     </div>
   );
 };
-
 export default BoardCardContainer;
