@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type ModalProp = {
   modalToggle: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,6 +9,8 @@ type ModalProp = {
 };
 
 const MessageModal = ({ type, name, text, func, modalToggle }: ModalProp) => {
+  const router = useRouter();
+
   return (
     <dialog id="my_modal_2" className={"modal modal-open"}>
       <div className="modal-box text-black max-w-md w-fit flex flex-col gap-2">
@@ -36,7 +38,13 @@ const MessageModal = ({ type, name, text, func, modalToggle }: ModalProp) => {
                 ) : (
                   <button
                     className="text-primary"
-                    onClick={() => modalToggle(false)}
+                    onClick={
+                      type === "alert" && text === "로그인 되었습니다."
+                        ? () => {
+                            router.replace("/");
+                          }
+                        : () => modalToggle(false)
+                    }
                   >
                     확인
                   </button>
