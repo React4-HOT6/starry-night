@@ -4,7 +4,7 @@ import BoardInput from "./BoardInput";
 
 const BoardContainer = () => {
   return (
-    <div className="flex flex-col justify-items-start items-start m-auto">
+    <div className="flex flex-col justify-items-start items-start mx-auto">
       <BoardInput />
       <div className="flex">
         <BoardMenu />
