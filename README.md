@@ -1,7 +1,7 @@
 # 별 헤는 밤 (starry night)
 
 <img width="1437" alt="스크린샷 2024-03-24 오전 4 07 37" src="https://github.com/React4-HOT6/starry-night/assets/151899123/6a96ebbe-f2b9-44c0-acce-da8d484d472c"><br>
-`사이트 바로가기` : 사이트
+`사이트 바로가기` : [starry-night 바로가기](https://starry-night-three.vercel.app/)
 
 ## 팀 구성
 
