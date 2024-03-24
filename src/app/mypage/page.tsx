@@ -67,7 +67,7 @@ const MyPage = () => {
     try {
       const {
         data: { user },
-      } = await supabase.auth.getUser(); // 사용자 정보 다시 가져오기
+      } = await supabase.auth.getUser();
       const userId = user?.id;
       if (!avatarFile && nickname === user?.user_metadata.nickname) {
         toggleModal();
@@ -82,9 +82,8 @@ const MyPage = () => {
 
         return;
       }
-      let newAvatarUrl = ""; // 기존 아바타 URL 사용
+      let newAvatarUrl = "";
 
-      // 아바타 변경이 있을 경우에만 업로드 처리
       if (avatarFile) {
         const { data, error } = await supabase.storage
           .from("profileAvatars")
@@ -92,10 +91,9 @@ const MyPage = () => {
             upsert: true,
           });
         if (error) throw error;
-        newAvatarUrl = data.path; // 새로운 아바타 URL 저장
+        newAvatarUrl = data.path;
       }
       setAvatarUrl(newAvatarUrl);
-      console.log("newAvatarUrl=>", newAvatarUrl);
 
       const { error: nicknameError } = await supabase.auth.updateUser({
         data: {
@@ -104,9 +102,7 @@ const MyPage = () => {
       });
       if (nicknameError) throw nicknameError;
       setNickname(nickname);
-
-      console.log("Profile updated successfully!");
-      await initializeUserStore(user);
+      await fetchPostsAndProfile();
       setIsEdited(false);
       setAvatarFile(null);
       //프로필 업데이트하고 다시 불러오기..
@@ -126,7 +122,7 @@ const MyPage = () => {
     setIsEdited(!isEdited);
   };
   return (
-    <div className="flex pt-[70px] justify-center items-center h-screen">
+    <div className="flex pt-[70px] pb-8 justify-center items-center min-h-screen">
       {isLoading ? (
         <span className="loading loading-dots loading-lg"></span>
       ) : (
@@ -143,7 +139,7 @@ const MyPage = () => {
             email={email}
             updateProfile={updateProfile}
           />
-          <div className="mt-[10px] md:block w-full md:w-2/3 h-5/6 bg-black bg-opacity-50 shadow-xl p-3 m-4 rounded-lg md:overflow-y-auto overflow-x-auto">
+          <div className="min-w-[343px] md:block md:w-2/3 md:h-[648px] bg-black bg-opacity-50 shadow-xl p-6 m-4 rounded-lg md:overflow-y-auto lg:overflow-x-auto">
             <PostSection userPosts={userPosts} />
           </div>
         </div>

@@ -47,14 +47,7 @@ type UserStoreType = {
   setNickname: (newNickname: string) => void;
   setAvatarUrl: (newAvatarUrl: string) => void;
 };
-// type User={
-//   id: string;
-//   email: string;
-//   user_metadata: {
-//     nickname?: string;
-//   }
-//   avatarUrl?: string;
-// }
+
 export const useUserStore = create<UserStoreType>((set) => ({
   nickname: "",
   avatarUrl: "",
@@ -74,15 +67,11 @@ export const initializeUserStore = async (user: any) => {
       const avatarResponse = await supabase.storage
         .from("profileAvatars")
         .getPublicUrl(`${user.id}/avatar.png`);
-      // 로그 추가
-      console.log(avatarResponse.data.publicUrl);
-      // 상태 업데이트
+
       useUserStore.getState().setNickname(user.user_metadata.nickname || "");
       useUserStore
         .getState()
         .setAvatarUrl(avatarResponse.data.publicUrl + `?${Date.now()}`);
-
-      // console.log("Avatar URL:", avatarUrl);
     } catch (error) {
       console.error("Error in initializeUserStore:", error);
     }
