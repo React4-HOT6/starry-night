@@ -39,6 +39,7 @@ export const PostInfo = ({
           width={50}
           height={50}
           alt="아바타 이미지"
+          placeholder="blur"
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII="
         ></Image>
       )}

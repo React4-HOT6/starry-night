@@ -255,17 +255,6 @@ const WritePage = () => {
       {toggleModal && (
         <MessageModal modalToggle={setToggleModal} {...modalData} />
       )}
-      {/* <div className="flex flex-col m-4 w-full justify-center gap-y-5">
-        <section className="flex flex-row justify-start gap-x-5"></section>
-        {comments.map((comment, index) => (
-          <div key={index} className="flex flex-row justify-start gap-x-5">
-            <p key={index} className="text-black bg-white rounded-lg p-2 m-1">
-              {`닉네임 : ${comment.nickname} | 내용 : ${comment.content} | 날짜 : ${comment.created_at}`}
-            </p>
-            {!readMode && <Button onClick={() => alert("hahaha")}>X</Button>}
-          </div>
-        ))}
-      </div> */}
     </main>
   );
 };
