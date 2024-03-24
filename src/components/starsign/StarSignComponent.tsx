@@ -54,15 +54,10 @@ const StarSignComponent: React.FC<StarSignComponentProps> = ({
     <>
       <div
         onClick={onClickStarsign}
-        className=" animate-float transform cursor-pointer flex-col transition-transform duration-300 w-[120px] h-auto flex justify-center items-center"
+        className="animate-float transform cursor-pointer flex-col transition-transform duration-300 w-[120px] h-auto flex justify-center items-center gap-2"
       >
         {/* px => rem 단위로 */}
-        <Image
-          src={src}
-          priority
-          alt={name}
-          style={{ width: "4rem", height: "auto" }}
-        />
+        <Image src={src} priority alt={name} className="w-[120px] h-auto" />
         <p className="text-white">{name}</p>
       </div>
     </>
